@@ -1,4 +1,4 @@
-package domain;
+package at.fhv.team3.domain;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package rmi.dto;
+package at.fhv.team3.rmi.dto;
 
 /**
  * Created by David on 10/30/2017.

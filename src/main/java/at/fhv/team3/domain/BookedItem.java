@@ -1,21 +1,18 @@
-package rmi.dto;
-
-import domain.Customer;
-import domain.Media;
+package at.fhv.team3.domain;
 
 import java.util.Date;
 
 /**
  * Created by David on 10/30/2017.
  */
-public class BookedItemDTO {
+public class BookedItem {
 
     private int _bookingId;
     private Customer _customer;
     private Media _media;
     private Date _date;
 
-    public BookedItemDTO(){
+    public BookedItem(){
 
     }
 

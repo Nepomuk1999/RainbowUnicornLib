@@ -1,9 +1,9 @@
-package domain;
+package at.fhv.team3.rmi.dto;
 
 /**
  * Created by David on 10/30/2017.
  */
-public class Customer {
+public class CustomerDTO {
 
     private int _customerId;
     private String _firstName;
@@ -12,7 +12,7 @@ public class Customer {
     private String _email;
     private String _phoneNumber;
 
-    public Customer(){
+    public CustomerDTO(){
 
     }
 
@@ -63,5 +63,4 @@ public class Customer {
     public String getPhoneNumber(){
         return _phoneNumber;
     }
-
 }

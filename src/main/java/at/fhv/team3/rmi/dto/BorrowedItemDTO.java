@@ -1,8 +1,8 @@
-package rmi.dto;
+package at.fhv.team3.rmi.dto;
 
-import domain.Customer;
-import domain.ExternalLib;
-import domain.Media;
+import at.fhv.team3.domain.Customer;
+import at.fhv.team3.domain.ExternalLib;
+import at.fhv.team3.domain.Media;
 
 import java.util.Date;
 

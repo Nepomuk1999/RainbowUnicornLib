@@ -1,9 +1,9 @@
-package domain;
+package at.fhv.team3.rmi.dto;
 
 /**
  * Created by David on 10/30/2017.
  */
-public class Employee {
+public class EmployeeDTO {
 
     private int _employeeId;
     private String _firstName;
@@ -11,7 +11,7 @@ public class Employee {
     private String _role;
     private String _userName;
 
-    public Employee(){
+    public EmployeeDTO(){
 
     }
 

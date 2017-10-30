@@ -1,16 +1,11 @@
-package rmi.dto;
-
-import domain.Book;
-import domain.Dvd;
-import domain.Magazine;
-import domain.MediaType;
+package at.fhv.team3.domain;
 
 import java.util.Date;
 
 /**
  * Created by David on 10/30/2017.
  */
-public class MediaDTO {
+public class Media {
 
     private int _mediaId;
     private MediaType _type;
@@ -19,7 +14,7 @@ public class MediaDTO {
     private Dvd _dvd;
     private Book _book;
 
-    public MediaDTO(){
+    public Media(){
 
     }
 
@@ -71,3 +66,4 @@ public class MediaDTO {
         return _book;
     }
 }
+
