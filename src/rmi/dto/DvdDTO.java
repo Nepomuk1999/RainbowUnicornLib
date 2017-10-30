@@ -9,6 +9,7 @@ public class DvdDTO {
     private String _title;
     private String _regisseur;
     private String _pictureURL;
+    private String _shelfPos;
 
     public DvdDTO(){
 
@@ -40,5 +41,13 @@ public class DvdDTO {
 
     public void setPictureURL(String pictureURL){
         _pictureURL = pictureURL;
+    }
+
+    public void setShelfPos(String shelfPos){
+        _shelfPos = shelfPos;
+    }
+
+    public String getShelfPos(){
+        return _shelfPos;
     }
 }

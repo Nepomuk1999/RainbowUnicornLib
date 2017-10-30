@@ -10,6 +10,7 @@ public class MagazineDTO {
     private String _edition;
     private String _publisher;
     private String _pictureURL;
+    private String _shelfPos;
 
     public MagazineDTO(){
 
@@ -53,5 +54,13 @@ public class MagazineDTO {
 
     public String getPictureURL(){
         return _pictureURL;
+    }
+
+    public void setShelfPos(String shelfPos){
+        _shelfPos = shelfPos;
+    }
+
+    public String getShelfPos(){
+        return _shelfPos;
     }
 }

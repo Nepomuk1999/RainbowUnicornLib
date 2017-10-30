@@ -10,6 +10,7 @@ public class Magazine {
     private String _edition;
     private String _publisher;
     private String _pictureURL;
+    private String _shelfPos;
 
     public Magazine(){
 
@@ -53,5 +54,13 @@ public class Magazine {
 
     public String getPictureURL(){
         return _pictureURL;
+    }
+
+    public void setShelfPos(String shelfPos){
+        _shelfPos = shelfPos;
+    }
+
+    public String getShelfPos(){
+        return _shelfPos;
     }
 }

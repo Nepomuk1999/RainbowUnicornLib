@@ -12,6 +12,7 @@ public class BookDTO {
     private String _isbn;
     private String _edition;
     private String _pictureURL;
+    private String _shelfPos;
 
     public BookDTO(){
 
@@ -63,5 +64,13 @@ public class BookDTO {
 
     public void setPictureURL(String pictureURL){
         _pictureURL = pictureURL;
+    }
+
+    public void setShelfPos(String shelfPos){
+        _shelfPos = shelfPos;
+    }
+
+    public String getShelfPos(){
+        return _shelfPos;
     }
 }
