@@ -19,7 +19,7 @@ public class MediaDTO {
     private Dvd _dvd;
     private Book _book;
 
-    public Media(){
+    public MediaDTO(){
 
     }
 
