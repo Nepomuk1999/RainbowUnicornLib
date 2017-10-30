@@ -1,5 +1,8 @@
 package rmi.dto;
 
+import domain.Book;
+import domain.Dvd;
+import domain.Magazine;
 import domain.MediaType;
 
 import java.util.Date;
@@ -8,14 +11,15 @@ import java.util.Date;
  * Created by David on 10/30/2017.
  */
 public class MediaDTO {
+
     private int _mediaId;
     private MediaType _type;
     private Date _returnDate;
-    private int _magazineId;
-    private int _dvdId;
-    private int _bookId;
+    private Magazine _magazine;
+    private Dvd _dvd;
+    private Book _book;
 
-    public MediaDTO(){
+    public Media(){
 
     }
 
@@ -43,27 +47,27 @@ public class MediaDTO {
         return _returnDate;
     }
 
-    public void setMagazineId(int id){
-        _magazineId = id;
+    public void setMagazine(Magazine magazine){
+        _magazine = magazine;
     }
 
-    public int getMagazineId(){
-        return _magazineId;
+    public Magazine getMagazine(){
+        return _magazine;
     }
 
-    public void setDvdId(int id){
-        _dvdId = id;
+    public void setDvd(Dvd dvd){
+        _dvd = dvd;
     }
 
-    public int getDvdId(){
-        return _dvdId;
+    public Dvd getDvd(){
+        return _dvd;
     }
 
-    public void setBookId(int id){
-        _bookId = id;
+    public void setBook(Book book){
+        _book = book;
     }
 
-    public int getBookId(){
-        return _bookId;
+    public Book getBook(){
+        return _book;
     }
 }

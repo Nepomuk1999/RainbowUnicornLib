@@ -10,9 +10,9 @@ public class Media {
     private int _mediaId;
     private MediaType _type;
     private Date _returnDate;
-    private int _magazineId;
-    private int _dvdId;
-    private int _bookId;
+    private Magazine _magazine;
+    private Dvd _dvd;
+    private Book _book;
 
     public Media(){
 
@@ -42,28 +42,28 @@ public class Media {
         return _returnDate;
     }
 
-    public void setMagazineId(int id){
-        _magazineId = id;
+    public void setMagazine(Magazine magazine){
+        _magazine = magazine;
     }
 
-    public int getMagazineId(){
-        return _magazineId;
+    public Magazine getMagazine(){
+        return _magazine;
     }
 
-    public void setDvdId(int id){
-        _dvdId = id;
+    public void setDvd(Dvd dvd){
+        _dvd = dvd;
     }
 
-    public int getDvdId(){
-        return _dvdId;
+    public Dvd getDvd(){
+        return _dvd;
     }
 
-    public void setBookId(int id){
-        _bookId = id;
+    public void setBook(Book book){
+        _book = book;
     }
 
-    public int getBookId(){
-        return _bookId;
+    public Book getBook(){
+        return _book;
     }
 }
 
