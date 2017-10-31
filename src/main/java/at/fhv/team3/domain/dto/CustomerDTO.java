@@ -1,9 +1,9 @@
-package at.fhv.team3.rmi.dto;
+package at.fhv.team3.domain.dto;
 
 /**
  * Created by David on 10/30/2017.
  */
-public class CustomerDTO {
+public class CustomerDTO extends DTO{
 
     private int _customerId;
     private String _firstName;
@@ -62,5 +62,13 @@ public class CustomerDTO {
 
     public String getPhoneNumber(){
         return _phoneNumber;
+    }
+
+    public void setId(int id) {
+        setCustomerId(id);
+    }
+
+    public int getId() {
+        return getCustomerId();
     }
 }

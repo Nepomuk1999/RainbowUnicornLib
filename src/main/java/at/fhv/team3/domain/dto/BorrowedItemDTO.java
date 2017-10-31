@@ -1,4 +1,4 @@
-package at.fhv.team3.rmi.dto;
+package at.fhv.team3.domain.dto;
 
 import at.fhv.team3.domain.Customer;
 import at.fhv.team3.domain.ExternalLib;
@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Created by David on 10/30/2017.
  */
-public class BorrowedItemDTO {
+public class BorrowedItemDTO extends DTO{
 
     private int _borrowedId;
     private Date _borrowedDate;
@@ -59,5 +59,13 @@ public class BorrowedItemDTO {
 
     public Media getMedia(){
         return _media;
+    }
+
+    public void setId(int id) {
+        setBorrowedId(id);
+    }
+
+    public int getId() {
+        return getBorrowedId();
     }
 }

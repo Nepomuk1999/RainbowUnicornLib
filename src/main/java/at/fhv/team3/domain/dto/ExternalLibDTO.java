@@ -1,9 +1,9 @@
-package at.fhv.team3.rmi.dto;
+package at.fhv.team3.domain.dto;
 
 /**
  * Created by David on 10/30/2017.
  */
-public class ExternalLibDTO {
+public class ExternalLibDTO extends DTO{
 
     private int _libId;
     private String _name;
@@ -35,5 +35,13 @@ public class ExternalLibDTO {
 
     public String getAccountData(){
         return _accountData;
+    }
+
+    public void setId(int id) {
+        setLibId(id);
+    }
+
+    public int getId() {
+        return getLibId();
     }
 }

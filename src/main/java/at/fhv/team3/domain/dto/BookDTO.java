@@ -1,9 +1,9 @@
-package at.fhv.team3.rmi.dto;
+package at.fhv.team3.domain.dto;
 
 /**
  * Created by David on 10/30/2017.
  */
-public class BookDTO {
+public class BookDTO extends DTO{
 
     private int _bookId;
     private String _title;
@@ -72,5 +72,13 @@ public class BookDTO {
 
     public String getShelfPos(){
         return _shelfPos;
+    }
+
+    public void setId(int id) {
+        setBookId(id);
+    }
+
+    public int getId() {
+        return getBookId();
     }
 }

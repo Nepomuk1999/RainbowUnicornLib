@@ -1,9 +1,9 @@
-package at.fhv.team3.rmi.dto;
+package at.fhv.team3.domain.dto;
 
 /**
  * Created by David on 10/30/2017.
  */
-public class MagazineDTO {
+public class MagazineDTO extends DTO{
 
     private int _magazineId;
     private String _title;
@@ -62,5 +62,13 @@ public class MagazineDTO {
 
     public String getShelfPos(){
         return _shelfPos;
+    }
+
+    public void setId(int id) {
+        setMagazineId(id);
+    }
+
+    public int getId() {
+        return getMagazineId();
     }
 }

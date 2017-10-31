@@ -1,4 +1,4 @@
-package at.fhv.team3.rmi.dto;
+package at.fhv.team3.domain.dto;
 
 import at.fhv.team3.domain.Customer;
 import at.fhv.team3.domain.Media;
@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * Created by David on 10/30/2017.
  */
-public class BookedItemDTO {
+public class BookedItemDTO extends DTO{
 
     private int _bookingId;
     private Customer _customer;
@@ -49,5 +49,13 @@ public class BookedItemDTO {
 
     public Date getdate(){
         return _date;
+    }
+
+    public void setId(int id) {
+        setBookingId(id);
+    }
+
+    public int getId() {
+        return getBookingId();
     }
 }

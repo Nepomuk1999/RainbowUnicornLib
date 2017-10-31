@@ -1,9 +1,9 @@
-package at.fhv.team3.rmi.dto;
+package at.fhv.team3.domain.dto;
 
 /**
  * Created by David on 10/30/2017.
  */
-public class EmployeeDTO {
+public class EmployeeDTO extends DTO{
 
     private int _employeeId;
     private String _firstName;
@@ -53,5 +53,13 @@ public class EmployeeDTO {
 
     public String getUsername(){
         return _userName;
+    }
+
+    public void setId(int id) {
+        setEmployeeId(id);
+    }
+
+    public int getId() {
+        return getEmployeeId();
     }
 }

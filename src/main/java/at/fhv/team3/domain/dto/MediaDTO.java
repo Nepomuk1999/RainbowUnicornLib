@@ -1,4 +1,4 @@
-package at.fhv.team3.rmi.dto;
+package at.fhv.team3.domain.dto;
 
 import at.fhv.team3.domain.Book;
 import at.fhv.team3.domain.Dvd;
@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * Created by David on 10/30/2017.
  */
-public class MediaDTO {
+public class MediaDTO extends DTO {
 
     private int _mediaId;
     private MediaType _type;
@@ -69,5 +69,13 @@ public class MediaDTO {
 
     public Book getBook(){
         return _book;
+    }
+
+    public void setId(int id) {
+        setMediaId(id);
+    }
+
+    public int getId() {
+        return getMediaId();
     }
 }

@@ -1,9 +1,9 @@
-package at.fhv.team3.rmi.dto;
+package at.fhv.team3.domain.dto;
 
 /**
  * Created by David on 10/30/2017.
  */
-public class DvdDTO {
+public class DvdDTO extends DTO{
 
     private int _dvdId;
     private String _title;
@@ -49,5 +49,13 @@ public class DvdDTO {
 
     public String getShelfPos(){
         return _shelfPos;
+    }
+
+    public void setId(int id) {
+        setDvdId(id);
+    }
+
+    public int getId() {
+        return getDvdId();
     }
 }
