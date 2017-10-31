@@ -1,7 +1,6 @@
 package at.fhv.team3.domain;
 
 import at.fhv.team3.domain.dto.DTO;
-import at.fhv.team3.domain.interfaces.Borrowable;
 
 /**
  * Created by David on 10/30/2017.
@@ -17,9 +16,7 @@ public class Book implements Borrowable {
     private String _pictureURL;
     private String _shelfPos;
 
-    public Book(){
-
-    }
+    public Book(){}
 
     public void setBookId(int id){
         _bookId = id;
