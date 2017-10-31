@@ -3,7 +3,7 @@ package at.fhv.team3.domain;
 /**
  * Created by David on 10/30/2017.
  */
-public class Book {
+public class Book implements Searchable {
 
     private int _bookId;
     private String _title;
@@ -72,5 +72,12 @@ public class Book {
 
     public String getShelfPos(){
         return _shelfPos;
+    }
+
+    public boolean containsSearchTerm(String searchTerm) {
+        if(_title.contains(searchTerm) || _publisher.contains(searchTerm) || _author.contains(searchTerm) || _isbn.contains(searchTerm) || _edition.contains(searchTerm)){
+            return true;
+        }
+        return false;
     }
 }

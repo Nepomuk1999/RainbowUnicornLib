@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by David on 10/30/2017.
  */
-public class Media {
+public class Media implements Searchable{
 
     private int _mediaId;
     private MediaType _type;
@@ -64,6 +64,27 @@ public class Media {
 
     public Book getBook(){
         return _book;
+    }
+
+    public boolean containsSearchTerm(String searchTerm) {
+        switch(_type){
+            case BOOK:
+                if(_book != null){
+                    return _book.containsSearchTerm(searchTerm);
+                }
+                break;
+            case DVD:
+                if(_dvd != null){
+                    return _dvd.containsSearchTerm(searchTerm);
+                }
+                break;
+            case MAGAZINE:
+                if(_magazine != null){
+                    return _magazine.containsSearchTerm(searchTerm);
+                }
+                break;
+        }
+        return false;
     }
 }
 

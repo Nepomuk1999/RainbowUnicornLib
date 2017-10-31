@@ -3,7 +3,7 @@ package at.fhv.team3.domain;
 /**
  * Created by David on 10/30/2017.
  */
-public class Dvd {
+public class Dvd implements Searchable{
 
     private int _dvdId;
     private String _title;
@@ -49,5 +49,12 @@ public class Dvd {
 
     public String getShelfPos(){
         return _shelfPos;
+    }
+
+    public boolean containsSearchTerm(String searchTerm) {
+        if(_title.contains(searchTerm) || _regisseur.contains(searchTerm)){
+            return true;
+        }
+        return false;
     }
 }

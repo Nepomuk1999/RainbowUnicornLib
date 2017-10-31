@@ -3,7 +3,7 @@ package at.fhv.team3.domain;
 /**
  * Created by David on 10/30/2017.
  */
-public class Magazine {
+public class Magazine implements Searchable{
 
     private int _magazineId;
     private String _title;
@@ -62,5 +62,12 @@ public class Magazine {
 
     public String getShelfPos(){
         return _shelfPos;
+    }
+
+    public boolean containsSearchTerm(String searchTerm) {
+        if(_title.contains(searchTerm) || _edition.contains(searchTerm) || _publisher.contains(searchTerm)){
+            return true;
+        }
+        return false;
     }
 }
