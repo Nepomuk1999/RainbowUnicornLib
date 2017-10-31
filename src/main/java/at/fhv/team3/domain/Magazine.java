@@ -3,7 +3,7 @@ package at.fhv.team3.domain;
 /**
  * Created by David on 10/30/2017.
  */
-public class Magazine implements Searchable{
+public class Magazine implements Searchable, Borrowable{
 
     private int _magazineId;
     private String _title;

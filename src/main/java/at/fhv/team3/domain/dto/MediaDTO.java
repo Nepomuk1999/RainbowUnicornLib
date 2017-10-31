@@ -1,10 +1,8 @@
 package at.fhv.team3.domain.dto;
 
-import at.fhv.team3.domain.Book;
-import at.fhv.team3.domain.Dvd;
-import at.fhv.team3.domain.Magazine;
-import at.fhv.team3.domain.MediaType;
+import at.fhv.team3.domain.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -15,9 +13,10 @@ public class MediaDTO extends DTO {
     private int _mediaId;
     private MediaType _type;
     private Date _returnDate;
-    private Magazine _magazine;
+    ArrayList<Borrowable> _medias;
+/*    private Magazine _magazine;
     private Dvd _dvd;
-    private Book _book;
+    private Book _book;*/
 
     public MediaDTO(){
 
@@ -47,7 +46,7 @@ public class MediaDTO extends DTO {
         return _returnDate;
     }
 
-    public void setMagazine(Magazine magazine){
+/*    public void setMagazine(Magazine magazine){
         _magazine = magazine;
     }
 
@@ -69,6 +68,14 @@ public class MediaDTO extends DTO {
 
     public Book getBook(){
         return _book;
+    }
+*/
+    public void addMedia(Borrowable media){
+        _medias.add(media);
+    }
+
+    public ArrayList<Borrowable> getMedias(){
+        return _medias;
     }
 
     public void setId(int id) {
