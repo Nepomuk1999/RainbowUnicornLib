@@ -1,9 +1,9 @@
 package at.fhv.team3.application;
 
-import at.fhv.team3.domain.interfaces.Searchable;
 import at.fhv.team3.domain.dto.DTO;
-
+import at.fhv.team3.domain.interfaces.Searchable;
 import java.util.ArrayList;
+
 
 /**
  * Created by David on 10/31/2017.
@@ -33,6 +33,7 @@ public class MediaSearchController {
         return searchResult;
     }
 
+    //TODO: refactor to hashMap<Enum:MediaType, LinkedList<Media>
     public ArrayList<DTO> search(String searchTerm){
         ArrayList<Searchable> searchResult = searchMedias(searchTerm);
         ArrayList<DTO> dtos = new ArrayList<DTO>();
