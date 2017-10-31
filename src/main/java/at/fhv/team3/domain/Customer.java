@@ -3,12 +3,21 @@ package at.fhv.team3.domain;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Transferable;
 
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+
 /**
  * Created by David on 10/30/2017.
  */
 public class Customer implements Transferable {
 
+    @Id
     private int _customerId;
+
+    @OneToMany
+    private ArrayList<BorrowedItem> borrowedItems = new ArrayList<BorrowedItem>();
+
     private String _firstName;
     private String _lastName;
     private boolean _subscription;

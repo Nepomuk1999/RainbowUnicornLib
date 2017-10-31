@@ -3,12 +3,20 @@ package at.fhv.team3.domain;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Transferable;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+
 /**
  * Created by David on 10/30/2017.
  */
 public class ExternalLib implements Transferable {
 
+    @Id
     private int _libId;
+
+    @OneToMany
+    private ArrayList<BorrowedItem> borrowedItems = new ArrayList<BorrowedItem>();
+
     private String _name;
     private String _accountData;
 

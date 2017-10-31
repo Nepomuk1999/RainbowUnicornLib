@@ -3,12 +3,19 @@ package at.fhv.team3.domain;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Searchable;
 
+import javax.persistence.*;
+
 /**
  * Created by David on 10/30/2017.
  */
 public class Magazine implements Searchable {
 
+    @Id
     private int _magazineId;
+
+    @ManyToOne
+    private int media_mediaId;
+
     private String _title;
     private String _edition;
     private String _publisher;
@@ -65,6 +72,14 @@ public class Magazine implements Searchable {
 
     public String getShelfPos(){
         return _shelfPos;
+    }
+
+    public int getMedia_mediaId() {
+        return media_mediaId;
+    }
+
+    public void setMedia_mediaId(int media_mediaId) {
+        this.media_mediaId = media_mediaId;
     }
 
     public boolean containsSearchTerm(String searchTerm) {

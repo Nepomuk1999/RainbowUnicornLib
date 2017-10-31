@@ -3,6 +3,7 @@ package at.fhv.team3.domain;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Transferable;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -10,10 +11,16 @@ import java.util.Date;
  */
 public class BorrowedItem implements Transferable {
 
+    @Id
     private int _borrowedId;
     private Date _borrowedDate;
+
+    @ManyToOne
     private ExternalLib _externalLib;
+
+    @ManyToOne
     private Customer _customer;
+
     private Media _media;
 
     public BorrowedItem(){

@@ -3,6 +3,7 @@ package at.fhv.team3.domain;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Transferable;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -10,8 +11,12 @@ import java.util.Date;
  */
 public class BookedItem implements Transferable {
 
+    @Id
     private int _bookingId;
+
+    @ManyToOne
     private Customer _customer;
+
     private Media _media;
     private Date _date;
 

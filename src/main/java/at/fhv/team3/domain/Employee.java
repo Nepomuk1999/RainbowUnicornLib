@@ -3,11 +3,14 @@ package at.fhv.team3.domain;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Transferable;
 
+import javax.persistence.*;
+
 /**
  * Created by David on 10/30/2017.
  */
 public class Employee implements Transferable {
 
+    @Id
     private int _employeeId;
     private String _firstName;
     private String _lastName;
