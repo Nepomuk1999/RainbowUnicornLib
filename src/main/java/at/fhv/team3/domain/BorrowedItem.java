@@ -1,11 +1,13 @@
 package at.fhv.team3.domain;
 
+import at.fhv.team3.domain.dto.DTO;
+
 import java.util.Date;
 
 /**
  * Created by David on 10/30/2017.
  */
-public class BorrowedItem {
+public class BorrowedItem implements Transferable{
 
     private int _borrowedId;
     private Date _borrowedDate;
@@ -55,5 +57,9 @@ public class BorrowedItem {
 
     public Media getMedia(){
         return _media;
+    }
+
+    public DTO createDataTransferObject() {
+        return null;
     }
 }

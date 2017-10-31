@@ -1,9 +1,11 @@
 package at.fhv.team3.domain;
 
+import at.fhv.team3.domain.dto.DTO;
+
 /**
  * Created by David on 10/30/2017.
  */
-public class Book implements Searchable, Borrowable {
+public class Book implements Borrowable {
 
     private int _bookId;
     private String _title;
@@ -79,5 +81,9 @@ public class Book implements Searchable, Borrowable {
             return true;
         }
         return false;
+    }
+
+    public DTO createDataTransferObject() {
+        return null;
     }
 }

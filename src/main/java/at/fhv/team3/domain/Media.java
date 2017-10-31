@@ -1,5 +1,7 @@
 package at.fhv.team3.domain;
 
+import at.fhv.team3.domain.dto.DTO;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,7 +14,7 @@ public class Media implements Searchable{
     private MediaType _type;
     private Date _returnDate;
     private ArrayList<Borrowable> _medias;
-/*    private Magazine _magazine;
+/*  private Magazine _magazine;
     private Dvd _dvd;
     private Book _book; */
 
@@ -80,6 +82,10 @@ public class Media implements Searchable{
     public boolean containsSearchTerm(String searchTerm) {
 
         return false;
+    }
+
+    public DTO createDataTransferObject() {
+        return null;
     }
 }
 

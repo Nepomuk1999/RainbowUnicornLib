@@ -1,11 +1,13 @@
 package at.fhv.team3.domain;
 
+import at.fhv.team3.domain.dto.DTO;
+
 import java.util.Date;
 
 /**
  * Created by David on 10/30/2017.
  */
-public class BookedItem {
+public class BookedItem implements Transferable{
 
     private int _bookingId;
     private Customer _customer;
@@ -46,5 +48,9 @@ public class BookedItem {
 
     public Date getdate(){
         return _date;
+    }
+
+    public DTO createDataTransferObject() {
+        return null;
     }
 }

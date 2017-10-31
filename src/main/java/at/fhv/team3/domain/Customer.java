@@ -1,9 +1,11 @@
 package at.fhv.team3.domain;
 
+import at.fhv.team3.domain.dto.DTO;
+
 /**
  * Created by David on 10/30/2017.
  */
-public class Customer {
+public class Customer implements Transferable {
 
     private int _customerId;
     private String _firstName;
@@ -64,4 +66,7 @@ public class Customer {
         return _phoneNumber;
     }
 
+    public DTO createDataTransferObject() {
+        return null;
+    }
 }

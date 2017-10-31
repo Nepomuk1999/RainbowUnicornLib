@@ -1,9 +1,11 @@
 package at.fhv.team3.domain;
 
+import at.fhv.team3.domain.dto.DTO;
+
 /**
  * Created by David on 10/30/2017.
  */
-public class ExternalLib {
+public class ExternalLib implements Transferable {
 
     private int _libId;
     private String _name;
@@ -35,5 +37,9 @@ public class ExternalLib {
 
     public String getAccountData(){
         return _accountData;
+    }
+
+    public DTO createDataTransferObject() {
+        return null;
     }
 }

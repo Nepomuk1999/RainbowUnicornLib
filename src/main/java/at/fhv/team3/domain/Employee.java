@@ -1,9 +1,11 @@
 package at.fhv.team3.domain;
 
+import at.fhv.team3.domain.dto.DTO;
+
 /**
  * Created by David on 10/30/2017.
  */
-public class Employee {
+public class Employee implements Transferable {
 
     private int _employeeId;
     private String _firstName;
@@ -53,5 +55,9 @@ public class Employee {
 
     public String getUsername(){
         return _userName;
+    }
+
+    public DTO createDataTransferObject() {
+        return null;
     }
 }

@@ -11,7 +11,24 @@ public class MediaSearchController {
 
 
     public ArrayList<Searchable> search(String searchTerm){
+        //TODO: new ArrayList mit persistence Aufruf ersetzen
         ArrayList<Searchable> books = new ArrayList<Searchable>();
-        return null;
+        ArrayList<Searchable> dvds = new ArrayList<Searchable>();
+        ArrayList<Searchable> magazines = new ArrayList<Searchable>();
+
+
+        ArrayList<Searchable> allMedias = new ArrayList<Searchable>();
+
+        allMedias.addAll(books);
+        allMedias.addAll(dvds);
+        allMedias.addAll(magazines);
+
+        ArrayList<Searchable> searchResult = new ArrayList<Searchable>();
+        for(Searchable s : allMedias){
+            if(s.containsSearchTerm(searchTerm)){
+                searchResult.add(s);
+            }
+        }
+        return searchResult;
     }
 }

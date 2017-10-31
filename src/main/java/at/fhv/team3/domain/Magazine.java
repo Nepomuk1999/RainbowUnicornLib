@@ -1,9 +1,11 @@
 package at.fhv.team3.domain;
 
+import at.fhv.team3.domain.dto.DTO;
+
 /**
  * Created by David on 10/30/2017.
  */
-public class Magazine implements Searchable, Borrowable{
+public class Magazine implements Borrowable{
 
     private int _magazineId;
     private String _title;
@@ -69,5 +71,9 @@ public class Magazine implements Searchable, Borrowable{
             return true;
         }
         return false;
+    }
+
+    public DTO createDataTransferObject() {
+        return null;
     }
 }
