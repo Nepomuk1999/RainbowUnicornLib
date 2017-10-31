@@ -1,6 +1,7 @@
 package at.fhv.team3.domain.dto;
 
 import at.fhv.team3.domain.*;
+import at.fhv.team3.domain.interfaces.Borrowable;
 
 import java.util.ArrayList;
 import java.util.Date;

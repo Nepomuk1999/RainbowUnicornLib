@@ -1,6 +1,7 @@
 package at.fhv.team3.domain;
 
 import at.fhv.team3.domain.dto.DTO;
+import at.fhv.team3.domain.interfaces.Borrowable;
 
 /**
  * Created by David on 10/30/2017.

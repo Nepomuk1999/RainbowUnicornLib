@@ -1,6 +1,8 @@
 package at.fhv.team3.domain;
 
 import at.fhv.team3.domain.dto.DTO;
+import at.fhv.team3.domain.interfaces.Borrowable;
+import at.fhv.team3.domain.interfaces.Searchable;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,7 +10,7 @@ import java.util.Date;
 /**
  * Created by David on 10/30/2017.
  */
-public class Media implements Searchable{
+public class Media implements Searchable {
 
     private int _mediaId;
     private MediaType _type;
