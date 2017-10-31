@@ -1,6 +1,7 @@
 package at.fhv.team3.domain;
 
 import at.fhv.team3.domain.dto.DTO;
+import at.fhv.team3.domain.interfaces.Transferable;
 
 /**
  * Created by David on 10/30/2017.
@@ -58,6 +59,7 @@ public class Employee implements Transferable {
     }
 
     public DTO createDataTransferObject() {
+        //Test
         return null;
     }
 }

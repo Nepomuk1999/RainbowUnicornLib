@@ -1,13 +1,14 @@
 package at.fhv.team3.domain;
 
 import at.fhv.team3.domain.dto.DTO;
+import at.fhv.team3.domain.interfaces.Transferable;
 
 import java.util.Date;
 
 /**
  * Created by David on 10/30/2017.
  */
-public class BookedItem implements Transferable{
+public class BookedItem implements Transferable {
 
     private int _bookingId;
     private Customer _customer;

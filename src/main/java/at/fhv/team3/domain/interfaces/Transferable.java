@@ -1,4 +1,4 @@
-package at.fhv.team3.domain;
+package at.fhv.team3.domain.interfaces;
 
 import at.fhv.team3.domain.dto.DTO;
 
