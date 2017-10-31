@@ -5,7 +5,7 @@ import at.fhv.team3.domain.dto.DTO;
 /**
  * Created by David on 10/30/2017.
  */
-public class Dvd implements Borrowable {
+public class Dvd implements Searchable {
 
     private int _dvdId;
     private String _title;

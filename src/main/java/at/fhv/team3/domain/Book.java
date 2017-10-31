@@ -5,7 +5,7 @@ import at.fhv.team3.domain.dto.DTO;
 /**
  * Created by David on 10/30/2017.
  */
-public class Book implements Borrowable {
+public class Book implements Searchable {
 
     private int _bookId;
     private String _title;

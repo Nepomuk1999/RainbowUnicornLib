@@ -5,7 +5,7 @@ import at.fhv.team3.domain.dto.DTO;
 /**
  * Created by David on 10/30/2017.
  */
-public class Magazine implements Borrowable {
+public class Magazine implements Searchable {
 
     private int _magazineId;
     private String _title;
