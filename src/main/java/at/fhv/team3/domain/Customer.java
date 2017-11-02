@@ -3,13 +3,14 @@ package at.fhv.team3.domain;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Transferable;
 
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 
 /**
  * Created by David on 10/30/2017.
  */
+@Entity
+@Table(name = "customer")
 public class Customer implements Transferable {
 
     @Id

@@ -12,7 +12,7 @@ import java.util.Date;
  * Created by David on 10/30/2017.
  */
 @Entity
-@Table
+@Table(name = "media")
 public class Media implements Searchable {
 
     @Id
