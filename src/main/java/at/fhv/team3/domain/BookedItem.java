@@ -9,6 +9,8 @@ import java.util.Date;
 /**
  * Created by David on 10/30/2017.
  */
+@Entity
+@Table(name = "bookingItem")
 public class BookedItem implements Transferable {
 
     @Id

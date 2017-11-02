@@ -8,6 +8,8 @@ import javax.persistence.*;
 /**
  * Created by David on 10/30/2017.
  */
+@Entity
+@Table(name = "book")
 public class Book implements Searchable {
 
     @Id

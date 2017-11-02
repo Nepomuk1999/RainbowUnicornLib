@@ -9,6 +9,8 @@ import java.util.Date;
 /**
  * Created by David on 10/30/2017.
  */
+@Entity
+@Table(name = "borrowedItem")
 public class BorrowedItem implements Transferable {
 
     @Id

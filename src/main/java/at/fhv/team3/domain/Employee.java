@@ -8,6 +8,8 @@ import javax.persistence.*;
 /**
  * Created by David on 10/30/2017.
  */
+@Entity
+@Table(name = "employee")
 public class Employee implements Transferable {
 
     @Id
