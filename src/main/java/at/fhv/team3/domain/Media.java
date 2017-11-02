@@ -22,13 +22,13 @@ public class Media implements Searchable {
 
     private ArrayList<Borrowable> _medias;
 
-    @OneToMany(mappedBy = "mediaId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private ArrayList<Book> bookList = new ArrayList<Book>();
 
-    @OneToMany(mappedBy = "mediaId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "dvd", cascade = CascadeType.ALL)
     private ArrayList<Dvd> dvdList = new ArrayList<Dvd>();
 
-    @OneToMany(mappedBy = "mediaId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "magazine", cascade = CascadeType.ALL)
     private ArrayList<Magazine> magazineList = new ArrayList<Magazine>();
 /*  private Magazine _magazine;
     private Dvd _dvd;
