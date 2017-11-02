@@ -19,7 +19,7 @@ public class DvdRepository extends Repository<Dvd> {
     private DvdRepository() {
     }
 
-    public List getAll() {
+    public List<Dvd> getAll() {
         Session session = sessionFactory.openSession();
         List<Dvd> dvd = new LinkedList<Dvd>();
         try {

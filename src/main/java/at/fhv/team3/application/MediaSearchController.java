@@ -3,12 +3,17 @@ package at.fhv.team3.application;
 import at.fhv.team3.domain.*;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Searchable;
+import at.fhv.team3.persistence.BookRepository;
+import at.fhv.team3.persistence.DvdRepository;
+import at.fhv.team3.persistence.MagazinRepository;
 import at.fhv.team3.rmi.interfaces.RMIMediaSearch;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -16,15 +21,20 @@ import java.util.HashMap;
  */
 public class MediaSearchController  extends UnicastRemoteObject implements RMIMediaSearch {
 
+    private BookRepository bookRepository;
+    private MagazinRepository magazinRepository;
+    private DvdRepository dvdRepository;
 
     public MediaSearchController() throws RemoteException {
+        bookRepository = BookRepository.getInstance();
+        magazinRepository = MagazinRepository.getInstance();
+        dvdRepository = DvdRepository.getInstance();
     }
 
     private ArrayList<Searchable> searchMedias(String searchTerm){
-        //TODO: new ArrayList mit persistence Aufruf ersetzen
-        ArrayList<Book> books = new ArrayList<Book>();
-        ArrayList<Dvd> dvds = new ArrayList<Dvd>();
-        ArrayList<Magazine> magazines = new ArrayList<Magazine>();
+        List<Book> books = bookRepository.getAll();
+        List<Dvd> dvds = dvdRepository.getAll();
+        List<Magazine> magazines = magazinRepository.getAll();
 
         ArrayList<Searchable> allMedias = new ArrayList<Searchable>();
 
@@ -42,13 +52,11 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
         return searchResult;
     }
 
-    //TODO: refactor to hashMap<Enum:MediaType, LinkedList<Media>
     public ArrayList<DTO> search(String searchTerm){
         HashMap<MediaType, ArrayList<DTO>> map = new HashMap<MediaType, ArrayList<DTO>>();
         ArrayList<Searchable> searchResult = searchMedias(searchTerm);
         ArrayList<DTO> dtos = new ArrayList<DTO>();
         for(Searchable s : searchResult){
-            //TODO: Implementierung von createDataTransferObject in allen Domänenobjekten.
             dtos.add(s.createDataTransferObject());
         }
 
