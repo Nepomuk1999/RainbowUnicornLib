@@ -2,8 +2,8 @@ package at.fhv.team3.persistence;
 
 import at.fhv.team3.domain.Media;
 import at.fhv.team3.domain.MediaType;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
