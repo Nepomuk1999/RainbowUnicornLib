@@ -22,9 +22,16 @@ public class Dvd implements Borrowable {
     @JoinColumn(name = "media_mediaId")
     private Media media;
 
+    @JoinColumn(name = "title")
     private String _title;
+
+    @JoinColumn(name = "regisseur")
     private String _regisseur;
+
+    @JoinColumn(name = "pictureURL")
     private String _pictureURL;
+
+    @JoinColumn(name = "shelfPos")
     private String _shelfPos;
 
     public Dvd(){
