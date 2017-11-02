@@ -20,6 +20,8 @@ public class RMIConnection {
             LocateRegistry.createRegistry(1099);
             //TODO: Verify
             RMIMediaSearch rms = new MediaSearchController();
+
+
             try {
                 Naming.rebind("rmi://localhost/RMIMediaSearch", rms);
             } catch (MalformedURLException e) {
