@@ -11,8 +11,12 @@ public class DvdDTO extends DTO{
     private String _pictureURL;
     private String _shelfPos;
 
-    public DvdDTO(){
-
+    public DvdDTO(int id, String title, String regisseur, String pictureURL, String shelfPos){
+        _dvdId = id;
+        _title = title;
+        _regisseur = regisseur;
+        _pictureURL = pictureURL;
+        _shelfPos = shelfPos;
     }
 
     public void setDvdId(int dvdId){

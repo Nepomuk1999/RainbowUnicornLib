@@ -7,9 +7,6 @@ public abstract class DTO{
 
     protected int _id;
 
-    protected DTO() {
-    }
-
     public abstract void setId(int id);
 
     public abstract int getId();
