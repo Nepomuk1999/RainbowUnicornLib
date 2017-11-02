@@ -1,6 +1,8 @@
 package at.fhv.team3.domain;
 
+import at.fhv.team3.domain.dto.BookDTO;
 import at.fhv.team3.domain.dto.DTO;
+import at.fhv.team3.domain.interfaces.Borrowable;
 import at.fhv.team3.domain.interfaces.Searchable;
 
 import javax.persistence.*;
@@ -10,7 +12,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "book")
-public class Book implements Searchable {
+public class Book implements Borrowable {
 
     @Id
     private int _bookId;
@@ -99,6 +101,6 @@ public class Book implements Searchable {
     }
 
     public DTO createDataTransferObject() {
-        return null;
+        return new BookDTO(_bookId, _title, _publisher, _author, _isbn, _edition, _pictureURL, _shelfPos);
     }
 }

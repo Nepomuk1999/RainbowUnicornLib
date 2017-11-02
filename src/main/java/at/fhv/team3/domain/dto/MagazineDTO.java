@@ -12,8 +12,13 @@ public class MagazineDTO extends DTO{
     private String _pictureURL;
     private String _shelfPos;
 
-    public MagazineDTO(){
-
+    public MagazineDTO(int id, String title, String edition, String publisher, String pictureURL, String shelfPos){
+        _magazineId = id;
+        _title = title;
+        _edition = edition;
+        _publisher = publisher;
+        _pictureURL = pictureURL;
+        _shelfPos = shelfPos;
     }
 
     public void setMagazineId(int id){

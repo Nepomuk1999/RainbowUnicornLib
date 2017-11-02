@@ -21,12 +21,12 @@ public class RMIConnection {
             //TODO: Verify
             RMIMediaSearch rms = new MediaSearchController();
 
+
             try {
                 Naming.rebind("rmi://localhost/RMIMediaSearch", rms);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
-
         } catch (RemoteException e) {
             e.printStackTrace();
         }

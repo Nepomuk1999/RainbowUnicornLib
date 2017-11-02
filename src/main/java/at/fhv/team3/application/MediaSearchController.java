@@ -1,6 +1,6 @@
 package at.fhv.team3.application;
 
-import at.fhv.team3.domain.MediaType;
+import at.fhv.team3.domain.*;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Searchable;
 import at.fhv.team3.rmi.interfaces.RMIMediaSearch;
@@ -24,9 +24,9 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
 
     private ArrayList<Searchable> searchMedias(String searchTerm){
         //TODO: new ArrayList mit persistence Aufruf ersetzen
-        ArrayList<Searchable> books = new ArrayList<Searchable>();
-        ArrayList<Searchable> dvds = new ArrayList<Searchable>();
-        ArrayList<Searchable> magazines = new ArrayList<Searchable>();
+        ArrayList<Book> books = new ArrayList<Book>();
+        ArrayList<Dvd> dvds = new ArrayList<Dvd>();
+        ArrayList<Magazine> magazines = new ArrayList<Magazine>();
 
         ArrayList<Searchable> allMedias = new ArrayList<Searchable>();
 
@@ -46,13 +46,15 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
 
     //TODO: refactor to hashMap<Enum:MediaType, LinkedList<Media>
     public ArrayList<DTO> search(String searchTerm){
- //       HashMap<MediaType, ArrayList<DTO>> map = new HashMap<MediaType, ArrayList<DTO>>();
+        HashMap<MediaType, ArrayList<DTO>> map = new HashMap<MediaType, ArrayList<DTO>>();
         ArrayList<Searchable> searchResult = searchMedias(searchTerm);
         ArrayList<DTO> dtos = new ArrayList<DTO>();
         for(Searchable s : searchResult){
             //TODO: Implementierung von createDataTransferObject in allen Domänenobjekten.
             dtos.add(s.createDataTransferObject());
         }
+
         return dtos;
     }
+
 }
