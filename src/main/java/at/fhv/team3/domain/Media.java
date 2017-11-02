@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by David on 10/30/2017.
@@ -17,21 +18,21 @@ import java.util.HashSet;
 public class Media implements Searchable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int _mediaId;
     private MediaType _type;
     private Date _returnDate;
 
     private ArrayList<Borrowable> _medias;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
-    private HashSet<Book> bookList = new HashSet<Book>();
+    @OneToMany(mappedBy = "_bookId", cascade = CascadeType.ALL)
+    private Set<Book> bookList = new HashSet<Book>();
 
-    @OneToMany(mappedBy = "dvd", cascade = CascadeType.ALL)
-    private HashSet<Dvd> dvdList = new HashSet<Dvd>();
+    @OneToMany(mappedBy = "_dvdId", cascade = CascadeType.ALL)
+    private Set<Dvd> dvdList = new HashSet<Dvd>();
 
-    @OneToMany(mappedBy = "magazine", cascade = CascadeType.ALL)
-    private ArrayList<Magazine> magazineList = new ArrayList<Magazine>();
+    @OneToMany(mappedBy = "_magazineId", cascade = CascadeType.ALL)
+    private Set<Magazine> magazineList = new HashSet<Magazine>();
 /*  private Magazine _magazine;
     private Dvd _dvd;
     private Book _book; */
@@ -72,7 +73,7 @@ public class Media implements Searchable {
         return _medias;
     }
 
-    public HashSet<Dvd> getDvdList() {
+    public Set<Dvd> getDvdList() {
         return dvdList;
     }
 
@@ -80,7 +81,7 @@ public class Media implements Searchable {
         dvdList.add(value);
     }
 
-    public ArrayList<Magazine> getMagazineList() {
+    public Set<Magazine> getMagazineList() {
         return magazineList;
     }
 
@@ -88,7 +89,7 @@ public class Media implements Searchable {
         magazineList.add(value);
     }
 
-    public HashSet<Book> getBookList() {
+    public Set<Book> getBookList() {
         return bookList;
     }
 

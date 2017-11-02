@@ -3,7 +3,6 @@ package at.fhv.team3.domain;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.dto.MagazineDTO;
 import at.fhv.team3.domain.interfaces.Borrowable;
-import at.fhv.team3.domain.interfaces.Searchable;
 
 import javax.persistence.*;
 
@@ -15,10 +14,13 @@ import javax.persistence.*;
 public class Magazine implements Borrowable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "magazineId")
     private int _magazineId;
 
     @ManyToOne
-    private int media_mediaId;
+    @JoinColumn(name = "media_mediaId")
+    private Media media;
 
     private String _title;
     private String _edition;
@@ -30,11 +32,11 @@ public class Magazine implements Borrowable {
 
     }
 
-    public void setMagazineId(int id){
+    public void set_magazineId(int id){
         _magazineId = id;
     }
 
-    public int getMagazineId(){
+    public int get_magazineId(){
         return _magazineId;
     }
 
@@ -78,12 +80,12 @@ public class Magazine implements Borrowable {
         return _shelfPos;
     }
 
-    public int getMedia_mediaId() {
-        return media_mediaId;
+    public Media getMedia_mediaId() {
+        return media;
     }
 
-    public void setMedia_mediaId(int media_mediaId) {
-        this.media_mediaId = media_mediaId;
+    public void setMedia_mediaId(Media media) {
+        this.media = media;
     }
 
     public boolean containsSearchTerm(String searchTerm) {

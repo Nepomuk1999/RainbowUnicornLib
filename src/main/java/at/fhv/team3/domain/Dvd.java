@@ -3,7 +3,6 @@ package at.fhv.team3.domain;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.dto.DvdDTO;
 import at.fhv.team3.domain.interfaces.Borrowable;
-import at.fhv.team3.domain.interfaces.Searchable;
 
 import javax.persistence.*;
 
@@ -15,10 +14,13 @@ import javax.persistence.*;
 public class Dvd implements Borrowable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "dvdId")
     private int _dvdId;
 
     @ManyToOne
-    private int media_mediaId;
+    @JoinColumn(name = "media_mediaId")
+    private Media media;
 
     private String _title;
     private String _regisseur;
@@ -29,11 +31,11 @@ public class Dvd implements Borrowable {
 
     }
 
-    public void setDvdId(int dvdId){
-        _dvdId = dvdId;
+    public void set_dvdId(int _dvdId){
+        _dvdId = _dvdId;
     }
 
-    public int getDvdId(){
+    public int get_dvdId(){
         return _dvdId;
     }
 
@@ -65,12 +67,12 @@ public class Dvd implements Borrowable {
         return _shelfPos;
     }
 
-    public int getMedia_mediaId() {
-        return media_mediaId;
+    public Media getMedia_mediaId() {
+        return media;
     }
 
-    public void setMedia_mediaId(int media_mediaId) {
-        this.media_mediaId = media_mediaId;
+    public void setMedia_mediaId(Media media) {
+        this.media = media;
     }
 
     public boolean containsSearchTerm(String searchTerm) {
