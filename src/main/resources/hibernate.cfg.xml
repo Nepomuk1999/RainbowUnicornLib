@@ -9,10 +9,12 @@
         <property name="hibernate.connection.username">crh6731</property>
         <property name="connection.password">beractif</property>
         <property name="connection.pool_size">1</property>
-        <property name="hibernate.dialect"> org.hibernate.dialect.HSQLDialect</property>
+        <property name="hibernate.dialect"> org.hibernate.dialect.MySQLInnoDBDialect</property>
         <property name="show_sql">true</property>
         <property name="hbm2ddl.auto">create</property>
         <mapping class="at.fhv.team3.domain.Book" />
+        <mapping class="at.fhv.team3.domain.Dvd" />
+        <mapping class="at.fhv.team3.domain.Magazine" />
         <mapping class="at.fhv.team3.domain.Media" />
     </session-factory>
 </hibernate-configuration>

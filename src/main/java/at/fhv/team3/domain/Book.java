@@ -14,11 +14,14 @@ import javax.persistence.*;
 public class Book implements Borrowable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "bookId")
     private int _bookId;
 
     @ManyToOne(targetEntity = Media.class)
-    private int media_mediaId;
+    @JoinColumn(name = "media_mediaId")
+    private Media media;
+
     private String _title;
     private String _publisher;
     private String _author;
@@ -36,11 +39,11 @@ public class Book implements Borrowable {
         this._isbn = isbn;
     }
 
-    public void setBookId(int id){
+    public void set_bookId(int id){
         _bookId = id;
     }
 
-    public int getBookId(){
+    public int get_bookId(){
         return _bookId;
     }
 
@@ -92,12 +95,12 @@ public class Book implements Borrowable {
         return _shelfPos;
     }
 
-    public int getMedia_mediaId() {
-        return media_mediaId;
+    public Media getMedia() {
+        return media;
     }
 
-    public void setMedia_mediaId(int media_mediaId) {
-        this.media_mediaId = media_mediaId;
+    public void setMedia_mediaId(Media media) {
+        this.media = media;
     }
 
     public boolean containsSearchTerm(String searchTerm) {
