@@ -5,11 +5,18 @@ package at.fhv.team3.persistence;
  */
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 
+
+@Service
 public class HibernateUtil {
 
+    @Autowired
     private static final SessionFactory sessionFactory = buildSessionFactory();
 
+    @Bean
     private static SessionFactory buildSessionFactory() {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
