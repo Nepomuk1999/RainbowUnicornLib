@@ -1,5 +1,6 @@
 package at.fhv.team3.domain;
 
+import at.fhv.team3.domain.dto.BorrowedItemDTO;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Transferable;
 
@@ -70,6 +71,6 @@ public class BorrowedItem implements Transferable {
     }
 
     public DTO createDataTransferObject() {
-        return null;
+        return new BorrowedItemDTO(_borrowedId, _borrowedDate, _externalLib, _customer, _media);
     }
 }

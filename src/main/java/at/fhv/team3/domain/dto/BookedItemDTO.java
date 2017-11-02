@@ -15,8 +15,11 @@ public class BookedItemDTO extends DTO{
     private Media _media;
     private Date _date;
 
-    public BookedItemDTO(){
-
+    public BookedItemDTO(int id, Customer customer, Media media, Date date){
+        _bookingId = id;
+        _customer = customer;
+        _media = media;
+        _date = date;
     }
 
     public void setBookingId(int id){

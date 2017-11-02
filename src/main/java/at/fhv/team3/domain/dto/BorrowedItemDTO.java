@@ -17,7 +17,12 @@ public class BorrowedItemDTO extends DTO{
     private Customer _customer;
     private Media _media;
 
-    public BorrowedItemDTO(){
+    public BorrowedItemDTO(int id, Date borrowedDate, ExternalLib externalLib, Customer customer, Media media){
+        _borrowedId = id;
+        _borrowedDate = borrowedDate;
+        _externalLib = externalLib;
+        _customer = customer;
+        _media = media;
 
     }
 
