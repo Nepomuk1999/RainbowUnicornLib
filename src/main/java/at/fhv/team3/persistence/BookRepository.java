@@ -41,7 +41,7 @@ public class BookRepository extends Repository<Book> {
         Book book = null;
         try {
             transaction = session.beginTransaction();
-            book = (Book) session.createQuery("from Book b where Book.id = id");
+            book = (Book) session.createQuery("from Book b where b.id = id");
             transaction.commit();
             return book;
         } catch (HibernateException ex) {
@@ -53,24 +53,6 @@ public class BookRepository extends Repository<Book> {
             session.close();
         }
         return null;
-    }
-
-
-    protected Integer add(Book media) {
-        Session session = sessionFactory.openSession();
-        Integer bookId = null;
-
-        try {
-            transaction = session.beginTransaction();
-            bookId = (Integer) session.save(media);
-            transaction.commit();
-        } catch (HibernateException e) {
-            if (transaction != null) transaction.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return bookId;
     }
 
 }

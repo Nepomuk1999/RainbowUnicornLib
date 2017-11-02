@@ -1,10 +1,15 @@
 package at.fhv.team3.persistence;
 
+import at.fhv.team3.domain.Magazine;
+import at.fhv.team3.domain.Media;
 import at.fhv.team3.domain.interfaces.Borrowable;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 
+import java.util.LinkedList;
 import java.util.List;
 
-public class MagazinRepository extends Repository {
+public class MagazinRepository extends Repository<Magazine> {
     private static MagazinRepository ourInstance = new MagazinRepository();
 
     public static MagazinRepository getInstance() {
@@ -14,15 +19,42 @@ public class MagazinRepository extends Repository {
     private MagazinRepository() {
     }
 
-    public List getAll() {
+    public List<Magazine> getAll() {
+        Session session = sessionFactory.openSession();
+        List<Magazine> magazines = new LinkedList<Magazine>();
+        try {
+            transaction = session.beginTransaction();
+            magazines = session.createQuery("from Magazine").list();
+            transaction.commit();
+            return magazines;
+        } catch (HibernateException ex) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            System.out.println("Magazin get all error:" + ex);
+        } finally {
+            session.close();
+        }
         return null;
     }
 
-    public Borrowable getById(Integer id) {
+    public Magazine getById(Integer id) {
+        Session session = sessionFactory.openSession();
+        Magazine magazine = null;
+        try {
+            transaction = session.beginTransaction();
+            magazine = (Magazine) session.createQuery("from Magazine mag where mag.id = id");
+            transaction.commit();
+            return magazine;
+        } catch (HibernateException ex) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            System.out.println("Magazin get all error:" + ex);
+        } finally {
+            session.close();
+        }
         return null;
     }
 
-    protected Integer add(Borrowable media) {
-        return null;
-    }
 }
