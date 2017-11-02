@@ -1,5 +1,6 @@
 package at.fhv.team3.domain;
 
+import at.fhv.team3.domain.dto.BookedItemDTO;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Transferable;
 
@@ -59,6 +60,6 @@ public class BookedItem implements Transferable {
     }
 
     public DTO createDataTransferObject() {
-        return null;
+        return new BookedItemDTO(_bookingId, _customer, _media, _date);
     }
 }
