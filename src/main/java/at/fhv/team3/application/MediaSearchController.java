@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class MediaSearchController  extends UnicastRemoteObject implements RMIMediaSearch {
 
 
-    protected MediaSearchController() throws RemoteException {
+    public MediaSearchController() throws RemoteException {
     }
 
     private ArrayList<Searchable> searchMedias(String searchTerm){
