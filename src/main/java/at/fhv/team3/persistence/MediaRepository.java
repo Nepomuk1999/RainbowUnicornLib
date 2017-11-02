@@ -22,4 +22,5 @@ public interface MediaRepository extends CrudRepository<Media, Integer> {
 
     List<Media> findAllBy_returnDate(Date date);
 
+
 }
