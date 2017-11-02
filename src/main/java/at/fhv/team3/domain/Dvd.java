@@ -1,6 +1,7 @@
 package at.fhv.team3.domain;
 
 import at.fhv.team3.domain.dto.DTO;
+import at.fhv.team3.domain.interfaces.Borrowable;
 import at.fhv.team3.domain.interfaces.Searchable;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "dvd")
-public class Dvd implements Searchable {
+public class Dvd implements Borrowable {
 
     @Id
     private int _dvdId;

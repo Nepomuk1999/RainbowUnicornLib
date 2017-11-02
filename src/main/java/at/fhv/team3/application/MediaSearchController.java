@@ -1,5 +1,6 @@
 package at.fhv.team3.application;
 
+import at.fhv.team3.domain.Media;
 import at.fhv.team3.domain.MediaType;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Searchable;
@@ -44,13 +45,14 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
 
     //TODO: refactor to hashMap<Enum:MediaType, LinkedList<Media>
     public ArrayList<DTO> search(String searchTerm){
- //       HashMap<MediaType, ArrayList<DTO>> map = new HashMap<MediaType, ArrayList<DTO>>();
+        HashMap<MediaType, ArrayList<DTO>> map = new HashMap<MediaType, ArrayList<DTO>>();
         ArrayList<Searchable> searchResult = searchMedias(searchTerm);
         ArrayList<DTO> dtos = new ArrayList<DTO>();
         for(Searchable s : searchResult){
             //TODO: Implementierung von createDataTransferObject in allen Domänenobjekten.
             dtos.add(s.createDataTransferObject());
         }
+
         return dtos;
     }
 }
