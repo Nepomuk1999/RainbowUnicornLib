@@ -22,21 +22,36 @@ public class Book implements Borrowable {
     @JoinColumn(name = "media_mediaId")
     private Media media;
 
+    @Column(name = "title")
     private String _title;
+
+    @Column(name = "publisher")
     private String _publisher;
+
+    @Column(name = "author")
     private String _author;
+
+    @Column(name = "isbn")
     private String _isbn;
+
+    @Column(name = "edition")
     private String _edition;
+
+    @Column(name = "pictureURL")
     private String _pictureURL;
+
+    @Column(name = "shelfPos")
     private String _shelfPos;
 
     public Book(){}
 
-    public Book( String title, String author, String publisher, String isbn) {
+    public Book(String title, String author, String publisher, String isbn, String shelfPos, Media media) {
         this._title = title;
         this._author = author;
         this._publisher = publisher;
         this._isbn = isbn;
+        this._shelfPos = shelfPos;
+        this.media = media;
     }
 
     public void set_bookId(int id){

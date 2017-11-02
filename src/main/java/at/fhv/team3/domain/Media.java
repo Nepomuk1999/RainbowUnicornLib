@@ -1,11 +1,9 @@
 package at.fhv.team3.domain;
 
 import at.fhv.team3.domain.dto.DTO;
-import at.fhv.team3.domain.interfaces.Borrowable;
 import at.fhv.team3.domain.interfaces.Searchable;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,11 +17,16 @@ public class Media implements Searchable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "mediaId")
     private int _mediaId;
+
+    @Column(name = "mediaType")
     private MediaType _type;
+
+    @Column(name = "returnDate")
     private Date _returnDate;
 
-    private ArrayList<Borrowable> _medias;
+    // private ArrayList<Borrowable> _medias;
 
     @OneToMany(mappedBy = "_bookId", cascade = CascadeType.ALL)
     private Set<Book> bookList = new HashSet<Book>();
@@ -37,8 +40,11 @@ public class Media implements Searchable {
     private Dvd _dvd;
     private Book _book; */
 
-    public Media(){
+    public Media(){}
 
+    public Media (MediaType mediaType, Date returnDate) {
+        this._type = mediaType;
+        this._returnDate = returnDate;
     }
 
     public void setMediaId(int id){
@@ -65,6 +71,7 @@ public class Media implements Searchable {
         return _returnDate;
     }
 
+    /*
     public void addMedia(Borrowable media){
         _medias.add(media);
     }
@@ -72,6 +79,7 @@ public class Media implements Searchable {
     public ArrayList<Borrowable> getMedias(){
         return _medias;
     }
+    */
 
     public Set<Dvd> getDvdList() {
         return dvdList;
