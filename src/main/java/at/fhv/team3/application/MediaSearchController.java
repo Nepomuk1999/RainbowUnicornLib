@@ -3,6 +3,10 @@ package at.fhv.team3.application;
 import at.fhv.team3.domain.MediaType;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Searchable;
+import at.fhv.team3.rmi.interfaces.RMIMediaSearch;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,8 +14,11 @@ import java.util.HashMap;
 /**
  * Created by David on 10/31/2017.
  */
-public class MediaSearchController {
+public class MediaSearchController  extends UnicastRemoteObject implements RMIMediaSearch {
 
+
+    protected MediaSearchController() throws RemoteException {
+    }
 
     private ArrayList<Searchable> searchMedias(String searchTerm){
         //TODO: new ArrayList mit persistence Aufruf ersetzen
