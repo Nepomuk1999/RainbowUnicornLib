@@ -1,8 +1,6 @@
 package at.fhv.team3.persistence;
 
 import at.fhv.team3.domain.Magazine;
-import at.fhv.team3.domain.Media;
-import at.fhv.team3.domain.interfaces.Borrowable;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
