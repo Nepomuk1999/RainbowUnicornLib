@@ -3,7 +3,6 @@ package at.fhv.team3.domain;
 import at.fhv.team3.domain.dto.BookDTO;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Borrowable;
-import at.fhv.team3.domain.interfaces.Searchable;
 
 import javax.persistence.*;
 
@@ -15,6 +14,7 @@ import javax.persistence.*;
 public class Book implements Borrowable {
 
     @Id
+    @GeneratedValue
     private int _bookId;
 
     @ManyToOne
@@ -28,6 +28,13 @@ public class Book implements Borrowable {
     private String _shelfPos;
 
     public Book(){}
+
+    public Book( String title, String author, String publisher, String isbn) {
+        this._title = title;
+        this._author = author;
+        this._publisher = publisher;
+        this._isbn = isbn;
+    }
 
     public void setBookId(int id){
         _bookId = id;

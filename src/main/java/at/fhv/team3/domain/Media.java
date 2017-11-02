@@ -16,6 +16,7 @@ import java.util.Date;
 public class Media implements Searchable {
 
     @Id
+    @GeneratedValue
     private int _mediaId;
     private MediaType _type;
     private Date _returnDate;
