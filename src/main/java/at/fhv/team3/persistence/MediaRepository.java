@@ -18,8 +18,8 @@ public interface MediaRepository extends CrudRepository<Media, Integer> {
 
     List<Media> findAll(List<Media> medias);
 
-    List<Media> findAllBy_type(MediaType mediaType);
+    List<Media> findAllByType(MediaType mediaType);
 
-    List<Media> findAllBy_returnDate(Date date);
+    List<Media> findAllByReturnDate(Date date);
 
 }
