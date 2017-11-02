@@ -9,6 +9,8 @@ import java.util.ArrayList;
 /**
  * Created by David on 10/30/2017.
  */
+@Entity
+@Table(name = "externalLib")
 public class ExternalLib implements Transferable {
 
     @Id
