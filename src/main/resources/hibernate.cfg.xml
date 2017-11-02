@@ -13,5 +13,6 @@
         <property name="show_sql">true</property>
         <property name="hbm2ddl.auto">create</property>
         <mapping class="at.fhv.team3.domain.Book" />
+        <mapping class="at.fhv.team3.domain.Media" />
     </session-factory>
 </hibernate-configuration>

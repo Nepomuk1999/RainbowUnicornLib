@@ -7,6 +7,7 @@ import at.fhv.team3.domain.interfaces.Searchable;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 
 /**
  * Created by David on 10/30/2017.
@@ -24,10 +25,10 @@ public class Media implements Searchable {
     private ArrayList<Borrowable> _medias;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
-    private ArrayList<Book> bookList = new ArrayList<Book>();
+    private HashSet<Book> bookList = new HashSet<Book>();
 
     @OneToMany(mappedBy = "dvd", cascade = CascadeType.ALL)
-    private ArrayList<Dvd> dvdList = new ArrayList<Dvd>();
+    private HashSet<Dvd> dvdList = new HashSet<Dvd>();
 
     @OneToMany(mappedBy = "magazine", cascade = CascadeType.ALL)
     private ArrayList<Magazine> magazineList = new ArrayList<Magazine>();
@@ -71,7 +72,7 @@ public class Media implements Searchable {
         return _medias;
     }
 
-    public ArrayList<Dvd> getDvdList() {
+    public HashSet<Dvd> getDvdList() {
         return dvdList;
     }
 
@@ -87,7 +88,7 @@ public class Media implements Searchable {
         magazineList.add(value);
     }
 
-    public ArrayList<Book> getBookList() {
+    public HashSet<Book> getBookList() {
         return bookList;
     }
 

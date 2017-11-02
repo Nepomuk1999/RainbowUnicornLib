@@ -4,7 +4,6 @@ import at.fhv.team3.domain.*;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Searchable;
 import at.fhv.team3.rmi.interfaces.RMIMediaSearch;
-import org.springframework.stereotype.Service;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -15,7 +14,6 @@ import java.util.HashMap;
 /**
  * Created by David on 10/31/2017.
  */
-@Service
 public class MediaSearchController  extends UnicastRemoteObject implements RMIMediaSearch {
 
 

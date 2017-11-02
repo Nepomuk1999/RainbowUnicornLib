@@ -17,7 +17,7 @@ public class Book implements Borrowable {
     @GeneratedValue
     private int _bookId;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Media.class)
     private int media_mediaId;
     private String _title;
     private String _publisher;
