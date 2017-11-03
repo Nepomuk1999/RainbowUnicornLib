@@ -41,7 +41,7 @@ public class MediaRepository extends Repository<Media> {
         Media media = null;
         try {
             transaction = session.beginTransaction();
-            media = (Media) session.createQuery("from Media m where m.id = id");
+            media = (Media) session.createNativeQuery("select * from media where mediaId = '" + id + "'");
             transaction.commit();
             return media;
         } catch (HibernateException ex) {

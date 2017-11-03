@@ -43,7 +43,7 @@ public class BookRepository extends Repository<Book> {
         Book book = null;
         try {
             transaction = session.beginTransaction();
-            book = (Book) session.createQuery("from Book b where b.id = id");
+            book = (Book) session.createNativeQuery("select * from book where bookId = '" + id + "'");
             transaction.commit();
             return book;
         } catch (HibernateException ex) {

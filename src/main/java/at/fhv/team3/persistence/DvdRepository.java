@@ -43,7 +43,7 @@ public class DvdRepository extends Repository<Dvd> {
         Dvd dvd = null;
         try {
             transaction = session.beginTransaction();
-            dvd = (Dvd) session.createQuery("from Dvd d where d.id = id");
+            dvd = (Dvd) session.createNativeQuery("select * from dvd where dvdId = '" + id + "'");
             transaction.commit();
             return dvd;
         } catch (HibernateException ex) {

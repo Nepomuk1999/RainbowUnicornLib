@@ -41,7 +41,8 @@ public class MagazinRepository extends Repository<Magazine> {
         Magazine magazine = null;
         try {
             transaction = session.beginTransaction();
-            magazine = (Magazine) session.createQuery("from Magazine mag where mag.id = id");
+            magazine = (Magazine) session.createNativeQuery
+                    ("select * from magazine where magazineId = '" + id + "'");
             transaction.commit();
             return magazine;
         } catch (HibernateException ex) {
