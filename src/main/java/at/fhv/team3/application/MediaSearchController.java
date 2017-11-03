@@ -31,7 +31,7 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
         dvdRepository = DvdRepository.getInstance();
     }
 
-    private ArrayList<Searchable> searchMedias(String searchTerm){
+    public ArrayList<Searchable> searchMedias(String searchTerm){
         List<Book> books = bookRepository.getAll();
         List<Dvd> dvds = dvdRepository.getAll();
         List<Magazine> magazines = magazinRepository.getAll();
