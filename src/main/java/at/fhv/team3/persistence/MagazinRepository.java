@@ -22,7 +22,7 @@ public class MagazinRepository extends Repository<Magazine> {
         List<Magazine> magazines = new LinkedList<Magazine>();
         try {
             transaction = session.beginTransaction();
-            magazines = session.createQuery("from Magazine").list();
+            magazines = session.createNativeQuery("select * from magazine").list();
             transaction.commit();
             return magazines;
         } catch (HibernateException ex) {

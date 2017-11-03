@@ -24,7 +24,7 @@ public class DvdRepository extends Repository<Dvd> {
         List<Dvd> dvd = new LinkedList<Dvd>();
         try {
             transaction = session.beginTransaction();
-            dvd = session.createQuery("from Dvd").list();
+            dvd = session.createNativeQuery("select * from dvd").list();
             transaction.commit();
             return dvd;
         } catch (HibernateException ex) {

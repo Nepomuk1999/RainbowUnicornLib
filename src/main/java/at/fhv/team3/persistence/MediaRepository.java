@@ -22,7 +22,7 @@ public class MediaRepository extends Repository<Media> {
         List<Media> media = new LinkedList<Media>();
         try {
             transaction = session.beginTransaction();
-            media = session.createQuery("from Media").list();
+            media = session.createNativeQuery("select * from media").list();
             transaction.commit();
             return media;
         } catch (HibernateException ex) {
