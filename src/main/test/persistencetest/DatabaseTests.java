@@ -6,10 +6,9 @@ import at.fhv.team3.domain.Magazine;
 import at.fhv.team3.domain.Media;
 import at.fhv.team3.persistence.BookRepository;
 import at.fhv.team3.persistence.DvdRepository;
-import at.fhv.team3.persistence.MagazinRepository;
+import at.fhv.team3.persistence.MagazineRepository;
 import at.fhv.team3.persistence.MediaRepository;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -17,14 +16,14 @@ import java.util.List;
 public class DatabaseTests {
 
     private BookRepository bookRepository;
-    private MagazinRepository magazinRepository;
+    private MagazineRepository magazineRepository;
     private DvdRepository dvdRepository;
     private MediaRepository mediaRepository;
 
     //TODO: FIX TESTS
     public DatabaseTests() {
         bookRepository = BookRepository.getInstance();
-        magazinRepository = MagazinRepository.getInstance();
+        magazineRepository = MagazineRepository.getInstance();
         dvdRepository = DvdRepository.getInstance();
         mediaRepository = MediaRepository.getInstance();
     }
@@ -43,7 +42,7 @@ public class DatabaseTests {
 
     @Test
     public void TestConnectionMagazin() {
-        List<Magazine> magList = magazinRepository.getAll();
+        List<Magazine> magList = magazineRepository.getAll();
         Assert.assertFalse(magList.size() == 0);
     }
 

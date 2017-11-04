@@ -7,14 +7,14 @@ import org.hibernate.Session;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MagazinRepository extends Repository<Magazine> {
-    private static MagazinRepository ourInstance = new MagazinRepository();
+public class MagazineRepository extends Repository<Magazine> {
+    private static MagazineRepository ourInstance = new MagazineRepository();
 
-    public static MagazinRepository getInstance() {
+    public static MagazineRepository getInstance() {
         return ourInstance;
     }
 
-    private MagazinRepository() {
+    private MagazineRepository() {
     }
 
     public List<Magazine> getAll() {

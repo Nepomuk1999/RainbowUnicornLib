@@ -5,14 +5,13 @@ import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Searchable;
 import at.fhv.team3.persistence.BookRepository;
 import at.fhv.team3.persistence.DvdRepository;
-import at.fhv.team3.persistence.MagazinRepository;
+import at.fhv.team3.persistence.MagazineRepository;
 import at.fhv.team3.rmi.interfaces.RMIMediaSearch;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -22,19 +21,19 @@ import java.util.List;
 public class MediaSearchController  extends UnicastRemoteObject implements RMIMediaSearch {
 
     private BookRepository bookRepository;
-    private MagazinRepository magazinRepository;
+    private MagazineRepository magazineRepository;
     private DvdRepository dvdRepository;
 
     public MediaSearchController() throws RemoteException {
         bookRepository = BookRepository.getInstance();
-        magazinRepository = MagazinRepository.getInstance();
+        magazineRepository = MagazineRepository.getInstance();
         dvdRepository = DvdRepository.getInstance();
     }
 
     public ArrayList<Searchable> searchMedias(String searchTerm){
         List<Book> books = bookRepository.getAll();
         List<Dvd> dvds = dvdRepository.getAll();
-        List<Magazine> magazines = magazinRepository.getAll();
+        List<Magazine> magazines = magazineRepository.getAll();
 
         ArrayList<Searchable> allMedias = new ArrayList<Searchable>();
 
