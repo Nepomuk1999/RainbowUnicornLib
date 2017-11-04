@@ -45,11 +45,12 @@ public class Book implements Borrowable {
 
     public Book(){}
 
-    public Book(String title, String author, String publisher, String isbn, String shelfPos, Media media) {
+    public Book(String title, String author, String publisher, String isbn,String edition, String shelfPos, Media media) {
         this._title = title;
         this._author = author;
         this._publisher = publisher;
         this._isbn = isbn;
+        this._edition = edition;
         this._shelfPos = shelfPos;
         this.media = media;
     }
