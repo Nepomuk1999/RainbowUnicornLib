@@ -24,8 +24,6 @@ public class BorrowedItem implements Transferable {
     @ManyToOne
     private Customer _customer;
 
-    private Media _media;
-
     public BorrowedItem(){
 
     }
@@ -62,15 +60,7 @@ public class BorrowedItem implements Transferable {
         return _customer;
     }
 
-    public void setMedia(Media m){
-        _media = _media;
-    }
-
-    public Media getMedia(){
-        return _media;
-    }
-
     public DTO createDataTransferObject() {
-        return new BorrowedItemDTO(_borrowedId, _borrowedDate, _externalLib, _customer, _media);
+        return new BorrowedItemDTO(_borrowedId, _borrowedDate, _externalLib, _customer);
     }
 }

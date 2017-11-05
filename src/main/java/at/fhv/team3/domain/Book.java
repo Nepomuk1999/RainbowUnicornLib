@@ -18,10 +18,6 @@ public class Book implements Borrowable {
     @Column(name = "bookId")
     private int _bookId;
 
-    @ManyToOne(targetEntity = Media.class)
-    @JoinColumn(name = "media_mediaId")
-    private Media media;
-
     @Column(name = "title")
     private String _title;
 
@@ -45,14 +41,13 @@ public class Book implements Borrowable {
 
     public Book(){}
 
-    public Book(String title, String author, String publisher, String isbn,String edition, String shelfPos, Media media) {
+    public Book(String title, String author, String publisher, String isbn, String edition, String shelfPos) {
         this._title = title;
         this._author = author;
         this._publisher = publisher;
         this._isbn = isbn;
         this._edition = edition;
         this._shelfPos = shelfPos;
-        this.media = media;
     }
 
     public void set_bookId(int id){
@@ -109,14 +104,6 @@ public class Book implements Borrowable {
 
     public String getShelfPos(){
         return _shelfPos;
-    }
-
-    public Media getMedia() {
-        return media;
-    }
-
-    public void setMedia_mediaId(Media media) {
-        this.media = media;
     }
 
     public boolean containsSearchTerm(String searchTerm) {

@@ -20,7 +20,6 @@ public class BookedItem implements Transferable {
     @ManyToOne
     private Customer _customer;
 
-    private Media _media;
     private Date _date;
 
     public BookedItem(){
@@ -43,14 +42,6 @@ public class BookedItem implements Transferable {
         return _customer;
     }
 
-    public void setMedia(Media media){
-        _media = media;
-    }
-
-    public Media getMedia(){
-        return _media;
-    }
-
     public void setDate(Date date){
         _date = date;
     }
@@ -60,6 +51,6 @@ public class BookedItem implements Transferable {
     }
 
     public DTO createDataTransferObject() {
-        return new BookedItemDTO(_bookingId, _customer, _media, _date);
+        return new BookedItemDTO(_bookingId, _customer, _date);
     }
 }

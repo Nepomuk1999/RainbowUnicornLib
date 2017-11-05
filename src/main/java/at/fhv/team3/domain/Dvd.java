@@ -18,10 +18,6 @@ public class Dvd implements Borrowable {
     @Column(name = "dvdId")
     private int _dvdId;
 
-    @ManyToOne
-    @JoinColumn(name = "media_mediaId")
-    private Media media;
-
     @Column(name = "title")
     private String _title;
 
@@ -72,14 +68,6 @@ public class Dvd implements Borrowable {
 
     public String getShelfPos(){
         return _shelfPos;
-    }
-
-    public Media getMedia_mediaId() {
-        return media;
-    }
-
-    public void setMedia_mediaId(Media media) {
-        this.media = media;
     }
 
     public boolean containsSearchTerm(String searchTerm) {

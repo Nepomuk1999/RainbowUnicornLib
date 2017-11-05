@@ -1,7 +1,6 @@
 package at.fhv.team3.domain.dto;
 
 import at.fhv.team3.domain.Customer;
-import at.fhv.team3.domain.Media;
 
 import java.util.Date;
 
@@ -12,13 +11,11 @@ public class BookedItemDTO extends DTO{
 
     private int _bookingId;
     private Customer _customer;
-    private Media _media;
     private Date _date;
 
-    public BookedItemDTO(int id, Customer customer, Media media, Date date){
+    public BookedItemDTO(int id, Customer customer, Date date) {
         _bookingId = id;
         _customer = customer;
-        _media = media;
         _date = date;
     }
 
@@ -36,14 +33,6 @@ public class BookedItemDTO extends DTO{
 
     public Customer getCustomer(){
         return _customer;
-    }
-
-    public void setMedia(Media media){
-        _media = media;
-    }
-
-    public Media getMedia(){
-        return _media;
     }
 
     public void setDate(Date date){

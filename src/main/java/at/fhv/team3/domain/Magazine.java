@@ -18,10 +18,6 @@ public class Magazine implements Borrowable {
     @Column(name = "magazineId")
     private int _magazineId;
 
-    @ManyToOne
-    @JoinColumn(name = "media_mediaId")
-    private Media media;
-
     @Column(name = "title")
     private String _title;
 
@@ -85,14 +81,6 @@ public class Magazine implements Borrowable {
 
     public String getShelfPos(){
         return _shelfPos;
-    }
-
-    public Media getMedia_mediaId() {
-        return media;
-    }
-
-    public void setMedia_mediaId(Media media) {
-        this.media = media;
     }
 
     public boolean containsSearchTerm(String searchTerm) {

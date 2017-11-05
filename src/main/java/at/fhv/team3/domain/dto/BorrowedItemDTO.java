@@ -2,7 +2,6 @@ package at.fhv.team3.domain.dto;
 
 import at.fhv.team3.domain.Customer;
 import at.fhv.team3.domain.ExternalLib;
-import at.fhv.team3.domain.Media;
 
 import java.util.Date;
 
@@ -15,14 +14,13 @@ public class BorrowedItemDTO extends DTO{
     private Date _borrowedDate;
     private ExternalLib _externalLib;
     private Customer _customer;
-    private Media _media;
 
-    public BorrowedItemDTO(int id, Date borrowedDate, ExternalLib externalLib, Customer customer, Media media){
+
+    public BorrowedItemDTO(int id, Date borrowedDate, ExternalLib externalLib, Customer customer) {
         _borrowedId = id;
         _borrowedDate = borrowedDate;
         _externalLib = externalLib;
         _customer = customer;
-        _media = media;
 
     }
 
@@ -56,14 +54,6 @@ public class BorrowedItemDTO extends DTO{
 
     public Customer getCustomer(){
         return _customer;
-    }
-
-    public void setMedia(Media m){
-        _media = _media;
-    }
-
-    public Media getMedia(){
-        return _media;
     }
 
     public void setId(int id) {

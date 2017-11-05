@@ -1,7 +1,6 @@
-package persistenceTest;
+package persistencetest;
 
 import at.fhv.team3.domain.Book;
-import at.fhv.team3.domain.Media;
 import at.fhv.team3.domain.MediaType;
 import at.fhv.team3.persistence.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -25,42 +24,21 @@ public class TestingMain {
         TestingMain testingMain = new TestingMain();
         Date date = new Date();
 
-        Media media = new Media(MediaType.BOOK, date);
-
-        testingMain.addMedia(media);
-
-        testingMain.addBook("Das Buch", "Wolfgang Hohlbein", "Ueberreuter", "978-3800053254", "1.Edition", "E7S3P1", media);
+        testingMain.addBook("Das Buch", "Wolfgang Hohlbein", "Ueberreuter", "978-3800053254", "1.Edition", "E7S3P1");
 
 
         factory.close();
     }
 
-    public Integer addMedia(Media media) {
-        Session session = factory.openSession();
-        Transaction tx = null;
-        Integer mediaId = null;
 
-        try {
-            tx = session.beginTransaction();
-            mediaId = (Integer) session.save(media);
-            tx.commit();
-        } catch (HibernateException e) {
-            if (tx!=null) tx.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return mediaId;
-    }
-
-    public Integer addBook(String title, String author, String publisher, String isbn,  String edition, String shelfPos, Media media){
+    public Integer addBook(String title, String author, String publisher, String isbn, String edition, String shelfPos) {
         Session session = factory.openSession();
         Transaction tx = null;
         Integer bookId = null;
 
         try {
             tx = session.beginTransaction();
-            Book book = new Book(title, author, publisher, isbn, edition, shelfPos, media);
+            Book book = new Book(title, author, publisher, isbn, edition, shelfPos);
             bookId = (Integer) session.save(book);
             tx.commit();
         } catch (HibernateException e) {

@@ -1,13 +1,11 @@
-package persistenceTest;
+package persistencetest;
 
 import at.fhv.team3.domain.Book;
 import at.fhv.team3.domain.Dvd;
 import at.fhv.team3.domain.Magazine;
-import at.fhv.team3.domain.Media;
 import at.fhv.team3.persistence.BookRepository;
 import at.fhv.team3.persistence.DvdRepository;
 import at.fhv.team3.persistence.MagazineRepository;
-import at.fhv.team3.persistence.MediaRepository;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -18,14 +16,13 @@ public class DatabaseTests {
     private BookRepository bookRepository;
     private MagazineRepository magazineRepository;
     private DvdRepository dvdRepository;
-    private MediaRepository mediaRepository;
 
     //TODO: FIX TESTS
     public DatabaseTests() {
         bookRepository = BookRepository.getInstance();
         magazineRepository = MagazineRepository.getInstance();
         dvdRepository = DvdRepository.getInstance();
-        mediaRepository = MediaRepository.getInstance();
+
     }
 
     @Test
@@ -46,9 +43,4 @@ public class DatabaseTests {
         Assert.assertFalse(magList.size() == 0);
     }
 
-    @Test
-    public void TestConnectionMedia() {
-        List<Media> mediaList = mediaRepository.getAll();
-        Assert.assertFalse(mediaList.size() == 0);
-    }
 }
