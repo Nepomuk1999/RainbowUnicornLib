@@ -1,5 +1,7 @@
 package at.fhv.team3.domain.dto;
 
+import java.util.HashMap;
+
 /**
  * Created by David on 10/30/2017.
  */
@@ -63,8 +65,13 @@ public class DvdDTO extends DTO{
         return getDvdId();
     }
 
-    public String[] getAllDataAsStringArray() {
-            String[] allData = {""+_dvdId, _title, _regisseur, _pictureURL, _shelfPos};
-            return allData;
+    public HashMap<String, String> getAllData() {
+        HashMap<String, String> allData = new HashMap<String, String>();
+        allData.put("id", ""+_dvdId);
+        allData.put("title", _title);
+        allData.put("regisseur", _regisseur);
+        allData.put("pictureURL", _pictureURL);
+        allData.put("shelfPos", _shelfPos);
+        return allData;
     }
 }

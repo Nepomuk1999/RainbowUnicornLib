@@ -1,5 +1,7 @@
 package at.fhv.team3.domain.dto;
 
+import java.util.HashMap;
+
 /**
  * Created by David on 10/30/2017.
  */
@@ -72,14 +74,20 @@ public class CustomerDTO extends DTO{
         return getCustomerId();
     }
 
-    public String[] getAllDataAsStringArray() {
+    public HashMap<String, String> getAllData() {
         String subscription;
         if(_subscription){
             subscription = "true";
         } else {
             subscription = "false";
         }
-        String[] allData = {""+_customerId, _firstName, _lastName, subscription, _email, _phoneNumber};
+        HashMap<String, String> allData = new HashMap<String, String>();
+        allData.put("id", ""+_customerId);
+        allData.put("firstname", _firstName);
+        allData.put("lastname", _lastName);
+        allData.put("subscription", subscription);
+        allData.put("email", _email);
+        allData.put("_phoneNumber", _phoneNumber);
         return allData;
     }
 }

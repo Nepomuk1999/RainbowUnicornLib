@@ -1,5 +1,7 @@
 package at.fhv.team3.domain.dto;
 
+import java.util.HashMap;
+
 /**
  * Created by David on 10/30/2017.
  */
@@ -77,8 +79,14 @@ public class MagazineDTO extends DTO{
         return getMagazineId();
     }
 
-    public String[] getAllDataAsStringArray() {
-        String[] allData = {""+_magazineId, _title, _edition, _publisher, _pictureURL, _shelfPos};
+    public HashMap<String, String> getAllData() {
+        HashMap<String, String> allData = new HashMap<String, String>();
+        allData.put("id", ""+_magazineId);
+        allData.put("title", _title);
+        allData.put("edition", _edition);
+        allData.put("publisher", _publisher);
+        allData.put("pictureURL", _pictureURL);
+        allData.put("shelfPos", _shelfPos);
         return allData;
     }
 }

@@ -1,5 +1,7 @@
 package at.fhv.team3.domain.dto;
 
+import java.util.HashMap;
+
 /**
  * Created by David on 10/30/2017.
  */
@@ -63,8 +65,13 @@ public class EmployeeDTO extends DTO{
         return getEmployeeId();
     }
 
-    public String[] getAllDataAsStringArray() {
-        String[] allData = {""+_employeeId, _firstName, _lastName, _role, _userName};
+    public HashMap<String, String> getAllData() {
+        HashMap<String, String> allData = new HashMap<String, String>();
+        allData.put("id", ""+_employeeId);
+        allData.put("firstname", _firstName);
+        allData.put("lastname", _lastName);
+        allData.put("role", _role);
+        allData.put("username", _userName);
         return allData;
     }
 }

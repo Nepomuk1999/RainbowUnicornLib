@@ -4,6 +4,7 @@ import at.fhv.team3.domain.Customer;
 import at.fhv.team3.domain.ExternalLib;
 
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by David on 10/30/2017.
@@ -64,8 +65,12 @@ public class BorrowedItemDTO extends DTO{
         return getBorrowedId();
     }
 
-    public String[] getAllDataAsStringArray() {
-        String[] allData = {""+_borrowedId, _borrowedDate.toString(), _externalLib.getName(), _customer.getFirstName() + " " + _customer.getLastName()};
+    public HashMap<String, String> getAllData() {
+        HashMap<String, String> allData = new HashMap<String, String>();
+        allData.put("id", ""+_borrowedId);
+        allData.put("externalLib", _externalLib.getName());
+        allData.put("date", _borrowedDate.toString());
+        allData.put("customer", _customer.getFirstName() + " " + _customer.getLastName());
         return allData;
     }
 }

@@ -1,5 +1,7 @@
 package at.fhv.team3.domain.dto;
 
+import java.util.HashMap;
+
 /**
  * Created by David on 10/30/2017.
  */
@@ -45,8 +47,11 @@ public class ExternalLibDTO extends DTO{
         return getLibId();
     }
 
-    public String[] getAllDataAsStringArray() {
-        String[] allData = {""+_libId, _name, _accountData};
+    public HashMap<String, String> getAllData() {
+        HashMap<String, String> allData = new HashMap<String, String>();
+        allData.put("id", ""+_libId);
+        allData.put("name", _name);
+        allData.put("accountData", _accountData);
         return allData;
     }
 }

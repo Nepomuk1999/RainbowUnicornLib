@@ -3,6 +3,7 @@ package at.fhv.team3.domain.dto;
 import at.fhv.team3.domain.Customer;
 
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by David on 10/30/2017.
@@ -51,8 +52,11 @@ public class BookedItemDTO extends DTO{
         return getBookingId();
     }
 
-    public String[] getAllDataAsStringArray() {
-        String[] allData = {""+_bookingId, _customer.getFirstName() + " " + _customer.getLastName(), _date.toString()};
+    public HashMap<String, String> getAllData() {
+        HashMap<String, String> allData = new HashMap<String, String>();
+        allData.put("id", ""+_bookingId);
+        allData.put("customer", _customer.getFirstName() + " " + _customer.getLastName());
+        allData.put("date", _date.toString());
         return allData;
     }
 }

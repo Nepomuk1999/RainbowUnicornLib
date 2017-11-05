@@ -1,5 +1,7 @@
 package at.fhv.team3.domain.dto;
 
+import java.util.HashMap;
+
 /**
  * Created by David on 10/31/2017.
  */
@@ -11,5 +13,5 @@ public abstract class DTO{
 
     public abstract int getId();
 
-    public abstract String[] getAllDataAsStringArray();
+    public abstract HashMap<String, String> getAllData();
 }

@@ -1,5 +1,7 @@
 package at.fhv.team3.domain.dto;
 
+import java.util.HashMap;
+
 /**
  * Created by David on 10/30/2017.
  */
@@ -97,8 +99,17 @@ public class BookDTO extends DTO{
         return getBookId();
     }
 
-    public String[] getAllDataAsStringArray() {
-        String[] allData = {""+_bookId, _title, _publisher, _author, _isbn, _edition, _pictureURL, _shelfPos};
+    public HashMap<String, String> getAllData() {
+        HashMap<String, String> allData = new HashMap<String, String>();
+        allData.put("id", ""+_bookId);
+        allData.put("title", _title);
+        allData.put("publisher", _publisher);
+        allData.put("author", _author);
+        allData.put("isbn", _isbn);
+        allData.put("edition", _edition);
+        allData.put("pictureURL", _pictureURL);
+        allData.put("shelfPos", _shelfPos);
         return allData;
     }
+
 }
