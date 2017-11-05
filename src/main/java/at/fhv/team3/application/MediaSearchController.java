@@ -41,18 +41,13 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
         allMedias.addAll(books);
         allMedias.addAll(dvds);
         allMedias.addAll(magazines);
-
         ArrayList<Searchable> searchResult = new ArrayList<Searchable>();
 
-        Iterator<Searchable> it = allMedias.iterator();
-        while(it.hasNext()){
-            
-        }
-       /* for(Searchable s : allMedias){
+       for(Searchable s : allMedias){
             if(s.containsSearchTerm(searchTerm)){
                 searchResult.add(s);
             }
-        }*/
+        }
         return searchResult;
     }
 

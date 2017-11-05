@@ -38,7 +38,7 @@ public class DatabaseTests {
     }
 
     @Test
-    public void TestConnectionMagazin() {
+    public void TestConnectionMagazine() {
         List<Magazine> magList = magazineRepository.getAll();
         Assert.assertFalse(magList.size() == 0);
     }
