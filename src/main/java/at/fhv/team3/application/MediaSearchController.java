@@ -12,6 +12,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -43,11 +44,15 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
 
         ArrayList<Searchable> searchResult = new ArrayList<Searchable>();
 
-        for(Searchable s : allMedias){
+        Iterator<Searchable> it = allMedias.iterator();
+        while(it.hasNext()){
+            
+        }
+       /* for(Searchable s : allMedias){
             if(s.containsSearchTerm(searchTerm)){
                 searchResult.add(s);
             }
-        }
+        }*/
         return searchResult;
     }
 
