@@ -1,9 +1,13 @@
 package at.fhv.team3.persistence;
 
+import at.fhv.team3.domain.Book;
 import at.fhv.team3.domain.Magazine;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.LinkedList;
 import java.util.List;
 

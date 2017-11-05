@@ -15,7 +15,7 @@ public class BookDTO extends DTO{
     private String _shelfPos;
 
     public BookDTO(int id, String title, String publisher, String author, String isbn, String edition, String pictureURL, String shelfPos){
-        _id = id;
+        _bookId = id;
         _title = title;
         _publisher = publisher;
         _author = author;
@@ -69,8 +69,16 @@ public class BookDTO extends DTO{
         _edition = edition;
     }
 
+    public String getEdition(){
+        return _edition;
+    }
+
     public void setPictureURL(String pictureURL){
         _pictureURL = pictureURL;
+    }
+
+    public String getPictureURL(){
+        return _pictureURL;
     }
 
     public void setShelfPos(String shelfPos){

@@ -26,8 +26,6 @@ public class Media implements Searchable {
     @Column(name = "returnDate")
     private Date _returnDate;
 
-    // private ArrayList<Borrowable> _medias;
-
     @OneToMany(mappedBy = "_bookId", cascade = CascadeType.ALL)
     private Set<Book> bookList = new HashSet<Book>();
 
@@ -36,9 +34,6 @@ public class Media implements Searchable {
 
     @OneToMany(mappedBy = "_magazineId", cascade = CascadeType.ALL)
     private Set<Magazine> magazineList = new HashSet<Magazine>();
-/*  private Magazine _magazine;
-    private Dvd _dvd;
-    private Book _book; */
 
     public Media(){}
 
@@ -71,16 +66,6 @@ public class Media implements Searchable {
         return _returnDate;
     }
 
-    /*
-    public void addMedia(Borrowable media){
-        _medias.add(media);
-    }
-
-    public ArrayList<Borrowable> getMedias(){
-        return _medias;
-    }
-    */
-
     public Set<Dvd> getDvdList() {
         return dvdList;
     }
@@ -104,32 +89,6 @@ public class Media implements Searchable {
     public void addToBookList(Book value) {
         bookList.add(value);
     }
-
-
-/*    public void setMagazine(Magazine magazine){
-        _magazine = magazine;
-    }
-
-    public Magazine getMagazine(){
-        return _magazine;
-    }
-
-    public void setDvd(Dvd dvd){
-        _dvd = dvd;
-    }
-
-    public Dvd getDvd(){
-        return _dvd;
-    }
-
-    public void setBook(Book book){
-        _book = book;
-    }
-
-    public Book getBook(){
-        return _book;
-    }
-    */
 
     public boolean containsSearchTerm(String searchTerm) {
 

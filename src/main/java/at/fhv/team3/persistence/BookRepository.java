@@ -4,8 +4,11 @@ import at.fhv.team3.domain.Book;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
-import java.util.LinkedList;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
+
 
 public class BookRepository extends Repository<Book> {
     private static BookRepository ourInstance;
@@ -21,7 +24,7 @@ public class BookRepository extends Repository<Book> {
 
     public List<Book> getAll() {
         Session session = sessionFactory.openSession();
-        List books = new LinkedList<Book>();
+        List books;
         try {
             transaction = session.beginTransaction();
             books = session.createNativeQuery("SELECT * FROM book", Book.class).list();
