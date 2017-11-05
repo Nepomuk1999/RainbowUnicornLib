@@ -13,8 +13,7 @@ public abstract class Repository<T extends Transferable> {
     protected SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     protected Transaction transaction = null;
 
-    public Repository() {
-    }
+    public Repository() { }
 
     public abstract List<T> getAll();
 

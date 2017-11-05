@@ -3,6 +3,7 @@ package at.fhv.team3.rmi.interfaces;
 import at.fhv.team3.domain.dto.DTO;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
@@ -10,5 +11,5 @@ import java.util.ArrayList;
  */
 public interface RMIMediaSearch extends Remote{
 
-    public ArrayList<DTO> search(String searchTerm);
+    public ArrayList<DTO> search(String searchTerm) throws RemoteException;
 }

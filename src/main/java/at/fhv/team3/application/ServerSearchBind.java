@@ -20,7 +20,6 @@ public class ServerSearchBind {
             System.setSecurityManager(new SecurityManager());
         }
 
-        byte pattern = (byte) 0xAC;
         try {
             /*
              * Create remote object and export it to use

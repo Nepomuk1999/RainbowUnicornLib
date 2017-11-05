@@ -3,11 +3,9 @@ package at.fhv.team3.persistence;
 import at.fhv.team3.domain.Book;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 public class BookRepository extends Repository<Book> {
     private static BookRepository ourInstance = new BookRepository();
@@ -16,8 +14,7 @@ public class BookRepository extends Repository<Book> {
         return ourInstance;
     }
 
-    private BookRepository() {
-    }
+    private BookRepository() { }
 
     public List<Book> getAll() {
         Session session = sessionFactory.openSession();
