@@ -25,7 +25,7 @@ public class DvdRepository extends Repository<Dvd> {
         List<Dvd> dvd = new LinkedList<Dvd>();
         try {
             transaction = session.beginTransaction();
-            dvd = session.createNativeQuery("select * from dvd").getResultList();
+            dvd = session.createNativeQuery("SELECT * FROM dvd", Dvd.class).list();
             transaction.commit();
             return dvd;
         } catch (HibernateException ex) {
@@ -33,8 +33,6 @@ public class DvdRepository extends Repository<Dvd> {
                 transaction.rollback();
             }
             System.out.println("Dvd get all error:" + ex);
-        } finally {
-            session.close();
         }
         return null;
     }
@@ -44,7 +42,7 @@ public class DvdRepository extends Repository<Dvd> {
         Dvd dvd = null;
         try {
             transaction = session.beginTransaction();
-            dvd = (Dvd) session.createNativeQuery("select * from dvd where dvdId = '" + id + "'");
+            dvd = (Dvd) session.createNativeQuery("select * from dvd where dvdId = '" + id + "'", Dvd.class);
             transaction.commit();
             return dvd;
         } catch (HibernateException ex) {

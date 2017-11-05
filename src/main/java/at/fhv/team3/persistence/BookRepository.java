@@ -24,7 +24,7 @@ public class BookRepository extends Repository<Book> {
         List books = new LinkedList<Book>();
         try {
             transaction = session.beginTransaction();
-            books = session.createNativeQuery("select * from book").getResultList();
+            books = session.createNativeQuery("SELECT * FROM book", Book.class).list();
             transaction.commit();
             return books;
         } catch (HibernateException ex) {
@@ -32,8 +32,6 @@ public class BookRepository extends Repository<Book> {
                 transaction.rollback();
             }
             System.out.println("Book get all error:" + ex);
-        } finally {
-            session.close();
         }
         return null;
     }
@@ -43,7 +41,8 @@ public class BookRepository extends Repository<Book> {
         Book book = null;
         try {
             transaction = session.beginTransaction();
-            book = (Book) session.createNativeQuery("select * from book where bookId = '" + id + "'");
+            book = (Book) session.createNativeQuery
+                    ("select * from book where bookId = '" + id + "'", Book.class);
             transaction.commit();
             return book;
         } catch (HibernateException ex) {

@@ -24,7 +24,7 @@ public class MagazineRepository extends Repository<Magazine> {
         List<Magazine> magazines = new LinkedList<Magazine>();
         try {
             transaction = session.beginTransaction();
-            magazines = session.createNativeQuery("select * from magazine").getResultList();
+            magazines = session.createNativeQuery("SELECT * FROM magazine", Magazine.class).list();
             transaction.commit();
             return magazines;
         } catch (HibernateException ex) {
@@ -32,8 +32,6 @@ public class MagazineRepository extends Repository<Magazine> {
                 transaction.rollback();
             }
             System.out.println("Magazin get all error:" + ex);
-        } finally {
-            session.close();
         }
         return null;
     }
@@ -44,7 +42,7 @@ public class MagazineRepository extends Repository<Magazine> {
         try {
             transaction = session.beginTransaction();
             magazine = (Magazine) session.createNativeQuery
-                    ("select * from magazine where magazineId = '" + id + "'");
+                    ("select * from magazine where magazineId = '" + id + "'", Magazine.class);
             transaction.commit();
             return magazine;
         } catch (HibernateException ex) {
