@@ -1,7 +1,6 @@
 package persistencetest;
 
 import at.fhv.team3.application.MediaSearchController;
-import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Searchable;
 import org.junit.Test;
 

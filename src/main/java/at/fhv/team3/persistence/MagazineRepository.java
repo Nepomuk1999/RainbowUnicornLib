@@ -8,9 +8,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MagazineRepository extends Repository<Magazine> {
-    private static MagazineRepository ourInstance = new MagazineRepository();
+    private static MagazineRepository ourInstance;
 
     public static MagazineRepository getInstance() {
+        if(ourInstance == null){
+            ourInstance = new MagazineRepository();
+        }
         return ourInstance;
     }
 

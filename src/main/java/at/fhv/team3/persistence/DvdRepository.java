@@ -10,9 +10,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DvdRepository extends Repository<Dvd> {
-    private static DvdRepository ourInstance = new DvdRepository();
+    private static DvdRepository ourInstance;
 
     public static DvdRepository getInstance() {
+        if(ourInstance == null){
+            ourInstance = new DvdRepository();
+        }
         return ourInstance;
     }
 

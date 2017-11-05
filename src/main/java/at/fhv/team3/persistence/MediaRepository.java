@@ -8,9 +8,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MediaRepository extends Repository<Media> {
-    private static MediaRepository ourInstance = new MediaRepository();
+    private static MediaRepository ourInstance;
 
     public static MediaRepository getInstance() {
+        if(ourInstance == null){
+            ourInstance = new MediaRepository();
+        }
         return ourInstance;
     }
 

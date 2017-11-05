@@ -8,9 +8,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BookRepository extends Repository<Book> {
-    private static BookRepository ourInstance = new BookRepository();
+    private static BookRepository ourInstance;
 
     public static BookRepository getInstance() {
+        if(ourInstance == null){
+            ourInstance = new BookRepository();
+        }
         return ourInstance;
     }
 
