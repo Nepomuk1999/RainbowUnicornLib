@@ -34,8 +34,8 @@ public class ServerSearchBind {
             /*
              * Create a registry and bind stub in registry.
              */
-            LocateRegistry.createRegistry(2002);
-            Registry registry = LocateRegistry.getRegistry(2002);
+            LocateRegistry.createRegistry(1099);
+            Registry registry = LocateRegistry.getRegistry(1099);
             registry.rebind("Search", stub);
             System.out.println("Search bound in registry");
 
@@ -45,6 +45,9 @@ public class ServerSearchBind {
         }
     }
 }
+
+// HO TO CLIENT:
+
 /*
 import java.rmi.*;
 import java.rmi.registry.*;
