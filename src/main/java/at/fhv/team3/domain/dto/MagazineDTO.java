@@ -76,4 +76,9 @@ public class MagazineDTO extends DTO{
     public int getId() {
         return getMagazineId();
     }
+
+    public String[] getAllDataAsStringArray() {
+        String[] allData = {""+_magazineId, _title, _edition, _publisher, _pictureURL, _shelfPos};
+        return allData;
+    }
 }

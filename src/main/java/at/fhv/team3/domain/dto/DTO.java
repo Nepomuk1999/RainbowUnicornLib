@@ -10,4 +10,6 @@ public abstract class DTO{
     public abstract void setId(int id);
 
     public abstract int getId();
+
+    public abstract String[] getAllDataAsStringArray();
 }

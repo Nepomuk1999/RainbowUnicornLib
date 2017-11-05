@@ -63,4 +63,9 @@ public class BorrowedItemDTO extends DTO{
     public int getId() {
         return getBorrowedId();
     }
+
+    public String[] getAllDataAsStringArray() {
+        String[] allData = {""+_borrowedId, _borrowedDate.toString(), _externalLib.getName(), _customer.getFirstName() + " " + _customer.getLastName()};
+        return allData;
+    }
 }

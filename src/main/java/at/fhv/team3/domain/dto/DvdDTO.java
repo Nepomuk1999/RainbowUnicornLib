@@ -62,4 +62,9 @@ public class DvdDTO extends DTO{
     public int getId() {
         return getDvdId();
     }
+
+    public String[] getAllDataAsStringArray() {
+            String[] allData = {""+_dvdId, _title, _regisseur, _pictureURL, _shelfPos};
+            return allData;
+    }
 }

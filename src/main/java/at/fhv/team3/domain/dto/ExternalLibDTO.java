@@ -44,4 +44,9 @@ public class ExternalLibDTO extends DTO{
     public int getId() {
         return getLibId();
     }
+
+    public String[] getAllDataAsStringArray() {
+        String[] allData = {""+_libId, _name, _accountData};
+        return allData;
+    }
 }

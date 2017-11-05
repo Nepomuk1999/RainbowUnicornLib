@@ -96,4 +96,9 @@ public class BookDTO extends DTO{
     public int getId() {
         return getBookId();
     }
+
+    public String[] getAllDataAsStringArray() {
+        String[] allData = {""+_bookId, _title, _publisher, _author, _isbn, _edition, _pictureURL, _shelfPos};
+        return allData;
+    }
 }

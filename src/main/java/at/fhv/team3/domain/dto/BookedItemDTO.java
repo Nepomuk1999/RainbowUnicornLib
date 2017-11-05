@@ -50,4 +50,9 @@ public class BookedItemDTO extends DTO{
     public int getId() {
         return getBookingId();
     }
+
+    public String[] getAllDataAsStringArray() {
+        String[] allData = {""+_bookingId, _customer.getFirstName() + " " + _customer.getLastName(), _date.toString()};
+        return allData;
+    }
 }

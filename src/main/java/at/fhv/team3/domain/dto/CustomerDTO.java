@@ -71,4 +71,15 @@ public class CustomerDTO extends DTO{
     public int getId() {
         return getCustomerId();
     }
+
+    public String[] getAllDataAsStringArray() {
+        String subscription;
+        if(_subscription){
+            subscription = "true";
+        } else {
+            subscription = "false";
+        }
+        String[] allData = {""+_customerId, _firstName, _lastName, subscription, _email, _phoneNumber};
+        return allData;
+    }
 }

@@ -62,4 +62,9 @@ public class EmployeeDTO extends DTO{
     public int getId() {
         return getEmployeeId();
     }
+
+    public String[] getAllDataAsStringArray() {
+        String[] allData = {""+_employeeId, _firstName, _lastName, _role, _userName};
+        return allData;
+    }
 }
