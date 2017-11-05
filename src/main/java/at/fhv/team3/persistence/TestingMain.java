@@ -28,7 +28,7 @@ public class TestingMain {
 
         testingMain.addMedia(media);
 
-        testingMain.addBook("Das Buch", "Wolfgang Hohlbein", "Ueberreuter", "978-3800053254", "E7S3P1", media);
+        testingMain.addBook("Das Buch", "Wolfgang Hohlbein", "Ueberreuter", "978-3800053254", "1.Edition", "E7S3P1", media);
 
 
         factory.close();
@@ -52,14 +52,14 @@ public class TestingMain {
         return mediaId;
     }
 
-    public Integer addBook(String title, String author, String publisher, String isbn, String shelfPos, Media media){
+    public Integer addBook(String title, String author, String publisher, String isbn,  String edition, String shelfPos, Media media){
         Session session = factory.openSession();
         Transaction tx = null;
         Integer bookId = null;
 
         try {
             tx = session.beginTransaction();
-            Book book = new Book(title, author, publisher, isbn, shelfPos, media);
+            Book book = new Book(title, author, publisher, isbn, edition, shelfPos, media);
             bookId = (Integer) session.save(book);
             tx.commit();
         } catch (HibernateException e) {
