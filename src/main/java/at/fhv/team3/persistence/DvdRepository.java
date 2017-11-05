@@ -1,8 +1,6 @@
 package at.fhv.team3.persistence;
 
-import at.fhv.team3.domain.Book;
 import at.fhv.team3.domain.Dvd;
-import at.fhv.team3.domain.Media;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
@@ -27,7 +25,7 @@ public class DvdRepository extends Repository<Dvd> {
         List<Dvd> dvd = new LinkedList<Dvd>();
         try {
             transaction = session.beginTransaction();
-            dvd = session.createNativeQuery("select * from dvd").list();
+            dvd = session.createNativeQuery("select * from dvd").getResultList();
             transaction.commit();
             return dvd;
         } catch (HibernateException ex) {

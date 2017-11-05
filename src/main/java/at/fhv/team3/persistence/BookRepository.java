@@ -24,7 +24,7 @@ public class BookRepository extends Repository<Book> {
         List books = new LinkedList<Book>();
         try {
             transaction = session.beginTransaction();
-            books = session.createNativeQuery("select * from book").list();
+            books = session.createNativeQuery("select * from book").getResultList();
             transaction.commit();
             return books;
         } catch (HibernateException ex) {

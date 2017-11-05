@@ -22,19 +22,19 @@ public class Magazine implements Borrowable {
     @JoinColumn(name = "media_mediaId")
     private Media media;
 
-    @JoinColumn(name = "title")
+    @Column(name = "title")
     private String _title;
 
-    @JoinColumn(name = "edition")
+    @Column(name = "edition")
     private String _edition;
 
-    @JoinColumn(name = "publisher")
+    @Column(name = "publisher")
     private String _publisher;
 
-    @JoinColumn(name = "pictureURL")
+    @Column(name = "pictureURL")
     private String _pictureURL;
 
-    @JoinColumn(name = "shelfPos")
+    @Column(name = "shelfPos")
     private String _shelfPos;
 
     public Magazine(){}

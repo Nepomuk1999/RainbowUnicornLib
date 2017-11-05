@@ -17,15 +17,14 @@ public class MagazineRepository extends Repository<Magazine> {
         return ourInstance;
     }
 
-    private MagazineRepository() {
-    }
+    private MagazineRepository() { }
 
     public List<Magazine> getAll() {
         Session session = sessionFactory.openSession();
         List<Magazine> magazines = new LinkedList<Magazine>();
         try {
             transaction = session.beginTransaction();
-            magazines = session.createNativeQuery("select * from magazine").list();
+            magazines = session.createNativeQuery("select * from magazine").getResultList();
             transaction.commit();
             return magazines;
         } catch (HibernateException ex) {
