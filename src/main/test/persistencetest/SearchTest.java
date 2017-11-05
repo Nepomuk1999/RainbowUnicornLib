@@ -1,17 +1,18 @@
 package persistencetest;
 
 import at.fhv.team3.application.MediaSearchController;
+import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Searchable;
 import org.junit.Test;
 
 import java.rmi.RemoteException;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by David on 11/3/2017.
  */
 
-//TODO: Fix rmi exception
 public class SearchTest {
     private MediaSearchController _controller;
 
@@ -27,7 +28,12 @@ public class SearchTest {
     public void searchDasBuch(){
         List<Searchable> result = _controller.searchMedias("Das Buch");
         for(Searchable s : result){
-            System.out.println(s.toString());
+            DTO dto = s.createDataTransferObject();
+            HashMap<String, String> data = dto.getAllData();
+            for(String str : data.values()){
+                System.out.print(str + " ");
+            }
+            System.out.println("");
         }
     }
 }
