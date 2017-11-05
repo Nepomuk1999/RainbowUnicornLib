@@ -15,6 +15,5 @@
         <mapping class="at.fhv.team3.domain.Book" />
         <mapping class="at.fhv.team3.domain.Dvd" />
         <mapping class="at.fhv.team3.domain.Magazine" />
-        <mapping class="at.fhv.team3.domain.Media" />
     </session-factory>
 </hibernate-configuration>
