@@ -26,10 +26,8 @@ public class TestingMain {
 
         testingMain.addBook("Das Buch", "Wolfgang Hohlbein", "Ueberreuter", "978-3800053254", "1.Edition", "E7S3P1");
 
-
         factory.close();
     }
-
 
     public Integer addBook(String title, String author, String publisher, String isbn, String edition, String shelfPos) {
         Session session = factory.openSession();
