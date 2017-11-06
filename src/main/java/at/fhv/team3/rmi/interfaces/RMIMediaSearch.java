@@ -11,5 +11,5 @@ import java.util.ArrayList;
  */
 public interface RMIMediaSearch extends Remote{
 
-    public ArrayList<DTO> search(String searchTerm) throws RemoteException;
+    public ArrayList<ArrayList<DTO>> search(String searchTerm) throws RemoteException;
 }

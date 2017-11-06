@@ -33,32 +33,53 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
         dvdRepository = DvdRepository.getInstance();
     }
 
-    public ArrayList<Searchable> searchMedias(String searchTerm){
+    public ArrayList<ArrayList<Searchable>> searchMedias(String searchTerm){
         List<Book> books = bookRepository.getAll();
         List<Dvd> dvds = dvdRepository.getAll();
         List<Magazine> magazines = magazineRepository.getAll();
 
-        ArrayList<Searchable> allMedias = new ArrayList<Searchable>();
+        ArrayList<ArrayList<Searchable>> allMedias = new ArrayList<ArrayList<Searchable>>();
 
-        allMedias.addAll(books);
-        allMedias.addAll(dvds);
-        allMedias.addAll(magazines);
-        ArrayList<Searchable> searchResult = new ArrayList<Searchable>();
+        ArrayList<Searchable> bs = new ArrayList<Searchable>();
 
-       for(Searchable s : allMedias){
-            if(s.containsSearchTerm(searchTerm)){
-                searchResult.add(s);
+        ArrayList<Searchable> ds = new ArrayList<Searchable>();
+
+        ArrayList<Searchable> ms = new ArrayList<Searchable>();
+
+        for(Book b : books){
+            if(b.containsSearchTerm(searchTerm)){
+                bs.add(b);
             }
         }
-        return searchResult;
+
+        for(Dvd d : dvds){
+            if(d.containsSearchTerm(searchTerm)){
+                ds.add(d);
+            }
+        }
+
+        for(Magazine m : magazines){
+            if(m.containsSearchTerm(searchTerm)){
+                ms.add(m);
+            }
+        }
+        allMedias.add(bs);
+        allMedias.add(ds);
+        allMedias.add(ms);
+
+        return allMedias;
     }
 
-    public ArrayList<DTO> search(String searchTerm){
+    public ArrayList<ArrayList<DTO>> search(String searchTerm){
         HashMap<MediaType, ArrayList<DTO>> map = new HashMap<MediaType, ArrayList<DTO>>();
-        ArrayList<Searchable> searchResult = searchMedias(searchTerm);
-        ArrayList<DTO> dtos = new ArrayList<DTO>();
-        for(Searchable s : searchResult){
-            dtos.add(s.createDataTransferObject());
+        ArrayList<ArrayList<Searchable>> searchResult = searchMedias(searchTerm);
+        ArrayList<ArrayList<DTO>> dtos = new ArrayList<ArrayList<DTO>>();
+        for(ArrayList<Searchable> al : searchResult) {
+            ArrayList<DTO> list = new ArrayList<DTO>();
+            for (Searchable s : al) {
+                list.add(s.createDataTransferObject());
+            }
+            dtos.add(list);
         }
 
         return dtos;
