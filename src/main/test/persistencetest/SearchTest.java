@@ -27,7 +27,7 @@ public class SearchTest {
 
     @Test
     public void searchDasBuch(){
-        List<Searchable> result = _controller.searchMedias("Das Buch");
+        List<Searchable> result = _controller.searchMedias("Harry");
         for(Searchable s : result){
             DTO dto = s.createDataTransferObject();
             HashMap<String, String> data = dto.getAllData();
