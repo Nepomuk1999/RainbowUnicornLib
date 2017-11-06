@@ -1,4 +1,4 @@
-package at.fhv.team3.rmi;
+package at.fhv.team3.application;
 
 import at.fhv.team3.domain.Book;
 import at.fhv.team3.domain.Dvd;
