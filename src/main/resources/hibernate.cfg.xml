@@ -11,7 +11,6 @@
         <property name="connection.pool_size">1</property>
         <property name="hibernate.dialect"> org.hibernate.dialect.MySQLInnoDBDialect</property>
         <property name="show_sql">true</property>
-        <property name="hbm2ddl.auto">create</property>
         <mapping class="at.fhv.team3.domain.Book" />
         <mapping class="at.fhv.team3.domain.Dvd" />
         <mapping class="at.fhv.team3.domain.Magazine" />
