@@ -24,6 +24,7 @@ public class SearchTest {
         }
     }
 
+
     @Test
     public void searchDasBuch(){
         List<Searchable> result = _controller.searchMedias("Das Buch");
