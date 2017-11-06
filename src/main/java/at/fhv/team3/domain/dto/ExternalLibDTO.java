@@ -57,7 +57,7 @@ public class ExternalLibDTO extends DTO{
 
     public boolean equals(DTO dto) {
         HashMap<String, String> data = dto.getAllData();
-        if(data.get("id").equals(""+_libId) && data.get("name").equals(_name) && data.get("accountData").equals(_accountData)){
+        if(data.get("name").equals(_name) && data.get("accountData").equals(_accountData)){
             return true;
         }
         return false;

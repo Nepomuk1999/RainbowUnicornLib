@@ -93,7 +93,7 @@ public class CustomerDTO extends DTO{
 
     public boolean equals(DTO dto) {
         HashMap<String, String> data = dto.getAllData();
-        if(data.get("id").equals(""+_customerId) && data.get("firstname").equals(_firstName) && data.get("lastname").equals(_lastName) && data.get("email").equals(_email) && data.get("phonenumber").equals(_phoneNumber)){
+        if(data.get("firstname").equals(_firstName) && data.get("lastname").equals(_lastName) && data.get("email").equals(_email) && data.get("phonenumber").equals(_phoneNumber)){
             return true;
         }
         return false;

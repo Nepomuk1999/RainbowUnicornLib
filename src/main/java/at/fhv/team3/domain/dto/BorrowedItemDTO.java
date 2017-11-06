@@ -76,7 +76,7 @@ public class BorrowedItemDTO extends DTO{
 
     public boolean equals(DTO dto) {
         HashMap<String, String> data = dto.getAllData();
-        if(data.get("id").equals(""+_borrowedId) && data.get("externalLib").equals(_externalLib.getName()) && data.get("date").equals(_borrowedDate.toString()) && data.get("customer").equals(_customer.getFirstName() + " " + _customer.getLastName())){
+        if(data.get("externalLib").equals(_externalLib.getName()) && data.get("date").equals(_borrowedDate.toString()) && data.get("customer").equals(_customer.getFirstName() + " " + _customer.getLastName())){
             return true;
         }
         return false;
