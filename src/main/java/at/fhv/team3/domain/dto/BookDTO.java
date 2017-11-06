@@ -1,11 +1,12 @@
 package at.fhv.team3.domain.dto;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  * Created by David on 10/30/2017.
  */
-public class BookDTO extends DTO{
+public class BookDTO extends DTO {
 
     private int _bookId;
     private String _title;
@@ -120,6 +121,5 @@ public class BookDTO extends DTO{
         }
         return false;
     }
-
 
 }

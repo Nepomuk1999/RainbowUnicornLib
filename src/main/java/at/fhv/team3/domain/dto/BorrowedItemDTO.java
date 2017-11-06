@@ -3,13 +3,14 @@ package at.fhv.team3.domain.dto;
 import at.fhv.team3.domain.Customer;
 import at.fhv.team3.domain.ExternalLib;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 
 /**
  * Created by David on 10/30/2017.
  */
-public class BorrowedItemDTO extends DTO{
+public class BorrowedItemDTO extends DTO {
 
     private int _borrowedId;
     private Date _borrowedDate;

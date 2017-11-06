@@ -2,13 +2,14 @@ package at.fhv.team3.domain.dto;
 
 import at.fhv.team3.domain.Customer;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 
 /**
  * Created by David on 10/30/2017.
  */
-public class BookedItemDTO extends DTO{
+public class BookedItemDTO extends DTO {
 
     private int _bookingId;
     private Customer _customer;

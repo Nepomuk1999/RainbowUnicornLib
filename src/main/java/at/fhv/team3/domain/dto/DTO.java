@@ -1,11 +1,12 @@
 package at.fhv.team3.domain.dto;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  * Created by David on 10/31/2017.
  */
-public abstract class DTO{
+public abstract class DTO implements Serializable{
 
     protected int _id;
 
