@@ -14,7 +14,6 @@ public class HibernateUtil {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
             Configuration conf = new Configuration();
-            conf.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLInnoDBDialect");
             return conf.configure().buildSessionFactory();
         } catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed

@@ -11,10 +11,6 @@ import java.rmi.registry.Registry;
 public class ServerSearchBind {
     public static void main(String args[]) {
 
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
-
         try {
             /*
              * Create remote object and export it to use

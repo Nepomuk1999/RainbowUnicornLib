@@ -4,9 +4,6 @@ import at.fhv.team3.domain.Book;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 
@@ -58,5 +55,27 @@ public class BookRepository extends Repository<Book> {
         }
         return null;
     }
+
+    /*
+    public List<Book> getByIsbn(Integer id) {
+        Session session = sessionFactory.openSession();
+        Book book = null;
+        try {
+            transaction = session.beginTransaction();
+            book = (Book) session.createNativeQuery
+                    ("select * from book where bookId = '" + id + "'", Book.class);
+            transaction.commit();
+            return book;
+        } catch (HibernateException ex) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            System.out.println("Book get all error:" + ex);
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+    */
 
 }
