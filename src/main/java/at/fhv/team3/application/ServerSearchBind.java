@@ -42,12 +42,8 @@ public class LibSearchClient {
 
     public static void main(String args[]) {
 
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
-
         try {
-            Registry registry = LocateRegistry.getRegistry(2002);
+            Registry registry = LocateRegistry.getRegistry(1099);
             MediaSearchController obj = (MediaSearchController) registry.lookup("Search");
 
             //DOSTUFF
