@@ -1,10 +1,12 @@
 package at.fhv.team3;
 
+import at.fhv.team3.application.ServerSearchBind;
+
 /**
  * Hello world!
  */
 public class App {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        ServerSearchBind.init();
     }
 }

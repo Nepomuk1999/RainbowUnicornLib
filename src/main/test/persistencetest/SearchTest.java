@@ -6,6 +6,7 @@ import at.fhv.team3.domain.interfaces.Searchable;
 import org.junit.Test;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,14 +28,16 @@ public class SearchTest {
 
     @Test
     public void searchDasBuch(){
-        List<Searchable> result = _controller.searchMedias("Harry");
-        for(Searchable s : result){
-            DTO dto = s.createDataTransferObject();
-            HashMap<String, String> data = dto.getAllData();
-            for(String str : data.values()){
-                System.out.print(str + " ");
-            }
-            System.out.println("");
-        }
+ //       ArrayList<ArrayList<Searchable>> result = _controller.searchMedias("Harry");
+ //       for(ArrayList al : result) {
+ //           for (Searchable s : al) {
+//                DTO dto = s.createDataTransferObject();
+//               HashMap<String, String> data = dto.getAllData();
+ //               for (String str : data.values()) {
+//                    System.out.print(str + " ");
+ //               }
+ //               System.out.println("");
+//            }
+//        }
     }
 }
