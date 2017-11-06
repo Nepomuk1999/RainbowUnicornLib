@@ -14,4 +14,6 @@ public abstract class DTO{
     public abstract int getId();
 
     public abstract HashMap<String, String> getAllData();
+
+    public abstract boolean equals(DTO dto);
 }

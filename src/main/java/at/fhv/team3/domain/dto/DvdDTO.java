@@ -74,4 +74,12 @@ public class DvdDTO extends DTO{
         allData.put("shelfPos", _shelfPos);
         return allData;
     }
+
+    public boolean equals(DTO dto) {
+        HashMap<String, String> data = dto.getAllData();
+        if(data.get("id").equals(""+_dvdId) && data.get("title").equals(_title) && data.get("regisseur").equals(_regisseur) && data.get("pictureURL").equals(_pictureURL) && data.get("shelfPos").equals(_shelfPos)){
+            return true;
+        }
+        return false;
+    }
 }

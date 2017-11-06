@@ -87,7 +87,15 @@ public class CustomerDTO extends DTO{
         allData.put("lastname", _lastName);
         allData.put("subscription", subscription);
         allData.put("email", _email);
-        allData.put("_phoneNumber", _phoneNumber);
+        allData.put("phonenumber", _phoneNumber);
         return allData;
+    }
+
+    public boolean equals(DTO dto) {
+        HashMap<String, String> data = dto.getAllData();
+        if(data.get("id").equals(""+_customerId) && data.get("firstname").equals(_firstName) && data.get("lastname").equals(_lastName) && data.get("email").equals(_email) && data.get("phonenumber").equals(_phoneNumber)){
+            return true;
+        }
+        return false;
     }
 }

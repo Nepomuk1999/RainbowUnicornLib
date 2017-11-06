@@ -59,4 +59,12 @@ public class BookedItemDTO extends DTO{
         allData.put("date", _date.toString());
         return allData;
     }
+
+    public boolean equals(DTO dto) {
+        HashMap<String, String> data = dto.getAllData();
+        if (data.get("id").equals("" + _bookingId) && data.get("customer").equals(_customer.getFirstName() + " " + _customer.getLastName()) && data.get("date").equals(_date.toString())) {
+            return true;
+        }
+        return false;
+    }
 }
