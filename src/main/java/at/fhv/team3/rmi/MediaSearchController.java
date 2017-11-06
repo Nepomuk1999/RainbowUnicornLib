@@ -1,6 +1,9 @@
-package at.fhv.team3.application;
+package at.fhv.team3.rmi;
 
-import at.fhv.team3.domain.*;
+import at.fhv.team3.domain.Book;
+import at.fhv.team3.domain.Dvd;
+import at.fhv.team3.domain.Magazine;
+import at.fhv.team3.domain.MediaType;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Searchable;
 import at.fhv.team3.persistence.BookRepository;
@@ -12,7 +15,6 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 
