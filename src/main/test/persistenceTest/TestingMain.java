@@ -1,7 +1,6 @@
-package persistencetest;
+package persistenceTest;
 
 import at.fhv.team3.domain.Book;
-import at.fhv.team3.domain.MediaType;
 import at.fhv.team3.persistence.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

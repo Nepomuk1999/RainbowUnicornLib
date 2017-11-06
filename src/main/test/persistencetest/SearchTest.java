@@ -1,4 +1,4 @@
-package persistencetest;
+package persistenceTest;
 
 import at.fhv.team3.application.MediaSearchController;
 import at.fhv.team3.domain.dto.DTO;

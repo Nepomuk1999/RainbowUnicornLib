@@ -11,10 +11,6 @@ import java.rmi.RemoteException;
  */
 public class RMIFactory implements RMIFactoryInterface {
 
-    public RMIFactory() {
-
-    }
-
     public RMIMediaSearch getSearchController () throws RemoteException {
         return new MediaSearchController();
     }
