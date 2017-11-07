@@ -5,6 +5,7 @@ import at.fhv.team3.domain.dto.DvdDTO;
 import at.fhv.team3.domain.interfaces.Borrowable;
 
 import javax.persistence.*;
+import java.util.regex.Pattern;
 
 /**
  * Created by David on 10/30/2017.
@@ -71,7 +72,8 @@ public class Dvd implements Borrowable {
     }
 
     public boolean containsSearchTerm(String searchTerm) {
-        if(_title.contains(searchTerm) || _regisseur.contains(searchTerm)){
+        if( Pattern.compile(Pattern.quote(searchTerm), Pattern.CASE_INSENSITIVE).matcher(_title).find()
+                || Pattern.compile(Pattern.quote(searchTerm), Pattern.CASE_INSENSITIVE).matcher(_regisseur).find()) {
             return true;
         }
         return false;

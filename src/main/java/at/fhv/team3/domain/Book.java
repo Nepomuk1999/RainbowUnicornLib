@@ -5,6 +5,7 @@ import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Borrowable;
 
 import javax.persistence.*;
+import java.util.regex.Pattern;
 
 /**
  * Created by David on 10/30/2017.
@@ -107,7 +108,11 @@ public class Book implements Borrowable {
     }
 
     public boolean containsSearchTerm(String searchTerm) {
-        if(_title.contains(searchTerm) || _publisher.contains(searchTerm) || _author.contains(searchTerm) || _isbn.contains(searchTerm) || _edition.contains(searchTerm)){
+        if( Pattern.compile(Pattern.quote(searchTerm), Pattern.CASE_INSENSITIVE).matcher(_title).find()
+                || Pattern.compile(Pattern.quote(searchTerm), Pattern.CASE_INSENSITIVE).matcher(_publisher).find()
+                || Pattern.compile(Pattern.quote(searchTerm), Pattern.CASE_INSENSITIVE).matcher(_author).find()
+                || Pattern.compile(Pattern.quote(searchTerm), Pattern.CASE_INSENSITIVE).matcher(_isbn).find()
+                || Pattern.compile(Pattern.quote(searchTerm), Pattern.CASE_INSENSITIVE).matcher(_edition).find()) {
             return true;
         }
         return false;
