@@ -1,5 +1,3 @@
-package at.fhv.team3;
-
 import at.fhv.team3.application.ServerSearchBind;
 
 /**
