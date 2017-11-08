@@ -6,6 +6,7 @@ import at.fhv.team3.domain.interfaces.Transferable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /**
  * Created by David on 10/30/2017.
@@ -83,6 +84,12 @@ public class Customer implements Searchable {
     }
 
     public boolean containsSearchTerm(String searchTerm) {
+        if( Pattern.compile(Pattern.quote(searchTerm), Pattern.CASE_INSENSITIVE).matcher(_firstName).find()
+                || Pattern.compile(Pattern.quote(searchTerm), Pattern.CASE_INSENSITIVE).matcher(_lastName).find()
+                || Pattern.compile(Pattern.quote(searchTerm), Pattern.CASE_INSENSITIVE).matcher(_email).find()
+                || Pattern.compile(Pattern.quote(searchTerm), Pattern.CASE_INSENSITIVE).matcher(_phoneNumber).find()) {
+            return true;
+        }
         return false;
     }
 }
