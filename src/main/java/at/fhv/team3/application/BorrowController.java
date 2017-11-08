@@ -2,6 +2,7 @@ package at.fhv.team3.application;
 
 import at.fhv.team3.domain.Customer;
 import at.fhv.team3.domain.interfaces.Borrowable;
+import at.fhv.team3.persistence.BorrowedItemRepository;
 import at.fhv.team3.persistence.CustomerRepository;
 import at.fhv.team3.rmi.interfaces.RMIBorrow;
 
@@ -15,20 +16,36 @@ import java.util.List;
  */
 public class BorrowController   extends UnicastRemoteObject implements RMIBorrow {
 
-    public BorrowController() throws RemoteException{
+    private CustomerRepository _customerRepository;
+    private BorrowedItemRepository _borrowedItemRepository;
 
+    public BorrowController() throws RemoteException{
+        _customerRepository = CustomerRepository.getInstance();
+        _borrowedItemRepository = BorrowedItemRepository.getInstance();
     }
 
+    //TODO: implement
     public boolean handOut(Borrowable media){
         return false;
     }
 
+    //TODO: implement
     public void handIn(Borrowable media){
 
     }
 
+    //TODO: implement
+    private boolean validateHandIn(){
+        return true;
+    }
+
+    //TODO: implement
+    private boolean validateHandOut(){
+        return true;
+    }
+
     private List<Customer> findCustomer(String term){
-        List<Customer> allCustomers = CustomerRepository.getInstance().getAll();
+        List<Customer> allCustomers = _customerRepository.getAll();
         List<Customer> matchingCustomers = new ArrayList<Customer>();
         for(Customer c : allCustomers){
             if(c.containsSearchTerm(term)){
