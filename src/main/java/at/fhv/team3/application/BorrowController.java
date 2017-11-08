@@ -16,11 +16,9 @@ import java.util.List;
  */
 public class BorrowController   extends UnicastRemoteObject implements RMIBorrow {
 
-    private CustomerRepository _customerRepository;
     private BorrowedItemRepository _borrowedItemRepository;
 
     public BorrowController() throws RemoteException{
-        _customerRepository = CustomerRepository.getInstance();
         _borrowedItemRepository = BorrowedItemRepository.getInstance();
     }
 
@@ -44,14 +42,4 @@ public class BorrowController   extends UnicastRemoteObject implements RMIBorrow
         return true;
     }
 
-    private List<Customer> findCustomer(String term){
-        List<Customer> allCustomers = _customerRepository.getAll();
-        List<Customer> matchingCustomers = new ArrayList<Customer>();
-        for(Customer c : allCustomers){
-            if(c.containsSearchTerm(term)){
-                matchingCustomers.add(c);
-            }
-        }
-        return matchingCustomers;
-    }
 }

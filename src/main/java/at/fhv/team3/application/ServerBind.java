@@ -30,6 +30,9 @@ public class ServerBind {
             System.out.println("Binding BorrowController...");
             registry.rebind("Borrow", factory.getBorrowController());
             System.out.println("Borrow bound in registry");
+            System.out.println("Binding CustomerController...");
+            registry.rebind("Customer", factory.getCustomerController());
+            System.out.println("Customer bound in registry");
 
         } catch (Exception e) {
             System.out.println("MediaSearchController exception: " + e.getMessage());
