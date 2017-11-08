@@ -9,7 +9,16 @@ import java.util.List;
 /**
  * Created by David on 11/8/2017.
  */
-public class BorrowdItemRepository extends Repository<BorrowedItem>{
+public class BorrowedItemRepository extends Repository<BorrowedItem>{
+
+    private static BorrowedItemRepository _instance;
+
+    public static BorrowedItemRepository getInstance(){
+        if(_instance == null){
+            _instance = new BorrowedItemRepository();
+        }
+        return _instance;
+    }
 
     public List<BorrowedItem> getAll() {
         Session session = sessionFactory.openSession();
