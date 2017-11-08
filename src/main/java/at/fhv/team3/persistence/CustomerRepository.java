@@ -31,7 +31,7 @@ public class CustomerRepository extends Repository<Customer> {
             if (transaction != null) {
                 transaction.rollback();
             }
-            System.out.println("Book get all error:" + ex);
+            System.out.println("Customer get all error:" + ex);
         }
         return null;
     }
@@ -49,7 +49,7 @@ public class CustomerRepository extends Repository<Customer> {
             if (transaction != null) {
                 transaction.rollback();
             }
-            System.out.println("Book get all error:" + ex);
+            System.out.println("Customer get by Id error:" + ex);
         } finally {
             session.close();
         }
