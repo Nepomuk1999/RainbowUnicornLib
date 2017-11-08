@@ -1,6 +1,7 @@
 package at.fhv.team3.domain;
 
 import at.fhv.team3.domain.dto.DTO;
+import at.fhv.team3.domain.interfaces.Searchable;
 import at.fhv.team3.domain.interfaces.Transferable;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  */
 @Entity
 @Table(name = "customer")
-public class Customer implements Transferable {
+public class Customer implements Searchable {
 
     @Id
     private int _customerId;
@@ -79,5 +80,9 @@ public class Customer implements Transferable {
 
     public DTO createDataTransferObject() {
         return null;
+    }
+
+    public boolean containsSearchTerm(String searchTerm) {
+        return false;
     }
 }

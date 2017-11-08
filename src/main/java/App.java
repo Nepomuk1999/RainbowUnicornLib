@@ -1,10 +1,10 @@
-import at.fhv.team3.application.ServerSearchBind;
+import at.fhv.team3.application.ServerBind;
 
 /**
  * Hello world!
  */
 public class App {
     public static void main(String[] args) {
-        ServerSearchBind.init();
+        ServerBind.init();
     }
 }

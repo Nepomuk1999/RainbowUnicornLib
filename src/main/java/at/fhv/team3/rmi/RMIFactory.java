@@ -1,6 +1,8 @@
 package at.fhv.team3.rmi;
 
+import at.fhv.team3.application.BorrowController;
 import at.fhv.team3.application.MediaSearchController;
+import at.fhv.team3.rmi.interfaces.RMIBorrow;
 import at.fhv.team3.rmi.interfaces.RMIFactoryInterface;
 import at.fhv.team3.rmi.interfaces.RMIMediaSearch;
 
@@ -13,5 +15,9 @@ public class RMIFactory implements RMIFactoryInterface {
 
     public RMIMediaSearch getSearchController () throws RemoteException {
         return new MediaSearchController();
+    }
+
+    public RMIBorrow getBorrowController() throws RemoteException {
+        return new BorrowController();
     }
 }
