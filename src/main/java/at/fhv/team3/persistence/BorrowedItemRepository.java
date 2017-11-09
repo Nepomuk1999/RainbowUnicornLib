@@ -3,7 +3,9 @@ package at.fhv.team3.persistence;
 import at.fhv.team3.domain.BorrowedItem;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +20,21 @@ public class BorrowedItemRepository extends Repository<BorrowedItem>{
             _instance = new BorrowedItemRepository();
         }
         return _instance;
+    }
+
+    public void save(List<BorrowedItem> borrowedItems) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        for (BorrowedItem borrowedItem: borrowedItems) {
+            session.saveOrUpdate(borrowedItem);
+        }
+        transaction.commit();
+    }
+
+    public void save(BorrowedItem borrowedItem) {
+        List<BorrowedItem> borrowedItems = new ArrayList<BorrowedItem>(1);
+        borrowedItems.add(borrowedItem);
+        save(borrowedItems);
     }
 
     public List<BorrowedItem> getAll() {

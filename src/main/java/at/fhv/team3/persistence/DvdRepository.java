@@ -3,10 +3,12 @@ package at.fhv.team3.persistence;
 import at.fhv.team3.domain.Dvd;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,6 +23,21 @@ public class DvdRepository extends Repository<Dvd> {
     }
 
     private DvdRepository() {
+    }
+
+    public void save(List<Dvd> dvds) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        for (Dvd dvd: dvds) {
+            session.saveOrUpdate(dvd);
+        }
+        transaction.commit();
+    }
+
+    public void save(Dvd dvd) {
+        List<Dvd> dvds = new ArrayList<Dvd>(1);
+        dvds.add(dvd);
+        save(dvds);
     }
 
     public List<Dvd> getAll() {

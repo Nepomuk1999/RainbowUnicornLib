@@ -3,7 +3,9 @@ package at.fhv.team3.persistence;
 import at.fhv.team3.domain.Customer;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +21,22 @@ public class CustomerRepository extends Repository<Customer> {
         }
         return _instance;
     }
+
+    public void save(List<Customer> customers) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        for (Customer customer: customers) {
+            session.saveOrUpdate(customer);
+        }
+        transaction.commit();
+    }
+
+    public void save(Customer customer) {
+        List<Customer> customers = new ArrayList<Customer>(1);
+        customers.add(customer);
+        save(customers);
+    }
+
     public List<Customer> getAll() {
         Session session = sessionFactory.openSession();
         List customers;

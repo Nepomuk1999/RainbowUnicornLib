@@ -1,5 +1,6 @@
 package at.fhv.team3.rmi.interfaces;
 
+import at.fhv.team3.domain.Customer;
 import at.fhv.team3.domain.interfaces.Borrowable;
 
 import java.rmi.Remote;
@@ -9,6 +10,6 @@ import java.rmi.Remote;
  */
 public interface RMIBorrow  extends Remote {
 
-    public boolean handOut(Borrowable media);
+    public boolean handOut(Borrowable media, Customer customer);
     public void handIn(Borrowable media);
 }
