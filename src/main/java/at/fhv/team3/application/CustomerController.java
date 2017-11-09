@@ -22,9 +22,13 @@ public class CustomerController extends UnicastRemoteObject implements RMICustom
         _customerRepository = CustomerRepository.getInstance();
     }
 
-    public List<DTO> findCustomer(String term) throws RemoteException{
-        List<Customer> allCustomers = _customerRepository.getAll();
-        List<DTO> matchingCustomers = new ArrayList<DTO>();
+    private List<Customer> loadCustomer(){
+        return _customerRepository.getAll();
+    }
+
+    public ArrayList<DTO> findCustomer(String term){
+        List<Customer> allCustomers = loadCustomer();
+        ArrayList<DTO> matchingCustomers = new ArrayList<DTO>();
         for(Customer c : allCustomers){
             if(c.containsSearchTerm(term)){
                 matchingCustomers.add(c.createDataTransferObject());
@@ -33,9 +37,12 @@ public class CustomerController extends UnicastRemoteObject implements RMICustom
         return matchingCustomers;
     }
 
-    public void saveNewCustomer(CustomerDTO dto) throws RemoteException{
+    public void saveCustomer(Customer c){
+        _customerRepository.save(c);
+    }
+    public void saveNewCustomer(CustomerDTO dto){
         Customer customer = new Customer();
         customer.fillFromDTO(dto);
-        _customerRepository.save(customer);
+        saveCustomer(customer);
     }
 }

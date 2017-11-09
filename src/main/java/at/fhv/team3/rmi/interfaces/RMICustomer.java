@@ -6,6 +6,7 @@ import at.fhv.team3.domain.dto.DTO;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public interface RMICustomer  extends Remote {
 
-    public List<DTO> findCustomer(String term) throws RemoteException;
+    public ArrayList<DTO> findCustomer(String term) throws RemoteException;
     public void saveNewCustomer(CustomerDTO dto) throws RemoteException;
 
 }

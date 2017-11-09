@@ -24,7 +24,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
     }
 
     //TODO: REVEIW
-    public void handOut(Borrowable media, CustomerDTO customer) throws RemoteException{
+    public void handOut(Borrowable media, CustomerDTO customer){
             Date date = new Date();
             BorrowedItem item = new BorrowedItem();
             item.setBorrowedDate(date);
@@ -44,7 +44,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
     }
 
     //TODO: REVIEW ( getClass möglich? )
-    public void handIn(Borrowable media) throws RemoteException{
+    public void handIn(Borrowable media){
         List<BorrowedItem> items = _borrowedItemRepository.getAll();
         if (validateHandIn()) {
             for (BorrowedItem bi : items) {
