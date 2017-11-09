@@ -10,6 +10,6 @@ import java.rmi.Remote;
  */
 public interface RMIBorrow  extends Remote {
 
-    public boolean handOut(Borrowable media, Customer customer);
+    public void handOut(Borrowable media, Customer customer);
     public void handIn(Borrowable media);
 }

@@ -1,6 +1,7 @@
 package at.fhv.team3.application;
 
 import at.fhv.team3.domain.Customer;
+import at.fhv.team3.domain.dto.CustomerDTO;
 import at.fhv.team3.persistence.CustomerRepository;
 import at.fhv.team3.rmi.interfaces.RMICustomer;
 
@@ -29,5 +30,11 @@ public class CustomerController extends UnicastRemoteObject implements RMICustom
             }
         }
         return matchingCustomers;
+    }
+
+    public void saveNewCustomer(CustomerDTO dto){
+        Customer customer = new Customer();
+        customer.fillFromDTO(dto);
+        _customerRepository.save(customer);
     }
 }

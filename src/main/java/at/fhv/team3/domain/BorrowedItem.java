@@ -2,6 +2,7 @@ package at.fhv.team3.domain;
 
 import at.fhv.team3.domain.dto.BorrowedItemDTO;
 import at.fhv.team3.domain.dto.DTO;
+import at.fhv.team3.domain.interfaces.Borrowable;
 import at.fhv.team3.domain.interfaces.Transferable;
 
 import javax.persistence.*;
@@ -24,6 +25,9 @@ public class BorrowedItem implements Transferable {
 
     @ManyToOne
     private Customer _customer;
+
+    //TODO: solve database problem
+    private Borrowable _media;
 
     public BorrowedItem(){
 
@@ -61,6 +65,13 @@ public class BorrowedItem implements Transferable {
         return _customer;
     }
 
+    public void setMedia(Borrowable media){
+        _media = media;
+    }
+
+    public Borrowable getMedia(){
+        return _media;
+    }
     public DTO createDataTransferObject() {
         return new BorrowedItemDTO(_borrowedId, _borrowedDate, _externalLib, _customer);
     }

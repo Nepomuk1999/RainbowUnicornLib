@@ -1,6 +1,7 @@
 package at.fhv.team3.rmi.interfaces;
 
 import at.fhv.team3.domain.Customer;
+import at.fhv.team3.domain.dto.CustomerDTO;
 
 import java.rmi.Remote;
 import java.util.List;
@@ -11,5 +12,6 @@ import java.util.List;
 public interface RMICustomer  extends Remote {
 
     public List<Customer> findCustomer(String term);
+    public void saveNewCustomer(CustomerDTO dto);
 
 }
