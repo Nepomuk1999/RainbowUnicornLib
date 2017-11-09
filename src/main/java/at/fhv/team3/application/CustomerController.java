@@ -2,6 +2,7 @@ package at.fhv.team3.application;
 
 import at.fhv.team3.domain.Customer;
 import at.fhv.team3.domain.dto.CustomerDTO;
+import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.persistence.CustomerRepository;
 import at.fhv.team3.rmi.interfaces.RMICustomer;
 
@@ -21,12 +22,12 @@ public class CustomerController extends UnicastRemoteObject implements RMICustom
         _customerRepository = CustomerRepository.getInstance();
     }
 
-    public List<Customer> findCustomer(String term) throws RemoteException{
+    public List<DTO> findCustomer(String term) throws RemoteException{
         List<Customer> allCustomers = _customerRepository.getAll();
-        List<Customer> matchingCustomers = new ArrayList<Customer>();
+        List<DTO> matchingCustomers = new ArrayList<DTO>();
         for(Customer c : allCustomers){
             if(c.containsSearchTerm(term)){
-                matchingCustomers.add(c);
+                matchingCustomers.add(c.createDataTransferObject());
             }
         }
         return matchingCustomers;
