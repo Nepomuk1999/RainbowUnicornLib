@@ -2,6 +2,7 @@ package at.fhv.team3.domain;
 
 import at.fhv.team3.domain.dto.BorrowedItemDTO;
 import at.fhv.team3.domain.dto.DTO;
+import at.fhv.team3.domain.interfaces.Borrowable;
 import at.fhv.team3.domain.interfaces.Transferable;
 
 import javax.persistence.*;
@@ -102,6 +103,43 @@ public class BorrowedItem implements Transferable {
     }
 
     public void fillFromDTO(DTO dto) {
+
+    }
+
+    public Book get_book() {
+        return _book;
+    }
+
+    public void set_book(Book _book) {
+        this._book = _book;
+    }
+
+    public Dvd get_dvd() {
+        return _dvd;
+    }
+
+    public void set_dvd(Dvd _dvd) {
+        this._dvd = _dvd;
+    }
+
+    public Magazine get_magazine() {
+        return _magazine;
+    }
+
+    public void set_magazine(Magazine _magazine) {
+        this._magazine = _magazine;
+    }
+
+    public Borrowable getMedia() {
+        if ( _book != null) {
+            return _book;
+        } else if (_dvd != null) {
+            return _dvd;
+        } else if (_magazine != null ) {
+            return _magazine;
+        } else {
+            return null;
+        }
 
     }
 }
