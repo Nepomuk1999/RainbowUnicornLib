@@ -21,19 +21,19 @@ public class BookedItem implements Transferable {
     @Column(name = "bookingId")
     private int _bookingId;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "customerId")
     private Customer _customer;
 
-    @ManyToOne(optional = true)
+    @OneToOne(optional = true)
     @JoinColumn(name = "book_bookId", nullable = true)
     private Book _book;
 
-    @ManyToOne(optional = true)
+    @OneToOne(optional = true)
     @JoinColumn(name = "dvd_dvdId", nullable = true)
     private Dvd _dvd;
 
-    @ManyToOne(optional = true)
+    @OneToOne(optional = true)
     @JoinColumn(name = "magazine_magazineId", nullable = true)
     private Magazine _magazine;
 

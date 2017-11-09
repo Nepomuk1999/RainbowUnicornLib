@@ -23,23 +23,23 @@ public class BorrowedItem implements Transferable {
     @Column(name = "borrowedDate")
     private Date _borrowedDate;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "libId", nullable = true)
     private ExternalLib _externalLib;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "customerId", nullable = true)
     private Customer _customer;
 
-    @ManyToOne(optional = true)
+    @OneToOne(optional = true)
     @JoinColumn(name = "book_bookId", nullable = true)
     private Book _book;
 
-    @ManyToOne(optional = true)
+    @OneToOne(optional = true)
     @JoinColumn(name = "dvd_dvdId", nullable = true)
     private Dvd _dvd;
 
-    @ManyToOne(optional = true)
+    @OneToOne(optional = true)
     @JoinColumn(name = "magazine_magazineId", nullable = true)
     private Magazine _magazine;
 
@@ -98,6 +98,7 @@ public class BorrowedItem implements Transferable {
     public Magazine getMagazine(){
         return _magazine;
     }
+
     public DTO createDataTransferObject() {
         return new BorrowedItemDTO(_borrowedId, _borrowedDate, _externalLib, _customer);
     }
