@@ -19,8 +19,8 @@ public class ExternalLib implements Transferable {
     @Column(name = "libId")
     private int _libId;
 
-    @OneToMany
-    private ArrayList<BorrowedItem> borrowedItems = new ArrayList<BorrowedItem>();
+//    @OneToMany
+//    private ArrayList<BorrowedItem> borrowedItems = new ArrayList<BorrowedItem>();
 
     @Column(name = "name")
     private String _name;

@@ -21,8 +21,8 @@ public class Customer implements Searchable {
     @Column(name = "customerId")
     private int _customerId;
 
-    @OneToMany
-    private ArrayList<BorrowedItem> borrowedItems = new ArrayList<BorrowedItem>();
+//    @OneToMany
+//    private ArrayList<BorrowedItem> borrowedItems = new ArrayList<BorrowedItem>();
 
     @Column(name = "firstName")
     private String _firstName;
