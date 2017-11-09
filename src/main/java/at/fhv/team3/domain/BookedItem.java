@@ -16,16 +16,30 @@ import java.util.HashMap;
 public class BookedItem implements Transferable {
 
     @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column(name = "bookingId")
     private int _bookingId;
 
     @ManyToOne
+    @JoinColumn(name = "customerId")
     private Customer _customer;
 
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "book_bookId", nullable = true)
+    private Book _book;
+
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "dvd_dvdId", nullable = true)
+    private Dvd _dvd;
+
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "magazine_magazineId", nullable = true)
+    private Magazine _magazine;
+
+    @Column(name = "date")
     private Date _date;
 
-    public BookedItem(){
-
-    }
+    public BookedItem(){ }
 
     public void setBookingId(int id){
         _bookingId = id;

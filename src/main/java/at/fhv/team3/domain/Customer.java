@@ -2,7 +2,6 @@ package at.fhv.team3.domain;
 
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Searchable;
-import at.fhv.team3.domain.interfaces.Transferable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,15 +16,26 @@ import java.util.regex.Pattern;
 public class Customer implements Searchable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "customerId")
     private int _customerId;
 
     @OneToMany
     private ArrayList<BorrowedItem> borrowedItems = new ArrayList<BorrowedItem>();
 
+    @Column(name = "firstName")
     private String _firstName;
+
+    @Column(name = "lastName")
     private String _lastName;
+
+    @Column(name = "subscription")
     private boolean _subscription;
+
+    @Column(name = "email")
     private String _email;
+
+    @Column(name = "phoneNr")
     private String _phoneNumber;
 
     public Customer(){

@@ -2,12 +2,10 @@ package at.fhv.team3.domain;
 
 import at.fhv.team3.domain.dto.BorrowedItemDTO;
 import at.fhv.team3.domain.dto.DTO;
-import at.fhv.team3.domain.interfaces.Borrowable;
 import at.fhv.team3.domain.interfaces.Transferable;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashMap;
 
 /**
  * Created by David on 10/30/2017.
@@ -17,21 +15,32 @@ import java.util.HashMap;
 public class BorrowedItem implements Transferable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "borrowedId")
     private int _borrowedId;
+
+    @Column(name = "borrowedDate")
     private Date _borrowedDate;
 
     @ManyToOne
+    @JoinColumn(name = "libId", nullable = true)
     private ExternalLib _externalLib;
 
     @ManyToOne
+    @JoinColumn(name = "customerId", nullable = true)
     private Customer _customer;
 
-    //TODO: solve database problem
-    private Borrowable _media;
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "book_bookId", nullable = true)
+    private Book _book;
 
-    public BorrowedItem(){
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "dvd_dvdId", nullable = true)
+    private Dvd _dvd;
 
-    }
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "magazine_magazineId", nullable = true)
+    private Magazine _magazine;
 
     public void setBorrowedId(int id){
         _borrowedId = id;
@@ -65,22 +74,11 @@ public class BorrowedItem implements Transferable {
         return _customer;
     }
 
-    public void setMedia(Borrowable media){
-        _media = media;
-    }
-
-    public Borrowable getMedia(){
-        return _media;
-    }
     public DTO createDataTransferObject() {
         return new BorrowedItemDTO(_borrowedId, _borrowedDate, _externalLib, _customer);
     }
 
     public void fillFromDTO(DTO dto) {
-        HashMap<String, String> allData = dto.getAllData();
-        _borrowedId = Integer.parseInt(allData.get("id"));
-        _borrowedDate = new Date(allData.get("date"));
-        //_externalLib = allData.get("externalLib");
-        //_customer = allData.get("customer");
+
     }
 }

@@ -15,12 +15,17 @@ import java.util.HashMap;
 public class ExternalLib implements Transferable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "libId")
     private int _libId;
 
     @OneToMany
     private ArrayList<BorrowedItem> borrowedItems = new ArrayList<BorrowedItem>();
 
+    @Column(name = "name")
     private String _name;
+
+    @Column(name = "accountData")
     private String _accountData;
 
     public ExternalLib(){
