@@ -2,6 +2,7 @@ package at.fhv.team3.domain;
 
 import at.fhv.team3.domain.dto.BookedItemDTO;
 import at.fhv.team3.domain.dto.DTO;
+import at.fhv.team3.domain.interfaces.Borrowable;
 import at.fhv.team3.domain.interfaces.Transferable;
 
 import javax.persistence.*;
@@ -74,5 +75,17 @@ public class BookedItem implements Transferable {
         _bookingId = Integer.parseInt(allData.get("id"));
        // _customer = allData.get("customer");
         _date = new Date(allData.get("date"));
+    }
+
+    public Borrowable getMedia() {
+        if ( _book != null) {
+            return _book;
+        } else if (_dvd != null) {
+            return _dvd;
+        } else if (_magazine != null ) {
+            return _magazine;
+        } else {
+            return null;
+        }
     }
 }

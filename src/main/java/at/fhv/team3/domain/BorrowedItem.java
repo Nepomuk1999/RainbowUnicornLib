@@ -140,6 +140,5 @@ public class BorrowedItem implements Transferable {
         } else {
             return null;
         }
-
     }
 }
