@@ -4,6 +4,7 @@ import at.fhv.team3.domain.Book;
 import at.fhv.team3.domain.Dvd;
 import at.fhv.team3.domain.Magazine;
 import at.fhv.team3.domain.MediaType;
+import at.fhv.team3.domain.dto.BookDTO;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Searchable;
 import at.fhv.team3.persistence.BookRepository;
@@ -31,6 +32,33 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
         bookRepository = BookRepository.getInstance();
         magazineRepository = MagazineRepository.getInstance();
         dvdRepository = DvdRepository.getInstance();
+    }
+
+    public List<DTO> getAllBookDTOs(){
+        List<Book> all = bookRepository.getAll();
+        List<DTO> dtos = new ArrayList<DTO>();
+        for(Book b : all){
+            dtos.add(b.createDataTransferObject());
+        }
+        return dtos;
+    }
+
+    public List<DTO> getAllDvdDTOs(){
+        List<Dvd> all = dvdRepository.getAll();
+        List<DTO> dtos = new ArrayList<DTO>();
+        for(Dvd d : all){
+            dtos.add(d.createDataTransferObject());
+        }
+        return dtos;
+    }
+
+    public List<DTO> getAllMagazineDTOs(){
+        List<Magazine> all = magazineRepository.getAll();
+        List<DTO> dtos = new ArrayList<DTO>();
+        for(Magazine m : all){
+            dtos.add(m.createDataTransferObject());
+        }
+        return dtos;
     }
 
     public ArrayList<ArrayList<Searchable>> searchMedias(String searchTerm){
