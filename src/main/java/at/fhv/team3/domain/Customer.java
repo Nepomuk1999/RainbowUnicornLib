@@ -1,5 +1,6 @@
 package at.fhv.team3.domain;
 
+import at.fhv.team3.domain.dto.CustomerDTO;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Searchable;
 
@@ -91,7 +92,7 @@ public class Customer implements Searchable {
     }
 
     public DTO createDataTransferObject() {
-        return null;
+        return new CustomerDTO(_customerId, _firstName, _lastName, _subscription, _email, _phoneNumber);
     }
 
     public void fillFromDTO(DTO dto) {
