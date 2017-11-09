@@ -134,4 +134,8 @@ public class Book implements Borrowable {
         _edition = allData.get("edition");
         _shelfPos = allData.get("shelfPos");
     }
+
+    public int getId() {
+        return _bookId;
+    }
 }

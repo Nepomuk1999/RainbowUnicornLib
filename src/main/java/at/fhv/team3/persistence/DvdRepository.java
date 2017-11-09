@@ -76,4 +76,8 @@ public class DvdRepository extends Repository<Dvd> {
         return null;
     }
 
+    public void delete(Dvd model) {
+
+    }
+
 }

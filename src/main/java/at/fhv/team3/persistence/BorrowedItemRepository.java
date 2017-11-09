@@ -37,6 +37,13 @@ public class BorrowedItemRepository extends Repository<BorrowedItem>{
         save(borrowedItems);
     }
 
+    public void delete(BorrowedItem item) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(item);
+        transaction.commit();
+    }
+
     public List<BorrowedItem> getAll() {
         Session session = sessionFactory.openSession();
         List borrowedItems;

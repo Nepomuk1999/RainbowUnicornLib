@@ -73,6 +73,10 @@ public class BookRepository extends Repository<Book> {
         return null;
     }
 
+    public void delete(Book model) {
+
+    }
+
     /*
     public List<Book> getByIsbn(Integer id) {
         Session session = sessionFactory.openSession();

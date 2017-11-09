@@ -107,4 +107,8 @@ public class Magazine implements Borrowable {
         _pictureURL = allData.get("pictureURL");
         _shelfPos = allData.get("shelfPos");
     }
+
+    public int getId() {
+        return _magazineId;
+    }
 }

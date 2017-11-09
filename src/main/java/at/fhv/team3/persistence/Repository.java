@@ -19,6 +19,8 @@ public abstract class Repository<T extends Transferable> {
 
     public abstract T getById(Integer id);
 
+    public abstract void delete(T model);
+
     protected Integer addMedia(T media) {
         Session session = sessionFactory.openSession();
         Integer id = null;

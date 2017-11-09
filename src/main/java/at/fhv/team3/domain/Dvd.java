@@ -92,4 +92,8 @@ public class Dvd implements Borrowable {
         _pictureURL = allData.get("pictureURL");
         _shelfPos = allData.get("shelfPos");
     }
+
+    public int getId() {
+        return _dvdId;
+    }
 }

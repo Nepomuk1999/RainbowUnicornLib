@@ -76,4 +76,8 @@ public class MagazineRepository extends Repository<Magazine> {
         return null;
     }
 
+    public void delete(Magazine model) {
+
+    }
+
 }

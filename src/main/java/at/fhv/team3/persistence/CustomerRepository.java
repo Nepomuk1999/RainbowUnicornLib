@@ -73,4 +73,8 @@ public class CustomerRepository extends Repository<Customer> {
         }
         return null;
     }
+
+    public void delete(Customer model) {
+
+    }
 }
