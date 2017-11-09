@@ -40,6 +40,7 @@ public class CustomerController extends UnicastRemoteObject implements RMICustom
     public void saveCustomer(Customer c){
         _customerRepository.save(c);
     }
+
     public void saveNewCustomer(CustomerDTO dto){
         Customer customer = new Customer();
         customer.fillFromDTO(dto);
