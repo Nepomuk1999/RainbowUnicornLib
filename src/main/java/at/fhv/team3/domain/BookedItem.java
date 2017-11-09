@@ -6,6 +6,7 @@ import at.fhv.team3.domain.interfaces.Transferable;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by David on 10/30/2017.
@@ -52,5 +53,12 @@ public class BookedItem implements Transferable {
 
     public DTO createDataTransferObject() {
         return new BookedItemDTO(_bookingId, _customer, _date);
+    }
+
+    public void fillFromDTO(DTO dto) {
+        HashMap<String, String> allData = dto.getAllData();
+        _bookingId = Integer.parseInt(allData.get("id"));
+       // _customer = allData.get("customer");
+        _date = new Date(allData.get("date"));
     }
 }

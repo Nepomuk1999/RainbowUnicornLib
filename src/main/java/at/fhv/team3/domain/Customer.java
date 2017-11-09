@@ -6,6 +6,7 @@ import at.fhv.team3.domain.interfaces.Transferable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 /**
@@ -81,6 +82,22 @@ public class Customer implements Searchable {
 
     public DTO createDataTransferObject() {
         return null;
+    }
+
+    public void fillFromDTO(DTO dto) {
+        HashMap<String, String> allData = dto.getAllData();
+        _customerId = Integer.parseInt(allData.get("id"));
+        _firstName = allData.get("firstname");
+        _lastName = allData.get("lastname");
+        boolean subscription;
+        if(allData.get("subscription").equals("true")){
+            subscription = true;
+        } else {
+            subscription = false;
+        }
+        _subscription = subscription;
+        _email = allData.get("email");
+        _phoneNumber = allData.get("phonenumber");
     }
 
     public boolean containsSearchTerm(String searchTerm) {

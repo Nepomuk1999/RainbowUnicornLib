@@ -6,6 +6,7 @@ import at.fhv.team3.domain.interfaces.Transferable;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by David on 10/30/2017.
@@ -62,5 +63,13 @@ public class BorrowedItem implements Transferable {
 
     public DTO createDataTransferObject() {
         return new BorrowedItemDTO(_borrowedId, _borrowedDate, _externalLib, _customer);
+    }
+
+    public void fillFromDTO(DTO dto) {
+        HashMap<String, String> allData = dto.getAllData();
+        _borrowedId = Integer.parseInt(allData.get("id"));
+        _borrowedDate = new Date(allData.get("date"));
+        //_externalLib = allData.get("externalLib");
+        //_customer = allData.get("customer");
     }
 }

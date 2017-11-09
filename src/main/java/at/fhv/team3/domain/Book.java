@@ -3,8 +3,10 @@ package at.fhv.team3.domain;
 import at.fhv.team3.domain.dto.BookDTO;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Borrowable;
+import at.fhv.team3.domain.interfaces.Transferable;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 /**
@@ -120,5 +122,16 @@ public class Book implements Borrowable {
 
     public DTO createDataTransferObject() {
         return new BookDTO(_bookId, _title, _publisher, _author, _isbn, _edition, _pictureURL, _shelfPos);
+    }
+
+    public void fillFromDTO(DTO dto) {
+        HashMap<String, String> allData = dto.getAllData();
+        _bookId = Integer.parseInt(allData.get("id"));
+        _title = allData.get("title");
+        _author = allData.get("author");
+        _publisher = allData.get("publisher");
+        _isbn = allData.get("isbn");
+        _edition = allData.get("edition");
+        _shelfPos = allData.get("shelfPos");
     }
 }

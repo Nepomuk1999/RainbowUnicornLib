@@ -8,4 +8,5 @@ import at.fhv.team3.domain.dto.DTO;
 public interface Transferable {
 
     public DTO createDataTransferObject();
+    public void fillFromDTO(DTO dto);
 }

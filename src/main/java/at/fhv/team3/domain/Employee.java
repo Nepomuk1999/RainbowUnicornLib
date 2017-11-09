@@ -4,6 +4,7 @@ import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Transferable;
 
 import javax.persistence.*;
+import java.util.HashMap;
 
 /**
  * Created by David on 10/30/2017.
@@ -66,5 +67,14 @@ public class Employee implements Transferable {
     public DTO createDataTransferObject() {
         //Test
         return null;
+    }
+
+    public void fillFromDTO(DTO dto) {
+        HashMap<String, String> allData = dto.getAllData();
+        _employeeId = Integer.parseInt(allData.get("id"));
+        _firstName = allData.get("firstname");
+        _lastName = allData.get("lastname");
+        _role = allData.get("role");
+        _userName = allData.get("username");
     }
 }

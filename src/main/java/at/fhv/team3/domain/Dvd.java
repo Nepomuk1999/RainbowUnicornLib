@@ -5,6 +5,7 @@ import at.fhv.team3.domain.dto.DvdDTO;
 import at.fhv.team3.domain.interfaces.Borrowable;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 /**
@@ -81,5 +82,14 @@ public class Dvd implements Borrowable {
 
     public DTO createDataTransferObject() {
         return new DvdDTO(_dvdId, _title, _regisseur, _pictureURL, _shelfPos);
+    }
+
+    public void fillFromDTO(DTO dto) {
+        HashMap<String, String> allData = dto.getAllData();
+        _dvdId = Integer.parseInt(allData.get("id"));
+        _title = allData.get("title");
+        _regisseur = allData.get("regisseur");
+        _pictureURL = allData.get("pictureURL");
+        _shelfPos = allData.get("shelfPos");
     }
 }

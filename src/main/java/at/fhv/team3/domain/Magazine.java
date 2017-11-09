@@ -5,6 +5,7 @@ import at.fhv.team3.domain.dto.MagazineDTO;
 import at.fhv.team3.domain.interfaces.Borrowable;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 /**
@@ -95,5 +96,15 @@ public class Magazine implements Borrowable {
 
     public DTO createDataTransferObject() {
         return new MagazineDTO(_magazineId, _title, _edition, _publisher, _pictureURL, _shelfPos);
+    }
+
+    public void fillFromDTO(DTO dto) {
+        HashMap<String, String> allData = dto.getAllData();
+        _magazineId = Integer.parseInt(allData.get("id"));
+        _title = allData.get("title");
+        _edition = allData.get("edition");
+        _publisher = allData.get("publisher");
+        _pictureURL = allData.get("pictureURL");
+        _shelfPos = allData.get("shelfPos");
     }
 }

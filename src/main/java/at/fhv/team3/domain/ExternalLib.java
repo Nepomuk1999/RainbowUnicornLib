@@ -5,6 +5,7 @@ import at.fhv.team3.domain.interfaces.Transferable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by David on 10/30/2017.
@@ -52,5 +53,12 @@ public class ExternalLib implements Transferable {
 
     public DTO createDataTransferObject() {
         return null;
+    }
+
+    public void fillFromDTO(DTO dto) {
+        HashMap<String, String> allData = dto.getAllData();
+        _libId = Integer.parseInt(allData.get("id"));
+        _name = allData.get("name");
+        _accountData = allData.get("accountData");
     }
 }
