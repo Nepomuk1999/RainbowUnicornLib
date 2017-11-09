@@ -74,6 +74,29 @@ public class BorrowedItem implements Transferable {
         return _customer;
     }
 
+    public void setBook(Book book){
+        _book = book;
+    }
+
+    public Book getBook(){
+        return _book;
+    }
+
+    public void setDvd(Dvd dvd){
+        _dvd = dvd;
+    }
+
+    public Dvd getDvd(){
+        return _dvd;
+    }
+
+    public void setMagazine(Magazine magazine){
+        _magazine = magazine;
+    }
+
+    public Magazine getMagazine(){
+        return _magazine;
+    }
     public DTO createDataTransferObject() {
         return new BorrowedItemDTO(_borrowedId, _borrowedDate, _externalLib, _customer);
     }

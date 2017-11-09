@@ -34,6 +34,8 @@ public class ServerBind {
             registry.rebind("Customer", factory.getCustomerController());
             System.out.println("Customer bound in registry");
 
+            System.out.println("Binding complete");
+
         } catch (Exception e) {
             System.out.println("MediaSearchController exception: " + e.getMessage());
             e.printStackTrace();
