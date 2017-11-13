@@ -110,7 +110,7 @@ public class BookDTO extends DTO {
         allData.put("edition", _edition);
         allData.put("pictureURL", _pictureURL);
         allData.put("shelfPos", _shelfPos);
-
+        allData.put("available", _available);
         return allData;
     }
 

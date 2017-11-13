@@ -9,7 +9,7 @@ import java.util.HashMap;
 public abstract class DTO implements Serializable{
 
     protected int _id;
-    protected boolean _available;
+    protected boolean _available = true;
 
     public abstract void setId(int id);
 
