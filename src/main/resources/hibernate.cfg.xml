@@ -19,5 +19,6 @@
         <mapping class="at.fhv.team3.domain.Employee" />
         <mapping class="at.fhv.team3.domain.Customer" />
         <mapping class="at.fhv.team3.domain.ExternalLib" />
+        <mapping class="at.fhv.team3.domain.OverdueNotice" />
     </session-factory>
 </hibernate-configuration>
