@@ -104,7 +104,7 @@ public class BorrowedItem implements Transferable {
     }
 
     public void fillFromDTO(DTO dto) {
-
+        //TODO
     }
 
     public Book get_book() {
