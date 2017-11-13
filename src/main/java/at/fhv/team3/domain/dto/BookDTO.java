@@ -110,7 +110,13 @@ public class BookDTO extends DTO {
         allData.put("edition", _edition);
         allData.put("pictureURL", _pictureURL);
         allData.put("shelfPos", _shelfPos);
-        allData.put("available", _available);
+        String available;
+        if(_available){
+            available = "true";
+        } else {
+            available = "false";
+        }
+        allData.put("available", available);
         return allData;
     }
 
