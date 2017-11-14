@@ -17,12 +17,23 @@ public class BorrowedItemDTO extends DTO {
     private MagazineDTO _magazine;
 
 
-    public BorrowedItemDTO(int id, Date borrowedDate, ExternalLibDTO externalLib, CustomerDTO customer) {
+    public BorrowedItemDTO(int id, Date borrowedDate, DTO borrower, DTO dto) {
         _borrowedId = id;
         _borrowedDate = borrowedDate;
-        _externalLib = externalLib;
-        _customer = customer;
 
+        if (dto instanceof BookDTO) {
+            _externalLib = (ExternalLibDTO) borrower;
+        } else {
+            _customer = (CustomerDTO) borrower;
+        }
+
+        if (dto instanceof BookDTO) {
+            _book = (BookDTO) dto;
+        } else if (dto instanceof DvdDTO) {
+            _dvd = (DvdDTO) dto;
+        } else {
+            _magazine = (MagazineDTO) dto;
+        }
     }
 
     public void setBorrowedId(int id){

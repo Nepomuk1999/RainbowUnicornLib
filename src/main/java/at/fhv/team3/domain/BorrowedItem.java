@@ -109,13 +109,9 @@ public class BorrowedItem implements Transferable {
     public void fillFromDTO(DTO dto) {
         HashMap<String, String> allData = dto.getAllData();
         _borrowedId = Integer.parseInt(allData.get("id"));
-
         _externalLib.createFromString(allData.get("externalLib"));
-
         _customer.createFromString(allData.get("customer"));
-
         _borrowedDate = new Date(allData.get("borrowedDate"));
-
         if (allData.get("book") != null) {
             _book.createFromString(allData.get("book"));
         } else if (allData.get("dvd") != null) {
