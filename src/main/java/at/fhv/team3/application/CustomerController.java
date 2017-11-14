@@ -30,7 +30,8 @@ public class CustomerController extends UnicastRemoteObject implements RMICustom
         List<Customer> allCustomers = loadCustomer();
         ArrayList<DTO> matchingCustomers = new ArrayList<DTO>();
         for(Customer c : allCustomers){
-            if(c.containsSearchTerm(term)){
+            String name = c.getFirstName() + " " + c.getLastName();
+            if(name.contains(term)){
                 matchingCustomers.add(c.createDataTransferObject());
             }
         }
