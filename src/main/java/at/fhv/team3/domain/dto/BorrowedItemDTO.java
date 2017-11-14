@@ -1,9 +1,5 @@
 package at.fhv.team3.domain.dto;
 
-import at.fhv.team3.domain.Customer;
-import at.fhv.team3.domain.ExternalLib;
-
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -14,11 +10,11 @@ public class BorrowedItemDTO extends DTO {
 
     private int _borrowedId;
     private Date _borrowedDate;
-    private ExternalLib _externalLib;
-    private Customer _customer;
+    private ExternalLibDTO _externalLib;
+    private CustomerDTO _customer;
 
 
-    public BorrowedItemDTO(int id, Date borrowedDate, ExternalLib externalLib, Customer customer) {
+    public BorrowedItemDTO(int id, Date borrowedDate, ExternalLibDTO externalLib, CustomerDTO customer) {
         _borrowedId = id;
         _borrowedDate = borrowedDate;
         _externalLib = externalLib;
@@ -42,19 +38,19 @@ public class BorrowedItemDTO extends DTO {
         return _borrowedDate;
     }
 
-    public void setExternalLib(ExternalLib lib){
+    public void setExternalLib(ExternalLibDTO lib){
         _externalLib = lib;
     }
 
-    public ExternalLib getExternalLib(){
+    public ExternalLibDTO getExternalLib(){
         return _externalLib;
     }
 
-    public void setCustomer(Customer customer){
+    public void setCustomer(CustomerDTO customer){
         _customer = customer;
     }
 
-    public Customer getCustomer(){
+    public CustomerDTO getCustomer(){
         return _customer;
     }
 
@@ -69,9 +65,9 @@ public class BorrowedItemDTO extends DTO {
     public HashMap<String, String> getAllData() {
         HashMap<String, String> allData = new HashMap<String, String>();
         allData.put("id", ""+_borrowedId);
-        allData.put("externalLib", _externalLib.getName());
+        allData.put("externalLib", _externalLib.toString());
         allData.put("date", _borrowedDate.toString());
-        allData.put("customer", _customer.getFirstName() + " " + _customer.getLastName());
+        allData.put("customer", _customer.toString());
         return allData;
     }
 
@@ -82,4 +78,6 @@ public class BorrowedItemDTO extends DTO {
         }
         return false;
     }
+
+
 }
