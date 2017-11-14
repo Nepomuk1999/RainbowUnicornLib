@@ -24,7 +24,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
     }
 
     //TODO: REVEIW
-    public void handOut(DTO media, CustomerDTO customer){
+    public boolean handOut(DTO media, CustomerDTO customer){
             Date date = new Date();
             BorrowedItem item = new BorrowedItem();
             item.setBorrowedDate(date);
@@ -46,11 +46,13 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
             }
         if(validateHandOut()) {
             _borrowedItemRepository.save(item);
+            return true;
         }
+        return false;
     }
 
     //TODO: REVIEW
-    public void handIn(DTO media){
+    public boolean handIn(DTO media){
         List<BorrowedItem> items = _borrowedItemRepository.getAll();
         if (validateHandIn()) {
             for (BorrowedItem bi : items) {
@@ -65,10 +67,12 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
                 if(borrowable != null) {
                     if (borrowable.getId() == media.getId()) {
                         _borrowedItemRepository.delete((bi));
+                        return true;
                     }
                 }
             }
         }
+        return false;
     }
 
     //TODO: implement
