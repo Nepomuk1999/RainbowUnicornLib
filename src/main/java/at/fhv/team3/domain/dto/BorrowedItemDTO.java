@@ -12,6 +12,9 @@ public class BorrowedItemDTO extends DTO {
     private Date _borrowedDate;
     private ExternalLibDTO _externalLib;
     private CustomerDTO _customer;
+    private BookDTO _book;
+    private DvdDTO _dvd;
+    private MagazineDTO _magazine;
 
 
     public BorrowedItemDTO(int id, Date borrowedDate, ExternalLibDTO externalLib, CustomerDTO customer) {
@@ -68,6 +71,15 @@ public class BorrowedItemDTO extends DTO {
         allData.put("externalLib", _externalLib.toString());
         allData.put("date", _borrowedDate.toString());
         allData.put("customer", _customer.toString());
+        if (_book != null) {
+            allData.put("book", _book.toString());
+        } else if (_dvd != null) {
+            allData.put("dvd", _dvd.toString());
+        } else if (_magazine != null) {
+            allData.put("magazine", _magazine.toString());
+        } else {
+            return null;
+        }
         return allData;
     }
 
@@ -80,4 +92,27 @@ public class BorrowedItemDTO extends DTO {
     }
 
 
+    public BookDTO get_book() {
+        return _book;
+    }
+
+    public void set_book(BookDTO _book) {
+        this._book = _book;
+    }
+
+    public DvdDTO get_dvd() {
+        return _dvd;
+    }
+
+    public void set_dvd(DvdDTO _dvd) {
+        this._dvd = _dvd;
+    }
+
+    public MagazineDTO get_magazine() {
+        return _magazine;
+    }
+
+    public void set_magazine(MagazineDTO _magazine) {
+        this._magazine = _magazine;
+    }
 }

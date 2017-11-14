@@ -111,6 +111,20 @@ public class Customer implements Searchable {
         _phoneNumber = allData.get("phonenumber");
     }
 
+    public void createFromString(String s) {
+        ArrayList<String> stringList = new ArrayList<String>();
+        for(String word : s.split(" ")) {
+            stringList.add(word);
+        }
+
+        setCustomerId(Integer.parseInt(stringList.get(0)));
+        setFirstName(stringList.get(1));
+        setLastName(stringList.get(2));
+        setSubscription(Boolean.getBoolean(stringList.get(3)));
+        setEmail(stringList.get(4));
+        setPhoneNumber(stringList.get(5));
+    }
+
     public boolean containsSearchTerm(String searchTerm) {
         if( Pattern.compile(Pattern.quote(searchTerm), Pattern.CASE_INSENSITIVE).matcher(_firstName).find()
                 || Pattern.compile(Pattern.quote(searchTerm), Pattern.CASE_INSENSITIVE).matcher(_lastName).find()

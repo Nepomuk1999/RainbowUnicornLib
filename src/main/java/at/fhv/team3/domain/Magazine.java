@@ -5,6 +5,7 @@ import at.fhv.team3.domain.dto.MagazineDTO;
 import at.fhv.team3.domain.interfaces.Borrowable;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -37,11 +38,11 @@ public class Magazine implements Borrowable {
 
     public Magazine(){}
 
-    public void set_magazineId(int id){
+    public void setMagazineId(int id){
         _magazineId = id;
     }
 
-    public int get_magazineId(){
+    public int getMagazineId(){
         return _magazineId;
     }
 
@@ -106,6 +107,20 @@ public class Magazine implements Borrowable {
         _publisher = allData.get("publisher");
         _pictureURL = allData.get("pictureURL");
         _shelfPos = allData.get("shelfPos");
+    }
+
+    public void createFromString(String s) {
+        ArrayList<String> stringList = new ArrayList<String>();
+        for(String word : s.split(" ")) {
+            stringList.add(word);
+        }
+
+        setMagazineId(Integer.parseInt(stringList.get(0)));
+        setTitle(stringList.get(1));
+        setEdition(stringList.get(2));
+        setPublisher(stringList.get(3));
+        setPictureURL(stringList.get(3));
+        setShelfPos(stringList.get(5));
     }
 
     public int getId() {

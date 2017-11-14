@@ -8,7 +8,6 @@ import at.fhv.team3.domain.interfaces.Borrowable;
 import at.fhv.team3.domain.interfaces.Transferable;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -111,29 +110,19 @@ public class BorrowedItem implements Transferable {
         HashMap<String, String> allData = dto.getAllData();
         _borrowedId = Integer.parseInt(allData.get("id"));
 
-        ArrayList<String> externalLibString = new ArrayList<String>();
-        for(String s : allData.get("externalLib").split(" ")) {
-            externalLibString.add(s);
-        }
+        _externalLib.createFromString(allData.get("externalLib"));
 
-        _externalLib = new ExternalLib();
-        _externalLib.setLibId(Integer.parseInt(externalLibString.get(0)));
-        _externalLib.setName(externalLibString.get(1));
-        _externalLib.setAccountData(externalLibString.get(2));
-
-        ArrayList<String> customerString = new ArrayList<String>();
-        for(String s : allData.get("externalLib").split(" ")) {
-            customerString.add(s);
-        }
-
-        _customer.setCustomerId(Integer.parseInt(customerString.get(0)));
-        _customer.setFirstName(customerString.get(1));
-        _customer.setLastName(customerString.get(2));
-        _customer.setSubscription(Boolean.getBoolean(customerString.get(3)));
-        _customer.setEmail(customerString.get(4));
-        _customer.setPhoneNumber(customerString.get(5));
+        _customer.createFromString(allData.get("customer"));
 
         _borrowedDate = new Date(allData.get("borrowedDate"));
+
+        if (allData.get("book") != null) {
+            _book.createFromString(allData.get("book"));
+        } else if (allData.get("dvd") != null) {
+            _dvd.createFromString(allData.get("dvd"));
+        } else {
+            _magazine.createFromString(allData.get("magazine"));
+        }
     }
 
     public Book get_book() {

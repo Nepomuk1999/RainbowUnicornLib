@@ -5,6 +5,7 @@ import at.fhv.team3.domain.dto.DvdDTO;
 import at.fhv.team3.domain.interfaces.Borrowable;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -36,11 +37,11 @@ public class Dvd implements Borrowable {
 
     }
 
-    public void set_dvdId(int _dvdId){
+    public void setDvdId(int _dvdId){
         _dvdId = _dvdId;
     }
 
-    public int get_dvdId(){
+    public int getDvdId(){
         return _dvdId;
     }
 
@@ -91,6 +92,19 @@ public class Dvd implements Borrowable {
         _regisseur = allData.get("regisseur");
         _pictureURL = allData.get("pictureURL");
         _shelfPos = allData.get("shelfPos");
+    }
+
+    public void createFromString(String s) {
+        ArrayList<String> stringList = new ArrayList<String>();
+        for(String word : s.split(" ")) {
+            stringList.add(word);
+        }
+
+        setDvdId(Integer.parseInt(stringList.get(0)));
+        setTitle(stringList.get(1));
+        setRegisseur(stringList.get(2));
+        setPictureURL(stringList.get(3));
+        setShelfPos(stringList.get(4));
     }
 
     public int getId() {

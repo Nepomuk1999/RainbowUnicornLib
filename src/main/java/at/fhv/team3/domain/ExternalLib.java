@@ -66,4 +66,15 @@ public class ExternalLib implements Transferable {
         _name = allData.get("name");
         _accountData = allData.get("accountData");
     }
+
+    public void createFromString(String s) {
+        ArrayList<String> stringList = new ArrayList<String>();
+        for(String word : s.split(" ")) {
+            stringList.add(word);
+        }
+
+        setLibId(Integer.parseInt(stringList.get(0)));
+        setName(stringList.get(1));
+        setAccountData(stringList.get(2));
+    }
 }

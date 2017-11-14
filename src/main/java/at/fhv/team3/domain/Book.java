@@ -3,9 +3,9 @@ package at.fhv.team3.domain;
 import at.fhv.team3.domain.dto.BookDTO;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Borrowable;
-import at.fhv.team3.domain.interfaces.Transferable;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -53,11 +53,11 @@ public class Book implements Borrowable {
         this._shelfPos = shelfPos;
     }
 
-    public void set_bookId(int id){
+    public void setBookId (int id){
         _bookId = id;
     }
 
-    public int get_bookId(){
+    public int getBookId(){
         return _bookId;
     }
 
@@ -133,6 +133,22 @@ public class Book implements Borrowable {
         _isbn = allData.get("isbn");
         _edition = allData.get("edition");
         _shelfPos = allData.get("shelfPos");
+    }
+
+    public void createFromString(String s) {
+        ArrayList<String> stringList = new ArrayList<String>();
+        for(String word : s.split(" ")) {
+            stringList.add(word);
+        }
+
+        setBookId(Integer.parseInt(stringList.get(0)));
+        setTitle(stringList.get(1));
+        setAuthor(stringList.get(2));
+        setPublisher(stringList.get(3));
+        setIsbn(stringList.get(4));
+        setEdition(stringList.get(5));
+        setPictureURL(stringList.get(6));
+        setShelfPos(stringList.get(7));
     }
 
     public int getId() {
