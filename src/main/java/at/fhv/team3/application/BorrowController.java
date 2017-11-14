@@ -1,8 +1,7 @@
 package at.fhv.team3.application;
 
 import at.fhv.team3.domain.*;
-import at.fhv.team3.domain.dto.CustomerDTO;
-import at.fhv.team3.domain.dto.DTO;
+import at.fhv.team3.domain.dto.*;
 import at.fhv.team3.domain.interfaces.Borrowable;
 import at.fhv.team3.persistence.*;
 import at.fhv.team3.rmi.interfaces.RMIBorrow;
@@ -25,19 +24,25 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
     }
 
     //TODO: REVEIW
-    public void handOut(Borrowable media, CustomerDTO customer){
+    public void handOut(DTO media, CustomerDTO customer){
             Date date = new Date();
             BorrowedItem item = new BorrowedItem();
             item.setBorrowedDate(date);
             Customer c = new Customer();
             c.fillFromDTO(customer);
             item.setCustomer(c);
-            if(media.getClass() == Book.class){
-                item.setBook((Book)media);
-            } else if(media.getClass() == Dvd.class){
-                item.setDvd((Dvd)media);
-            } else if(media.getClass() == Magazine.class){
-                item.setMagazine((Magazine)media);
+            if(media.getClass() == BookDTO.class){
+                Book book = new Book();
+                book.fillFromDTO(media);
+                item.setBook(book);
+            } else if(media.getClass() == DvdDTO.class){
+                Dvd dvd = new Dvd();
+                dvd.fillFromDTO(media);
+                item.setDvd(dvd);
+            } else if(media.getClass() == MagazineDTO.class){
+                Magazine magazine = new Magazine();
+                magazine.fillFromDTO(media);
+                item.setMagazine(magazine);
             }
         if(validateHandOut()) {
             _borrowedItemRepository.save(item);
