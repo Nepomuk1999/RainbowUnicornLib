@@ -2,6 +2,7 @@ package at.fhv.team3.rmi.interfaces;
 
 import at.fhv.team3.domain.Customer;
 import at.fhv.team3.domain.dto.CustomerDTO;
+import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Borrowable;
 
 import java.rmi.Remote;
@@ -13,5 +14,5 @@ import java.rmi.RemoteException;
 public interface RMIBorrow  extends Remote {
 
     public void handOut(Borrowable media, CustomerDTO customer) throws RemoteException;
-    public void handIn(Borrowable media) throws RemoteException;
+    public void handIn(DTO media) throws RemoteException;
 }

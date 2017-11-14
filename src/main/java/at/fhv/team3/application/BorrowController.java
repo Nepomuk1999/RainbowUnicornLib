@@ -2,6 +2,7 @@ package at.fhv.team3.application;
 
 import at.fhv.team3.domain.*;
 import at.fhv.team3.domain.dto.CustomerDTO;
+import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Borrowable;
 import at.fhv.team3.persistence.*;
 import at.fhv.team3.rmi.interfaces.RMIBorrow;
@@ -44,7 +45,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
     }
 
     //TODO: REVIEW ( getClass möglich? )
-    public void handIn(Borrowable media){
+    public void handIn(DTO media){
         List<BorrowedItem> items = _borrowedItemRepository.getAll();
         if (validateHandIn()) {
             for (BorrowedItem bi : items) {
