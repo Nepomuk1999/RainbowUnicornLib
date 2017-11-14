@@ -12,6 +12,7 @@ public class DvdDTO extends DTO{
     private String _regisseur;
     private String _pictureURL;
     private String _shelfPos;
+    private boolean _available;
 
     public DvdDTO(int id, String title, String regisseur, String pictureURL, String shelfPos){
         _dvdId = id;
@@ -58,6 +59,12 @@ public class DvdDTO extends DTO{
     public String getShelfPos(){
         return _shelfPos;
     }
+
+    public void setAvailable(boolean available){
+        _available = available;
+    }
+
+    public boolean isAvailable(){ return _available;}
 
     public void setId(int id) {
         setDvdId(id);

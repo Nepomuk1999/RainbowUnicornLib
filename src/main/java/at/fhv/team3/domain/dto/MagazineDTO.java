@@ -13,6 +13,7 @@ public class MagazineDTO extends DTO{
     private String _publisher;
     private String _pictureURL;
     private String _shelfPos;
+    private boolean _available;
 
     public MagazineDTO(int id, String title, String edition, String publisher, String pictureURL, String shelfPos){
         _magazineId = id;
@@ -70,6 +71,12 @@ public class MagazineDTO extends DTO{
     public String getShelfPos(){
         return _shelfPos;
     }
+
+    public void setAvailable(boolean available){
+        _available = available;
+    }
+
+    public boolean isAvailable(){ return _available;}
 
     public void setId(int id) {
         setMagazineId(id);

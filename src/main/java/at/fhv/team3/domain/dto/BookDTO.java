@@ -16,6 +16,7 @@ public class BookDTO extends DTO {
     private String _edition;
     private String _pictureURL;
     private String _shelfPos;
+    private boolean _available;
 
     public BookDTO(int id, String title, String publisher, String author, String isbn, String edition, String pictureURL, String shelfPos){
         _bookId = id;
@@ -91,6 +92,12 @@ public class BookDTO extends DTO {
     public String getShelfPos(){
         return _shelfPos;
     }
+
+    public void setAvailable(boolean available){
+        _available = available;
+    }
+
+    public boolean isAvailable(){ return _available;}
 
     public void setId(int id) {
         setBookId(id);
