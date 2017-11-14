@@ -62,6 +62,30 @@ public class BookedItem implements Transferable {
         _date = date;
     }
 
+    public void setBook(Book b){
+        _book = b;
+    }
+
+    public Book getBook(){
+        return _book;
+    }
+
+    public void setDvd(Dvd d){
+        _dvd = d;
+    }
+
+    public Dvd getDvd(){
+        return _dvd;
+    }
+
+    public void setMagazine(Magazine m){
+        _magazine = m;
+    }
+
+    public Magazine getMagazein(){
+        return _magazine;
+    }
+
     public Date getdate(){
         return _date;
     }

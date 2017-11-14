@@ -10,7 +10,7 @@ import java.util.List;
 public class App {
     public static void main(String[] args) {
         ServerBind.init();
-   //     test();
+   //   test();
     }
 
     public static void test(){
