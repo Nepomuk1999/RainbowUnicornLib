@@ -44,7 +44,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         }
     }
 
-    //TODO: REVIEW ( getClass möglich? )
+    //TODO: REVIEW
     public void handIn(DTO media){
         List<BorrowedItem> items = _borrowedItemRepository.getAll();
         if (validateHandIn()) {
