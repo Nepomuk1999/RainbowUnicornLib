@@ -150,6 +150,7 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
             if(m.getTitle().equals(title) && m.getEdition().equals(edition)){
                 MagazineDTO dto = (MagazineDTO) m.createDataTransferObject();
                 dto.setAvailable(getAvailability(m));
+                matchingMagazines.add(dto);
             }
         }
         return matchingMagazines;
