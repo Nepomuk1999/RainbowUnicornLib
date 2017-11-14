@@ -91,7 +91,15 @@ public class BookedItem implements Transferable {
     }
 
     public DTO createDataTransferObject() {
-        return new BookedItemDTO(_bookingId, _customer, _date);
+        DTO dto;
+        if(_book != null){
+            dto = _book.createDataTransferObject();
+        } else if(_dvd != null){
+            dto = _dvd.createDataTransferObject();
+        } else {
+            dto = _magazine.createDataTransferObject();
+        }
+        return new BookedItemDTO(_bookingId, _customer, _date, dto);
     }
 
     public void fillFromDTO(DTO dto) {
