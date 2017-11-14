@@ -1,12 +1,10 @@
 package at.fhv.team3.rmi;
 
+import at.fhv.team3.application.BookingController;
 import at.fhv.team3.application.BorrowController;
 import at.fhv.team3.application.CustomerController;
 import at.fhv.team3.application.MediaSearchController;
-import at.fhv.team3.rmi.interfaces.RMIBorrow;
-import at.fhv.team3.rmi.interfaces.RMICustomer;
-import at.fhv.team3.rmi.interfaces.RMIFactoryInterface;
-import at.fhv.team3.rmi.interfaces.RMIMediaSearch;
+import at.fhv.team3.rmi.interfaces.*;
 
 import java.rmi.RemoteException;
 
@@ -25,5 +23,9 @@ public class RMIFactory implements RMIFactoryInterface {
 
     public RMICustomer getCustomerController() throws RemoteException {
         return new CustomerController();
+    }
+
+    public RMIBooking getBookingController() throws RemoteException {
+        return new BookingController();
     }
 }

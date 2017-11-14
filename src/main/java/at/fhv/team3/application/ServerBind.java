@@ -33,6 +33,9 @@ public class ServerBind {
             System.out.println("Binding CustomerController...");
             registry.rebind("Customer", factory.getCustomerController());
             System.out.println("Customer bound in registry");
+            System.out.println("Binding BookingController...");
+            registry.rebind("Booking", factory.getBookingController());
+            System.out.println("Booking bound in registry");
 
             System.out.println("Binding complete");
 
