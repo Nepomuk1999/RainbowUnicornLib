@@ -1,12 +1,16 @@
 package at.fhv.team3.domain;
 
 import at.fhv.team3.domain.dto.BorrowedItemDTO;
+import at.fhv.team3.domain.dto.CustomerDTO;
 import at.fhv.team3.domain.dto.DTO;
+import at.fhv.team3.domain.dto.ExternalLibDTO;
 import at.fhv.team3.domain.interfaces.Borrowable;
 import at.fhv.team3.domain.interfaces.Transferable;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by David on 10/30/2017.
@@ -100,11 +104,36 @@ public class BorrowedItem implements Transferable {
     }
 
     public DTO createDataTransferObject() {
-        return new BorrowedItemDTO(_borrowedId, _borrowedDate, _externalLib, _customer);
+        return new BorrowedItemDTO(_borrowedId, _borrowedDate, (ExternalLibDTO) _externalLib.createDataTransferObject(), (CustomerDTO) _customer.createDataTransferObject());
     }
 
     public void fillFromDTO(DTO dto) {
-        //TODO
+        HashMap<String, String> allData = dto.getAllData();
+        _borrowedId = Integer.parseInt(allData.get("id"));
+
+        ArrayList<String> externalLibString = new ArrayList<String>();
+        for(String s : allData.get("externalLib").split(" ")) {
+            externalLibString.add(s);
+        }
+
+        _externalLib = new ExternalLib();
+        _externalLib.setLibId(Integer.parseInt(externalLibString.get(0)));
+        _externalLib.setName(externalLibString.get(1));
+        _externalLib.setAccountData(externalLibString.get(2));
+
+        ArrayList<String> customerString = new ArrayList<String>();
+        for(String s : allData.get("externalLib").split(" ")) {
+            customerString.add(s);
+        }
+
+        _customer.setCustomerId(Integer.parseInt(customerString.get(0)));
+        _customer.setFirstName(customerString.get(1));
+        _customer.setLastName(customerString.get(2));
+        _customer.setSubscription(Boolean.getBoolean(customerString.get(3)));
+        _customer.setEmail(customerString.get(4));
+        _customer.setPhoneNumber(customerString.get(5));
+
+        _borrowedDate = new Date(allData.get("borrowedDate"));
     }
 
     public Book get_book() {
