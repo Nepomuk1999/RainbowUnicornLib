@@ -161,24 +161,24 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
             if(b.getClass() == Book.class){
                 if(item.getBook() != null){
                     if(b.getId() == item.getBook().getId()){
-                        return true;
+                        return false;
                     }
                 }
             } else if(b.getClass() == Dvd.class){
                 if(item.getDvd() != null){
                     if(b.getId() == item.getDvd().getId()){
-                        return true;
+                        return false;
                     }
                 }
             } else {
                 if(item.getMagazine() != null){
                     if(b.getId() == item.getMagazine().getId()){
-                        return true;
+                        return false;
                     }
                 }
             }
         }
-        return false;
+        return true;
     }
 
 }
