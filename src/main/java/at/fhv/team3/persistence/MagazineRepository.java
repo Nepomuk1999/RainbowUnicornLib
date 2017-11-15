@@ -69,7 +69,7 @@ public class MagazineRepository extends Repository<Magazine> {
             if (transaction != null) {
                 transaction.rollback();
             }
-            System.out.println("Magazin get all error:" + ex);
+            System.out.println("Magazine get all error:" + ex);
         } finally {
             session.close();
         }
