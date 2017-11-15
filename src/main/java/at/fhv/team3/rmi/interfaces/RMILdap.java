@@ -12,4 +12,5 @@ import java.rmi.RemoteException;
 public interface RMILdap extends Remote {
 
     public EmployeeDTO authenticateUser(String name, String password) throws NamingException, RemoteException;
+
 }
