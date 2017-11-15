@@ -109,5 +109,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return new ValidationResult();
     }
 
+    //TODO: implement
     private ValidationResult validateExtend() { return new ValidationResult(); }
+
 }
