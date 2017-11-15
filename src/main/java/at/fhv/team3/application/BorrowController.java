@@ -64,13 +64,15 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
                 }
                 if(b != null && tmp != null) {
                     if (b.getClass() == tmp.getClass()) {
-                        if (b.getId() == tmp.getId() && bi.getCustomer().equals(c)) {
+                        if (b.getId() == tmp.getId() && bi.getCustomer().getCustomerId() == c.getCustomerId()) {
                             booking = bi;
                         }
                     }
                 }
             }
-            _bookingRepository.delete(booking);
+            if(booking != null) {
+                _bookingRepository.delete(booking);
+            }
             _borrowedItemRepository.save(item);
 
         }
