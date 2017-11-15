@@ -1,40 +1,59 @@
 package at.fhv.team3.application;
 
-import at.fhv.team3.rmi.interfaces.RMICustomer;
+import at.fhv.team3.domain.Employee;
+import at.fhv.team3.domain.dto.EmployeeDTO;
+import at.fhv.team3.persistence.EmployeeRepository;
 import at.fhv.team3.rmi.interfaces.RMILdap;
 
 import javax.naming.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 import java.util.Properties;
 
 public class LdapController extends UnicastRemoteObject implements RMILdap {
 
     private String url;
     private Properties env;
+    private EmployeeRepository _employeRepository;
 
     public LdapController() throws RemoteException{
         url = "ldap://openldap.fhv.at";
         env = new Properties();
+        _employeRepository = EmployeeRepository.getInstance();
     }
 
-    public boolean authenticateUser(String name, String password) throws NamingException {
+    public EmployeeDTO authenticateUser(String name, String password) throws NamingException {
+        Employee employee = findEmployee(name);
+        EmployeeDTO dto = (EmployeeDTO) employee.createDataTransferObject();
         boolean access = false;
-        env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-        env.put(Context.PROVIDER_URL, url);
-        env.put(Context.SECURITY_AUTHENTICATION, "simple");
-        env.put(Context.SECURITY_PRINCIPAL, "userid="+name+",ou=people,o=fhv.at");
-        env.put(Context.SECURITY_CREDENTIALS, password);
+        if(employee != null) {
+            env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+            env.put(Context.PROVIDER_URL, url);
+            env.put(Context.SECURITY_AUTHENTICATION, "simple");
+            env.put(Context.SECURITY_PRINCIPAL, "userid=" + name + ",ou=people,o=fhv.at");
+            env.put(Context.SECURITY_CREDENTIALS, password);
+            try {
+                Context ctx = new InitialContext(env);
+                ctx.close();
+                access = true;
 
-        try {
-            Context ctx = new InitialContext(env);
-            ctx.close();
-            access = true;
-
-        } catch (NamingException ex) {
-            access = false;
+            } catch (NamingException ex) {
+                access = false;
+            }
         }
-        return access;
+        dto.setLoggedIn(access);
+        return dto;
+    }
+
+    private Employee findEmployee(String name){
+        List<Employee> employees = _employeRepository.getAll();
+        for(Employee employee : employees){
+            if(employee.getUsername().equals(name)){
+               return employee;
+            }
+        }
+        return null;
     }
 
 }

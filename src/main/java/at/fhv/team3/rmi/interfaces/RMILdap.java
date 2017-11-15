@@ -1,5 +1,7 @@
 package at.fhv.team3.rmi.interfaces;
 
+import at.fhv.team3.domain.dto.EmployeeDTO;
+
 import javax.naming.NamingException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -9,5 +11,5 @@ import java.rmi.RemoteException;
  */
 public interface RMILdap extends Remote {
 
-    public boolean authenticateUser(String name, String password) throws NamingException, RemoteException;
+    public EmployeeDTO authenticateUser(String name, String password) throws NamingException, RemoteException;
 }
