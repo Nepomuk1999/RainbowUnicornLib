@@ -36,7 +36,8 @@ public class ServerBind {
             System.out.println("Binding BookingController...");
             registry.rebind("Booking", factory.getBookingController());
             System.out.println("Booking bound in registry");
-
+            System.out.println("Binding Ldap Controller...");
+            registry.rebind("Ldap", factory.getLdapController());
             System.out.println("Binding complete");
 
         } catch (Exception e) {

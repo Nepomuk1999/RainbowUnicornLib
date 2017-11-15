@@ -1,9 +1,6 @@
 package at.fhv.team3.rmi;
 
-import at.fhv.team3.application.BookingController;
-import at.fhv.team3.application.BorrowController;
-import at.fhv.team3.application.CustomerController;
-import at.fhv.team3.application.MediaSearchController;
+import at.fhv.team3.application.*;
 import at.fhv.team3.rmi.interfaces.*;
 
 import java.rmi.RemoteException;
@@ -27,5 +24,9 @@ public class RMIFactory implements RMIFactoryInterface {
 
     public RMIBooking getBookingController() throws RemoteException {
         return new BookingController();
+    }
+
+    public RMILdap getLdapController() throws RemoteException {
+        return new LdapController();
     }
 }

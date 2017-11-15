@@ -1,14 +1,19 @@
 package at.fhv.team3.application;
 
+import at.fhv.team3.rmi.interfaces.RMICustomer;
+import at.fhv.team3.rmi.interfaces.RMILdap;
+
 import javax.naming.*;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Properties;
 
-public class LdapController {
+public class LdapController extends UnicastRemoteObject implements RMILdap {
 
     private String url;
     private Properties env;
 
-    public LdapController() {
+    public LdapController() throws RemoteException{
         url = "ldap://openldap.fhv.at";
         env = new Properties();
     }
