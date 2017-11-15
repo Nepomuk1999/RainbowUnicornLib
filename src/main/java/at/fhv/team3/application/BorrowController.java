@@ -53,15 +53,8 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
             List<BookedItem> booked = _bookingRepository.getAll();
             BookedItem booking = null;
             for(BookedItem bi : booked){
-                Borrowable b = null;
-                if(bi.getBook() != null){
-                    b = bi.getBook();
-                } else if (bi.getDvd() != null){
-                    b = bi.getDvd();
-                } else {
-                    b = bi.getMagazine();
-                }
-                Borrowable tmp = null;
+                Borrowable b = getBorrowable(bi);
+                Borrowable tmp;
                 if(item.getBook() != null){
                     tmp = item.getBook();
                 } else if(item.getDvd() != null){
@@ -92,7 +85,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         ValidationResult vr = validateHandIn(media);
         if (!vr.hasErrors()) {
             for (BorrowedItem bi : items) {
-               Borrowable borrowable = getMediaFromBorrowedItem(bi);
+               Borrowable borrowable = getBorrowable(bi);
                 if(borrowable != null) {
                     if (borrowable.getId() == media.getId()) {
                         _borrowedItemRepository.delete((bi));
@@ -108,7 +101,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         ValidationResult vr = validateExtend(media);
         if (!vr.hasErrors()) {
             for (BorrowedItem bi : items) {
-                Borrowable borrowable = getMediaFromBorrowedItem(bi);
+                Borrowable borrowable = getBorrowable(bi);
                 if (borrowable != null) {
                     if (borrowable.getId() == media.getId()) {
                         bi.setBorrowedDate(new Date());
@@ -170,13 +163,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
             b.fillFromDTO(media);
             Borrowable tmp;
             for(BookedItem bi : bookedItems){
-                if(bi.getBook() != null){
-                    tmp = bi.getBook();
-                } else if(bi.getDvd() != null){
-                    tmp = bi.getDvd();
-                } else {
-                    tmp = bi.getMagazine();
-                }
+                tmp = getBorrowable(bi);
                 if(tmp != null){
                     if(tmp.getClass() == b.getClass()){
                         if(tmp.getId() == b.getId()){
@@ -194,7 +181,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
 
     private boolean borrowedItemExists(List<BorrowedItem> items, DTO dto){
         for (BorrowedItem bi : items) {
-            Borrowable borrowable = getMediaFromBorrowedItem(bi);
+            Borrowable borrowable = getBorrowable(bi);
             if(borrowable != null) {
                 if (borrowable.getId() == dto.getId()) {
                     return true;
@@ -213,7 +200,19 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return false;
     }
 
-    private Borrowable getMediaFromBorrowedItem(BorrowedItem bi){
+    private Borrowable getBorrowable(BorrowedItem bi){
+        Borrowable borrowable = null;
+        if(bi.getBook() != null){
+            borrowable = bi.getBook();
+        } else if(bi.getDvd() != null){
+            borrowable = bi.getDvd();
+        } else if(bi.getMagazine() != null){
+            borrowable = bi.getMagazine();
+        }
+        return borrowable;
+    }
+
+    public Borrowable getBorrowable(BookedItem bi){
         Borrowable borrowable = null;
         if(bi.getBook() != null){
             borrowable = bi.getBook();
