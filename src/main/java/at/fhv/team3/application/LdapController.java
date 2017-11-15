@@ -18,7 +18,7 @@ public class LdapController {
         env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
         env.put(Context.PROVIDER_URL, url);
         env.put(Context.SECURITY_AUTHENTICATION, "simple");
-        env.put(Context.SECURITY_PRINCIPAL, "userid=username,ou=people,o=fhv.at");
+        env.put(Context.SECURITY_PRINCIPAL, "userid="+name+",ou=people,o=fhv.at");
         env.put(Context.SECURITY_CREDENTIALS, password);
 
         try {

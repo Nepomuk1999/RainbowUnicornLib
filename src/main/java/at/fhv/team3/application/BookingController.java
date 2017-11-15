@@ -66,7 +66,8 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
         return matching;
     }
 
-    public void bookItem(DTO dto, CustomerDTO customerDto){
+    public ValidationResult bookItem(DTO dto, CustomerDTO customerDto){
+
         BookedItem bookedItem = new BookedItem();
         Customer customer = new Customer();
         customer.fillFromDTO(customerDto);
@@ -88,6 +89,7 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
         if(!validateBooking(bookedItem).hasErrors()) {
             _bookingRepository.save(bookedItem);
         }
+        return new ValidationResult();
     }
 
     private ValidationResult validateBooking(BookedItem bookedItem){
