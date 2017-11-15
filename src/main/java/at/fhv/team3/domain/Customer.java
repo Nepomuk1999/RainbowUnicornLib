@@ -111,6 +111,13 @@ public class Customer implements Searchable {
         _phoneNumber = allData.get("phonenumber");
     }
 
+    public boolean equals(Customer c){
+        if(c.getCustomerId() == _customerId && c.getFirstName().equals(_firstName) && c.getLastName().equals(_lastName) && c.getEmail().equals(_email) && c.getPhoneNumber().equals(_phoneNumber)){
+            return true;
+        }
+        return false;
+    }
+
     public void createFromString(String s) {
         ArrayList<String> stringList = new ArrayList<String>();
         for(String word : s.split(" ")) {
