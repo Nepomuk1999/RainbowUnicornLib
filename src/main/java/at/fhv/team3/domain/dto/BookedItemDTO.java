@@ -62,6 +62,29 @@ public class BookedItemDTO extends DTO {
         return getBookingId();
     }
 
+    public void setBook(BookDTO book){
+        _book = book;
+    }
+
+    public BookDTO getBook(){
+        return _book;
+    }
+
+
+    public void setDvd(DvdDTO dvd){
+        _dvd = dvd;
+    }
+
+    public DvdDTO getDvD(){ return _dvd;}
+
+    public void setMagazine(MagazineDTO magazine){
+        _magazine = magazine;
+    }
+
+    public MagazineDTO getMagazine(){
+        return _magazine;
+    }
+
     public HashMap<String, String> getAllData() {
         HashMap<String, String> allData = new HashMap<String, String>();
         allData.put("id", ""+_bookingId);

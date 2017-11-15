@@ -2,12 +2,15 @@ package at.fhv.team3.application;
 
 import at.fhv.team3.domain.*;
 import at.fhv.team3.domain.dto.*;
+import at.fhv.team3.domain.interfaces.Borrowable;
 import at.fhv.team3.persistence.BookingRepository;
 import at.fhv.team3.rmi.interfaces.RMIBooking;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by David on 11/14/2017.
@@ -18,6 +21,49 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
 
     public BookingController() throws RemoteException{
         _bookingRepository = BookingRepository.getInstance();
+    }
+
+    public List<DTO> getAllBookings(){
+        List<BookedItem> allBookings = _bookingRepository.getAll();
+        List<DTO> dtos = new ArrayList<DTO>();
+        for(BookedItem bi : allBookings){
+            dtos.add(bi.createDataTransferObject());
+        }
+        return dtos;
+    }
+
+    public List<DTO> getBookingsForMedia(DTO media){
+        List<BookedItem> allBookings = _bookingRepository.getAll();
+        List<DTO> matching = new ArrayList<DTO>();
+        Borrowable b = null;
+        if(media.getClass() == BookDTO.class){
+            b = new Book();
+            b.fillFromDTO(media);
+        } else if(media.getClass() == DvdDTO.class){
+           b = new Dvd();
+           b.fillFromDTO(media);
+        } else if(media.getClass() == MagazineDTO.class){
+            b = new Magazine();
+            b.fillFromDTO(media);
+        }
+        if(b != null) {
+            Borrowable tmp = null;
+            for (BookedItem bi : allBookings) {
+                if(bi.getBook() != null){
+                    tmp = bi.getBook();
+                } else if(bi.getDvd() != null){
+                    tmp = bi.getDvd();
+                } else if(bi.getMagazine() != null){
+                    tmp = bi.getMagazine();
+                }
+                if(tmp.getClass() == b.getClass()){
+                    if(tmp.getId() == b.getId()){
+                        matching.add(b.createDataTransferObject());
+                    }
+                }
+            }
+        }
+        return matching;
     }
 
     public void bookItem(DTO dto, CustomerDTO customerDto){
@@ -39,12 +85,12 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
             m.fillFromDTO(dto);
             bookedItem.setMagazine(m);
         }
-        if(validateBooking(bookedItem)) {
+        if(!validateBooking(bookedItem).hasErrors()) {
             _bookingRepository.save(bookedItem);
         }
     }
 
-    private boolean validateBooking(BookedItem bookedItem){
-        return true;
+    private ValidationResult validateBooking(BookedItem bookedItem){
+        return new ValidationResult();
     }
 }

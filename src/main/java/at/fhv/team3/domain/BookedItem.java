@@ -82,7 +82,7 @@ public class BookedItem implements Transferable {
         _magazine = m;
     }
 
-    public Magazine getMagazein(){
+    public Magazine getMagazine(){
         return _magazine;
     }
 

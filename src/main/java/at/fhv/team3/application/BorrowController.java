@@ -17,11 +17,13 @@ import java.util.List;
 public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
 
     private BorrowedItemRepository _borrowedItemRepository;
-    private CustomerRepository _cusomterRepository;
+    private CustomerRepository _customerRepository;
+    private BookingRepository _bookingRepository;
 
     public BorrowController() throws RemoteException{
         _borrowedItemRepository = BorrowedItemRepository.getInstance();
-        _cusomterRepository = CustomerRepository.getInstance();
+        _customerRepository = CustomerRepository.getInstance();
+        _bookingRepository = BookingRepository.getInstance();
     }
 
     //TODO: REVEIW
@@ -107,7 +109,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
             vr.add("Media is already borrowed!");
         }
 
-        List<Customer> customers = _cusomterRepository.getAll();
+        List<Customer> customers = _customerRepository.getAll();
         Customer c = new Customer();
         c.fillFromDTO(customer);
         if(!customerExists(customers, c)){
