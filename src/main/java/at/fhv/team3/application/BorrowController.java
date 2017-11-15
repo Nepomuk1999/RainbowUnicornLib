@@ -8,7 +8,6 @@ import at.fhv.team3.rmi.interfaces.RMIBorrow;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
     }
 
     //TODO: REVEIW
-    public boolean handOut(DTO media, CustomerDTO customer){
+    public ValidationResult handOut(DTO media, CustomerDTO customer){
             Date date = new Date();
             BorrowedItem item = new BorrowedItem();
             item.setBorrowedDate(date);
@@ -44,17 +43,19 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
                 magazine.fillFromDTO(media);
                 item.setMagazine(magazine);
             }
-        if(validateHandOut()) {
+        ValidationResult vr = validateHandOut();
+        if(!vr.hasErrors()) {
             _borrowedItemRepository.save(item);
-            return true;
+
         }
-        return false;
+        return vr;
     }
 
     //TODO: REVIEW
-    public boolean handIn(DTO media){
+    public ValidationResult handIn(DTO media){
         List<BorrowedItem> items = _borrowedItemRepository.getAll();
-        if (validateHandIn()) {
+        ValidationResult vr = validateHandIn();
+        if (!vr.hasErrors()) {
             for (BorrowedItem bi : items) {
                 Borrowable borrowable = null;
                 if(bi.getBook() != null){
@@ -67,22 +68,21 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
                 if(borrowable != null) {
                     if (borrowable.getId() == media.getId()) {
                         _borrowedItemRepository.delete((bi));
-                        return true;
                     }
                 }
             }
         }
-        return false;
+        return vr;
     }
 
     //TODO: implement
-    private boolean validateHandIn(){
-        return true;
+    private ValidationResult validateHandIn(){
+        return new ValidationResult();
     }
 
     //TODO: implement
-    private boolean validateHandOut(){
-        return true;
+    private ValidationResult validateHandOut(){
+        return new ValidationResult();
     }
 
 }
