@@ -50,6 +50,34 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         ValidationResult vr = validateHandOut(media, customer);
         if(!vr.hasErrors()) {
             item.setExtendCount(0);
+            List<BookedItem> booked = _bookingRepository.getAll();
+            BookedItem booking = null;
+            for(BookedItem bi : booked){
+                Borrowable b = null;
+                if(bi.getBook() != null){
+                    b = bi.getBook();
+                } else if (bi.getDvd() != null){
+                    b = bi.getDvd();
+                } else {
+                    b = bi.getMagazine();
+                }
+                Borrowable tmp = null;
+                if(item.getBook() != null){
+                    tmp = item.getBook();
+                } else if(item.getDvd() != null){
+                    tmp = item.getDvd();
+                } else {
+                    tmp = item.getMagazine();
+                }
+                if(b != null && tmp != null) {
+                    if (b.getClass() == tmp.getClass()) {
+                        if (b.getId() == tmp.getId() && bi.getCustomer().equals(c)) {
+                            booking = bi;
+                        }
+                    }
+                }
+            }
+            _bookingRepository.delete(booking);
             _borrowedItemRepository.save(item);
 
         }
