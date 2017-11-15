@@ -14,7 +14,7 @@ public class LdapController {
     }
 
     public boolean authenticateUser(String name, String password) throws NamingException {
-        boolean acess = false;
+        boolean access = false;
         env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
         env.put(Context.PROVIDER_URL, url);
         env.put(Context.SECURITY_AUTHENTICATION, "simple");
@@ -24,12 +24,12 @@ public class LdapController {
         try {
             Context ctx = new InitialContext(env);
             ctx.close();
-            acess = true;
+            access = true;
 
         } catch (NamingException ex) {
-            acess = false;
+            access = false;
         }
-        return acess;
+        return access;
     }
 
 }
