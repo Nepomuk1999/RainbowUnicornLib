@@ -58,7 +58,7 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
                 }
                 if(tmp.getClass() == b.getClass()){
                     if(tmp.getId() == b.getId()){
-                        matching.add(b.createDataTransferObject());
+                        matching.add(bi.createDataTransferObject());
                     }
                 }
             }
