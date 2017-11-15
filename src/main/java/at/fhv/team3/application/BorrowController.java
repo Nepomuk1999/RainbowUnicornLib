@@ -202,26 +202,26 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return false;
     }
 
-    private Borrowable getBorrowable(BorrowedItem bi){
+    private Borrowable getBorrowable(BorrowedItem borrowedItem) {
         Borrowable borrowable = null;
-        if(bi.getBook() != null){
-            borrowable = bi.getBook();
-        } else if(bi.getDvd() != null){
-            borrowable = bi.getDvd();
-        } else if(bi.getMagazine() != null){
-            borrowable = bi.getMagazine();
+        if (borrowedItem.getBook() != null) {
+            borrowable = borrowedItem.getBook();
+        } else if (borrowedItem.getDvd() != null) {
+            borrowable = borrowedItem.getDvd();
+        } else if (borrowedItem.getMagazine() != null) {
+            borrowable = borrowedItem.getMagazine();
         }
         return borrowable;
     }
 
-    public Borrowable getBorrowable(BookedItem bi){
+    public Borrowable getBorrowable(BookedItem bookedItem) {
         Borrowable borrowable = null;
-        if(bi.getBook() != null){
-            borrowable = bi.getBook();
-        } else if(bi.getDvd() != null){
-            borrowable = bi.getDvd();
-        } else if(bi.getMagazine() != null){
-            borrowable = bi.getMagazine();
+        if (bookedItem.getBook() != null) {
+            borrowable = bookedItem.getBook();
+        } else if (bookedItem.getDvd() != null) {
+            borrowable = bookedItem.getDvd();
+        } else if (bookedItem.getMagazine() != null) {
+            borrowable = bookedItem.getMagazine();
         }
         return borrowable;
     }
