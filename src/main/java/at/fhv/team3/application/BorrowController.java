@@ -75,6 +75,30 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return vr;
     }
 
+    public ValidationResult extend(DTO media) {
+        List<BorrowedItem> items = _borrowedItemRepository.getAll();
+        ValidationResult vr = validateExtend();
+        if (!vr.hasErrors()) {
+            for (BorrowedItem bi : items) {
+                Borrowable borrowable = null;
+                if (bi.getBook() != null) {
+                    borrowable = bi.getBook();
+                } else if (bi.getDvd() != null) {
+                    borrowable = bi.getDvd();
+                } else if (bi.getMagazine() != null) {
+                    borrowable = bi.getMagazine();
+                }
+                if (borrowable != null) {
+                    if (borrowable.getId() == media.getId()) {
+                        bi.setBorrowedDate(new Date());
+                        _borrowedItemRepository.save(bi);
+                    }
+                }
+            }
+        }
+        return vr;
+    }
+
     //TODO: implement
     private ValidationResult validateHandIn(){
         return new ValidationResult();
@@ -85,4 +109,5 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return new ValidationResult();
     }
 
+    private ValidationResult validateExtend() { return new ValidationResult(); }
 }
