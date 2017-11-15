@@ -70,7 +70,9 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
                     }
                 }
             }
-            _bookingRepository.delete(booking);
+            if(booking != null) {
+                _bookingRepository.delete(booking);
+            }
             _borrowedItemRepository.save(item);
 
         }
