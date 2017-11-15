@@ -26,6 +26,9 @@ public class BorrowedItem implements Transferable {
     @Column(name = "borrowedDate")
     private Date _borrowedDate;
 
+    @Column(name = "extendCount")
+    private int _extendCount;
+
     @OneToOne
     @JoinColumn(name = "libId", nullable = true)
     private ExternalLib _externalLib;
@@ -96,6 +99,14 @@ public class BorrowedItem implements Transferable {
 
     public void setMagazine(Magazine magazine){
         _magazine = magazine;
+    }
+
+    public int getExtendCount(){
+        return _extendCount;
+    }
+
+    public void setExtendCount(int count){
+        _extendCount = count;
     }
 
     public Magazine getMagazine(){

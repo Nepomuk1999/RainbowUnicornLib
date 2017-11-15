@@ -15,6 +15,7 @@ public class BorrowedItemDTO extends DTO {
     private BookDTO _book;
     private DvdDTO _dvd;
     private MagazineDTO _magazine;
+    private int _extendCount;
 
 
     public BorrowedItemDTO(int id, Date borrowedDate, DTO borrower, DTO dto) {
@@ -74,6 +75,14 @@ public class BorrowedItemDTO extends DTO {
 
     public int getId() {
         return getBorrowedId();
+    }
+
+    public int getExtendCount(){
+        return _extendCount;
+    }
+
+    public void setExtendCount(int count){
+        _extendCount = count;
     }
 
     public HashMap<String, String> getAllData() {

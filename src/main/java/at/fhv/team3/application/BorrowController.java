@@ -49,6 +49,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
             }
         ValidationResult vr = validateHandOut(media, customer);
         if(!vr.hasErrors()) {
+            item.setExtendCount(0);
             _borrowedItemRepository.save(item);
 
         }
@@ -76,13 +77,14 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
 
     public ValidationResult extend(DTO media) {
         List<BorrowedItem> items = _borrowedItemRepository.getAll();
-        ValidationResult vr = validateExtend();
+        ValidationResult vr = validateExtend(media);
         if (!vr.hasErrors()) {
             for (BorrowedItem bi : items) {
                 Borrowable borrowable = getMediaFromBorrowedItem(bi);
                 if (borrowable != null) {
                     if (borrowable.getId() == media.getId()) {
                         bi.setBorrowedDate(new Date());
+                        bi.setExtendCount(bi.getExtendCount() + 1);
                         _borrowedItemRepository.save(bi);
                     }
                 }
@@ -124,7 +126,43 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
     }
 
     //TODO: implement
-    private ValidationResult validateExtend() { return new ValidationResult(); }
+    private ValidationResult validateExtend(DTO media) {
+        ValidationResult vr = new ValidationResult();
+        boolean booked = false;
+        List<BookedItem> bookedItems = _bookingRepository.getAll();
+        Borrowable b = null;
+        if (media instanceof BookDTO) {
+            b = new Book();
+        } else if (media instanceof DvdDTO) {
+            b = new Dvd();
+        } else {
+            b = new Magazine();
+        }
+        if(b != null){
+            b.fillFromDTO(media);
+            Borrowable tmp;
+            for(BookedItem bi : bookedItems){
+                if(bi.getBook() != null){
+                    tmp = bi.getBook();
+                } else if(bi.getDvd() != null){
+                    tmp = bi.getDvd();
+                } else {
+                    tmp = bi.getMagazine();
+                }
+                if(tmp != null){
+                    if(tmp.getClass() == b.getClass()){
+                        if(tmp.getId() == b.getId()){
+                            booked = true;
+                        }
+                    }
+                }
+            }
+        }
+        if(booked){
+            vr.add("Media is booked and can not be extended!");
+        }
+        return vr;
+    }
 
     private boolean borrowedItemExists(List<BorrowedItem> items, DTO dto){
         for (BorrowedItem bi : items) {
