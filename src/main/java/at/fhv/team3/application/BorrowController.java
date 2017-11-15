@@ -17,9 +17,11 @@ import java.util.List;
 public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
 
     private BorrowedItemRepository _borrowedItemRepository;
+    private CustomerRepository _cusomterRepository;
 
     public BorrowController() throws RemoteException{
         _borrowedItemRepository = BorrowedItemRepository.getInstance();
+        _cusomterRepository = CustomerRepository.getInstance();
     }
 
     //TODO: REVEIW
@@ -43,7 +45,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
                 magazine.fillFromDTO(media);
                 item.setMagazine(magazine);
             }
-        ValidationResult vr = validateHandOut();
+        ValidationResult vr = validateHandOut(media, customer);
         if(!vr.hasErrors()) {
             _borrowedItemRepository.save(item);
 
@@ -51,17 +53,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return vr;
     }
 
-    private Borrowable getMediaFromBorrowedItem(BorrowedItem bi){
-        Borrowable borrowable = null;
-        if(bi.getBook() != null){
-            borrowable = bi.getBook();
-        } else if(bi.getDvd() != null){
-            borrowable = bi.getDvd();
-        } else if(bi.getMagazine() != null){
-            borrowable = bi.getMagazine();
-        }
-        return borrowable;
-    }
+
 
     //TODO: REVIEW
     public ValidationResult handIn(DTO media){
@@ -97,31 +89,71 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return vr;
     }
 
-    //TODO: implement
+    //TODO: REVIEW
     private ValidationResult validateHandIn(DTO dto){
         ValidationResult vr = new ValidationResult();
         List<BorrowedItem> items = _borrowedItemRepository.getAll();
-        boolean exists = false;
-        for (BorrowedItem bi : items) {
-            Borrowable borrowable = getMediaFromBorrowedItem(bi);
-            if(borrowable != null) {
-                if (borrowable.getId() == dto.getId()) {
-                    exists = true;
-                }
-            }
-        }
-        if(!exists){
+        if(!borrowedItemExists(items, dto)){
             vr.add("Media is not borrowed!");
         }
         return vr;
     }
 
-    //TODO: implement
-    private ValidationResult validateHandOut(){
-        return new ValidationResult();
+    //TODO: REVIEW
+    private ValidationResult validateHandOut(DTO dto, CustomerDTO customer){
+        ValidationResult vr = new ValidationResult();
+        List<BorrowedItem> items = _borrowedItemRepository.getAll();
+        if(borrowedItemExists(items, dto)){
+            vr.add("Media is already borrowed!");
+        }
+
+        List<Customer> customers = _cusomterRepository.getAll();
+        Customer c = new Customer();
+        c.fillFromDTO(customer);
+        if(!customerExists(customers, c)){
+            vr.add("Customer does not exist!");
+        }
+
+        if(!c.getSubscription()){
+            vr.add("Customers subscription expired!");
+        }
+
+        return vr;
     }
 
     //TODO: implement
     private ValidationResult validateExtend() { return new ValidationResult(); }
 
+    private boolean borrowedItemExists(List<BorrowedItem> items, DTO dto){
+        for (BorrowedItem bi : items) {
+            Borrowable borrowable = getMediaFromBorrowedItem(bi);
+            if(borrowable != null) {
+                if (borrowable.getId() == dto.getId()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean customerExists(List<Customer> customers, Customer customer){
+        for(Customer c : customers){
+            if(customer.equals(c)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Borrowable getMediaFromBorrowedItem(BorrowedItem bi){
+        Borrowable borrowable = null;
+        if(bi.getBook() != null){
+            borrowable = bi.getBook();
+        } else if(bi.getDvd() != null){
+            borrowable = bi.getDvd();
+        } else if(bi.getMagazine() != null){
+            borrowable = bi.getMagazine();
+        }
+        return borrowable;
+    }
 }
