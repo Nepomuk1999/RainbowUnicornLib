@@ -1,6 +1,7 @@
 package at.fhv.team3.domain;
 
 import at.fhv.team3.domain.dto.BookedItemDTO;
+import at.fhv.team3.domain.dto.CustomerDTO;
 import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.domain.interfaces.Borrowable;
 import at.fhv.team3.domain.interfaces.Transferable;
@@ -99,7 +100,7 @@ public class BookedItem implements Transferable {
         } else {
             dto = _magazine.createDataTransferObject();
         }
-        return new BookedItemDTO(_bookingId, _customer, _date, dto);
+        return new BookedItemDTO(_bookingId, (CustomerDTO) _customer.createDataTransferObject(), _date, dto);
     }
 
     public void fillFromDTO(DTO dto) {
