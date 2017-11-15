@@ -14,11 +14,24 @@ import java.util.HashMap;
 public class Employee implements Transferable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "employeeId")
     private int _employeeId;
+
+    @Column(name = "firstName")
     private String _firstName;
+
+    @Column(name = "lastName")
     private String _lastName;
+
+    @Column(name ="role")
     private String _role;
+
+    @Column(name = "userName")
     private String _userName;
+
+    @Column(name = "ou")
+    private String _ou;
 
     public Employee(){
 
@@ -62,6 +75,14 @@ public class Employee implements Transferable {
 
     public String getUsername(){
         return _userName;
+    }
+
+    public String getOu(){
+        return _ou;
+    }
+
+    public void setOu(String ou){
+        _ou = ou;
     }
 
     public DTO createDataTransferObject() {
