@@ -29,24 +29,7 @@ public class LdapControler {
         } catch (NamingException ex) {
             acess = false;
         }
-
-        Context ctx = new InitialContext(env);
-        browsRecursive(ctx, 0);
         return acess;
     }
 
-    public static final void browsRecursive(Context ctx, int depth) throws NamingException {
-        NamingEnumeration<Binding> namingEnum = ctx.listBindings("o=fhv.at");
-        while (namingEnum.hasMore()) {
-            Binding bnd = namingEnum.next();
-            if (bnd.getObject() instanceof Context) {
-                Context curCtx = (Context) bnd.getObject();
-                for (int i = 0; i < depth * 2; i++) {
-                    System.out.println(' ');
-                    System.out.println(bnd.getName());
-                    browsRecursive(curCtx, depth + 1);
-                }
-            }
-        }
-    }
 }
