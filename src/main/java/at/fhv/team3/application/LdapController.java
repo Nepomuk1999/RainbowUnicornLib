@@ -6,20 +6,23 @@ import at.fhv.team3.persistence.EmployeeRepository;
 import at.fhv.team3.rmi.interfaces.RMILdap;
 
 import javax.naming.*;
+import javax.naming.ldap.InitialLdapContext;
+import javax.naming.ldap.LdapContext;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Properties;
 
 public class LdapController extends UnicastRemoteObject implements RMILdap {
 
     private String url;
-    private Properties env;
+    private Hashtable<String, String> env;
     private EmployeeRepository _employeeRepository;
 
     public LdapController() throws RemoteException{
-        url = "ldap://openldap.fhv.at";
-        env = new Properties();
+        url = "ldap://openldap.fhv.at:636";
+        env = new Hashtable<String, String>();
         _employeeRepository = EmployeeRepository.getInstance();
     }
 
@@ -31,18 +34,17 @@ public class LdapController extends UnicastRemoteObject implements RMILdap {
             env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
             env.put(Context.PROVIDER_URL, url);
             env.put(Context.SECURITY_AUTHENTICATION, "simple");
-            env.put(Context.SECURITY_PRINCIPAL, "userid=" + name + ",ou="+employee.getOu()+"),o=fhv.at");
+            env.put(Context.SECURITY_PRINCIPAL, "uid=" + employee.getUsername() + ",ou="+employee.getOu()+"),o=fhv.at");
             env.put(Context.SECURITY_CREDENTIALS, password);
             try {
-                Context ctx = new InitialContext(env);
+                LdapContext ctx = new InitialLdapContext();
                 ctx.close();
                 access = true;
-
             } catch (NamingException ex) {
                 access = false;
             }
         }
-        dto.setLoggedIn(true);
+        dto.setLoggedIn(access);
         return dto;
     }
 
