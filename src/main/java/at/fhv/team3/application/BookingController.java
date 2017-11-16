@@ -92,7 +92,18 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
         return new ValidationResult();
     }
 
+
+    // TODO
     private ValidationResult validateBooking(BookedItem bookedItem){
-        return new ValidationResult();
+        ValidationResult validationResult = new ValidationResult();
+        if (bookedItem.getBook() != null) {
+
+        } else if (bookedItem.getDvd() != null) {
+
+        } else if (bookedItem.getMagazine() != null) {
+
+        }
+
+        return validationResult;
     }
 }
