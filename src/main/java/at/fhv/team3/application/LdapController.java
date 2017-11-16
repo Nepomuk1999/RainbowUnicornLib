@@ -21,7 +21,7 @@ public class LdapController extends UnicastRemoteObject implements RMILdap {
     private EmployeeRepository _employeeRepository;
 
     public LdapController() throws RemoteException{
-        url = "ldap://openldap.fhv.at:636";
+        url = "ldap://openldap.fhv.at:389/o=fhv.at";
         env = new Hashtable<String, String>();
         _employeeRepository = EmployeeRepository.getInstance();
     }
@@ -34,10 +34,10 @@ public class LdapController extends UnicastRemoteObject implements RMILdap {
             env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
             env.put(Context.PROVIDER_URL, url);
             env.put(Context.SECURITY_AUTHENTICATION, "simple");
-            env.put(Context.SECURITY_PRINCIPAL, "uid=" + employee.getUsername() + ",ou="+employee.getOu()+"),o=fhv.at");
+            env.put(Context.SECURITY_PRINCIPAL, "uid=" + employee.getUsername() + ",ou="+employee.getOu()+",o=fhv.at");
             env.put(Context.SECURITY_CREDENTIALS, password);
             try {
-                LdapContext ctx = new InitialLdapContext();
+                Context ctx = new InitialContext(env);
                 ctx.close();
                 access = true;
             } catch (NamingException ex) {
