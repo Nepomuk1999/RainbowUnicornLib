@@ -6,6 +6,7 @@ import at.fhv.team3.domain.interfaces.Borrowable;
 import at.fhv.team3.persistence.BookingRepository;
 import at.fhv.team3.rmi.interfaces.RMIBooking;
 
+import java.lang.reflect.Array;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -86,7 +87,7 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
             m.fillFromDTO(dto);
             bookedItem.setMagazine(m);
         }
-        if(!validateBooking(bookedItem).hasErrors()) {
+        if(!validateBooking(bookedItem, customer).hasErrors()) {
             _bookingRepository.save(bookedItem);
         }
         return new ValidationResult();
@@ -94,16 +95,30 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
 
 
     // TODO
-    private ValidationResult validateBooking(BookedItem bookedItem){
+    private ValidationResult validateBooking(BookedItem bookedItem, Customer customer){
         ValidationResult validationResult = new ValidationResult();
+        List<BookedItem> bookedItems = _bookingRepository.getAll();
         if (bookedItem.getBook() != null) {
-
+            for (BookedItem booked: bookedItems) {
+                if (booked.getMedia().equals(bookedItem) && booked.getCustomer().equals(bookedItem.getCustomer())) {
+                    validationResult.add("The Customer already has this book booked");
+                }
+            }
         } else if (bookedItem.getDvd() != null) {
-
+            for (BookedItem booked: bookedItems) {
+                if (booked.getMedia().equals(bookedItem) && booked.getCustomer().equals(bookedItem.getCustomer())) {
+                    validationResult.add("The Customer already has this dvd booked");
+                }
+            }
         } else if (bookedItem.getMagazine() != null) {
-
+            for (BookedItem booked: bookedItems) {
+                if (booked.getMedia().equals(bookedItem) && booked.getCustomer().equals(bookedItem.getCustomer())) {
+                    validationResult.add("The Customer already has this magazine booked");
+                }
+            }
+        } else {
+            validationResult.add("There was no media submitted with the request.");
         }
-
         return validationResult;
     }
 }
