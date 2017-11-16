@@ -14,9 +14,7 @@ public class EmployeeDTO extends DTO{
     private String _userName;
     private boolean _loggedIn;
 
-    public EmployeeDTO(){
-
-    }
+    public EmployeeDTO(){}
 
     public void setEmployeeId(int id){
         _employeeId = id;
