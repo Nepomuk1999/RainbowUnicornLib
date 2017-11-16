@@ -5,6 +5,7 @@ import at.fhv.team3.domain.dto.DTO;
 import at.fhv.team3.persistence.BookingRepository;
 import at.fhv.team3.persistence.BorrowedItemRepository;
 import at.fhv.team3.persistence.CustomerRepository;
+import domaindummy.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Date;
 import java.util.HashMap;
 
 
@@ -47,58 +49,14 @@ public class borrowTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        //initialize customer
-        customer = new Customer();
-        customer.setCustomerId(1);
-        customer.setEmail("Unicorn@lib.uk");
-        customer.setFirstName("Lanzelot");
-        customer.setLastName("Einhorn");
-        customer.setPhoneNumber("66666666666");
-        customer.setSubscription(true);
-        //initialize Media
-        book = new Book();
-        book.setAuthor("Einhornerich");
-        book.setBookId(1);
-        book.setEdition("alpha");
-        book.setIsbn("gotdigarnixa");
-        book.setPictureURL("http://www.kotzendes-einhorn.de/blog/wp-content/uploads/2014/10/kotzendeseinhorn.gif");
-        book.setShelfPos("vandiandern");
-        book.setTitle("Von kotzenden Einhörnern");
-
-        magazine = new Magazine();
-        magazine.setEdition("vol.1");
-        magazine.setMagazineId(1);
-        magazine.setPictureURL("http://www.kotzendes-einhorn.de/blog/wp-content/uploads/2014/10/kotzendeseinhorn.gif");
-        magazine.setPublisher("UnitedUnicorns");
-        magazine.setShelfPos("dsfg");
-        magazine.setTitle("die schönsten Einhörner der Welt");
-
-        dvd.setDvdId(1);
-        dvd.setPictureURL("http://www.kotzendes-einhorn.de/blog/wp-content/uploads/2014/10/kotzendeseinhorn.gif)");
-        dvd.setRegisseur("Einhorn Spielberg");
-        dvd.setShelfPos("d<sgv");
-        dvd.setTitle("Der Einhorn Report");
-
-
-        //initialise BookedItems
-        bookedItem1 = new BookedItem();
-        bookedItem1.setBook(book);
-        bookedItem1.setBookingId(1);
-        bookedItem1.setCustomer(customer);
-
-        bookedItem2 = new BookedItem();
-        bookedItem2.setMagazine(magazine);
-        bookedItem2.setBookingId(1);
-        bookedItem2.setCustomer(customer);
-
-        bookedItem3 = new BookedItem();
-        bookedItem3.setDvd(dvd);
-        bookedItem3.setBookingId(1);
-        bookedItem3.setCustomer(customer);
-
-        //initialise DTOs
-
-
+        //inizialise object fr tests
+        customer = new CustomerDummy(1, "Hans", "Wurst", true, "email@email.com", "+43 5522 48484");
+        book = new BookDummy("DasBuch", "S.M.Pam", "Lovo", "32165897", "vol.20", "4H2");
+        magazine = new MagazineDummy(1, "Was ist was...", "Nr.1", "Lovo", "www.google.de", "8W3");
+        dvd = new DvdDummy(1, "Einhörner im Wald", "J.K Bowl", "www.google.de", "7E3");
+        bookedItem1 = new BookedItemDummy(2, customer, book, null, null, new Date());
+        bookedItem2 = new BookedItemDummy(3, customer, null, dvd, null, new Date());
+        bookedItem3 = new BookedItemDummy(4, customer, null, null, magazine, new Date());
     }
 
 
