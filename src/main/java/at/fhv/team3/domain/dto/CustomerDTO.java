@@ -14,10 +14,6 @@ public class CustomerDTO extends DTO{
     private String _email;
     private String _phoneNumber;
 
-    public CustomerDTO(){
-
-    }
-
     public CustomerDTO(int id, String firstName, String lastname, Boolean subscription, String email, String phoneNumber){
         _customerId = id;
         _firstName = firstName;
