@@ -64,8 +64,6 @@ public class borrowTest {
     public void handOutTest() {
         //given
 
-
-        BookedItem itemMock1 = new BookedItem();
         //when
 
         //then
