@@ -28,25 +28,25 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
 
     //TODO: REVEIW
     public ValidationResult handOut(DTO media, CustomerDTO customer){
-            Date date = new Date();
-            BorrowedItem item = new BorrowedItem();
-            item.setBorrowedDate(date);
-            Customer c = new Customer();
-            c.fillFromDTO(customer);
-            item.setCustomer(c);
-            if(media.getClass() == BookDTO.class){
-                Book book = new Book();
-                book.fillFromDTO(media);
-                item.setBook(book);
-            } else if(media.getClass() == DvdDTO.class){
-                Dvd dvd = new Dvd();
-                dvd.fillFromDTO(media);
-                item.setDvd(dvd);
-            } else if(media.getClass() == MagazineDTO.class){
-                Magazine magazine = new Magazine();
-                magazine.fillFromDTO(media);
-                item.setMagazine(magazine);
-            }
+        Date date = new Date();
+        BorrowedItem item = new BorrowedItem();
+        item.setBorrowedDate(date);
+        Customer c = new Customer();
+        c.fillFromDTO(customer);
+        item.setCustomer(c);
+        if(media instanceof BookDTO){
+            Book book = new Book();
+            book.fillFromDTO(media);
+            item.setBook(book);
+        } else if(media instanceof DvdDTO){
+            Dvd dvd = new Dvd();
+            dvd.fillFromDTO(media);
+            item.setDvd(dvd);
+        } else if(media instanceof  MagazineDTO){
+            Magazine magazine = new Magazine();
+            magazine.fillFromDTO(media);
+            item.setMagazine(magazine);
+        }
         ValidationResult vr = validateHandOut(media, customer);
         if(!vr.hasErrors()) {
             item.setExtendCount(0);
@@ -78,8 +78,6 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         }
         return vr;
     }
-
-
 
     //TODO: REVIEW
     public ValidationResult handIn(DTO media){
