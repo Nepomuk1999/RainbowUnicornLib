@@ -30,19 +30,18 @@ public class LdapController extends UnicastRemoteObject implements RMILdap {
         Employee employee = findEmployee(name);
         EmployeeDTO dto = (EmployeeDTO) employee.createDataTransferObject();
         boolean access = false;
-        if(employee != null) {
-            env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-            env.put(Context.PROVIDER_URL, url);
-            env.put(Context.SECURITY_AUTHENTICATION, "simple");
-            env.put(Context.SECURITY_PRINCIPAL, "uid=" + employee.getUsername() + ",ou="+employee.getOu()+",o=fhv.at");
-            env.put(Context.SECURITY_CREDENTIALS, password);
-            try {
-                Context ctx = new InitialContext(env);
-                ctx.close();
-                access = true;
-            } catch (NamingException ex) {
-                access = false;
-            }
+
+        env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+        env.put(Context.PROVIDER_URL, url);
+        env.put(Context.SECURITY_AUTHENTICATION, "simple");
+        env.put(Context.SECURITY_PRINCIPAL, "uid=" + employee.getUsername() + ",ou="+employee.getOu()+",o=fhv.at");
+        env.put(Context.SECURITY_CREDENTIALS, password);
+        try {
+            Context ctx = new InitialContext(env);
+            ctx.close();
+            access = true;
+        } catch (NamingException ex) {
+            access = false;
         }
         dto.setLoggedIn(access);
         return dto;
@@ -55,7 +54,7 @@ public class LdapController extends UnicastRemoteObject implements RMILdap {
                return employee;
             }
         }
-        return null;
+        return new Employee();
     }
 
 }
