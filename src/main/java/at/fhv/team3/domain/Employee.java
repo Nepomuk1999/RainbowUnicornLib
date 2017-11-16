@@ -1,6 +1,7 @@
 package at.fhv.team3.domain;
 
 import at.fhv.team3.domain.dto.DTO;
+import at.fhv.team3.domain.dto.EmployeeDTO;
 import at.fhv.team3.domain.interfaces.Transferable;
 
 import javax.persistence.*;
@@ -33,9 +34,7 @@ public class Employee implements Transferable {
     @Column(name = "ou")
     private String _ou;
 
-    public Employee(){
-
-    }
+    public Employee(){}
 
     public void setEmployeeId(int id){
         _employeeId = id;
@@ -86,8 +85,13 @@ public class Employee implements Transferable {
     }
 
     public DTO createDataTransferObject() {
-        //Test
-        return null;
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+        employeeDTO.setEmployeeId(getEmployeeId());
+        employeeDTO.setFirstName(getFirstName());
+        employeeDTO.setLastName(getLastName());
+        employeeDTO.setRole(getRole());
+        employeeDTO.setUsername(getUsername());
+        return employeeDTO;
     }
 
     public void fillFromDTO(DTO dto) {

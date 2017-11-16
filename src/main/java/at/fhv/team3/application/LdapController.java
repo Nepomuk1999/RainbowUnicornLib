@@ -15,12 +15,12 @@ public class LdapController extends UnicastRemoteObject implements RMILdap {
 
     private String url;
     private Properties env;
-    private EmployeeRepository _employeRepository;
+    private EmployeeRepository _employeeRepository;
 
     public LdapController() throws RemoteException{
         url = "ldap://openldap.fhv.at";
         env = new Properties();
-        _employeRepository = EmployeeRepository.getInstance();
+        _employeeRepository = EmployeeRepository.getInstance();
     }
 
     public EmployeeDTO authenticateUser(String name, String password) throws NamingException {
@@ -31,7 +31,7 @@ public class LdapController extends UnicastRemoteObject implements RMILdap {
             env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
             env.put(Context.PROVIDER_URL, url);
             env.put(Context.SECURITY_AUTHENTICATION, "simple");
-            env.put(Context.SECURITY_PRINCIPAL, "userid=" + name + ",ou=people,o=fhv.at");
+            env.put(Context.SECURITY_PRINCIPAL, "userid=" + name + ",ou="+employee.getOu()+"),o=fhv.at");
             env.put(Context.SECURITY_CREDENTIALS, password);
             try {
                 Context ctx = new InitialContext(env);
@@ -47,7 +47,7 @@ public class LdapController extends UnicastRemoteObject implements RMILdap {
     }
 
     private Employee findEmployee(String name){
-        List<Employee> employees = _employeRepository.getAll();
+        List<Employee> employees = _employeeRepository.getAll();
         for(Employee employee : employees){
             if(employee.getUsername().equals(name)){
                return employee;
