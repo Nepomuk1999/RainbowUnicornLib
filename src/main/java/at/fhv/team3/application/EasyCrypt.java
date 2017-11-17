@@ -21,7 +21,7 @@ public class EasyCrypt {
 
     /**
      * @param "Key" verwendeter Schluessel
-     * @param verfahren bestimmt das verwendete Verschluesselungsverfahren "RSA", "AES", ....
+     * @param "verfahren" bestimmt das verwendete Verschluesselungsverfahren "RSA", "AES", ....
      * @throws Exception
      */
     public EasyCrypt(Key k, String verfahren) throws Exception {
@@ -83,10 +83,9 @@ public class EasyCrypt {
             throw new NullPointerException("Keinen Key angegeben!");
         }
 
-        if(verfahren.isEmpty()){
+        if(verfahren.trim() == ""){
             throw new NullPointerException("Kein Verfahren angegeben!");
         }
-
         return true;
     }
 
