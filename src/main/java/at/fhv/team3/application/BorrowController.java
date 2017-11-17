@@ -114,6 +114,21 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return vr;
     }
 
+    public DTO getCustomerByMedia(DTO media){
+        Customer customer = new Customer();
+        List<BorrowedItem> items = _borrowedItemRepository.getAll();
+        Borrowable b = getBorrowableFromDTO(media);
+        for(BorrowedItem bi : items){
+            Borrowable tmp = getBorrowable(bi);
+            if(b.getClass() == tmp.getClass()){
+                if(b.getId() == tmp.getId()){
+                    customer = bi.getCustomer();
+                }
+            }
+        }
+        return customer.createDataTransferObject();
+    }
+
     //TODO: REVIEW
     private ValidationResult validateHandIn(DTO dto){
         ValidationResult vr = new ValidationResult();
@@ -151,14 +166,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         ValidationResult vr = new ValidationResult();
         boolean booked = false;
         List<BookedItem> bookedItems = _bookingRepository.getAll();
-        Borrowable b = null;
-        if (media instanceof BookDTO) {
-            b = new Book();
-        } else if (media instanceof DvdDTO) {
-            b = new Dvd();
-        } else {
-            b = new Magazine();
-        }
+        Borrowable b = getBorrowableFromDTO(media);
         if(b != null){
             b.fillFromDTO(media);
             Borrowable tmp;
@@ -179,6 +187,18 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return vr;
     }
 
+    private Borrowable getBorrowableFromDTO(DTO media){
+        Borrowable b = null;
+        if (media instanceof BookDTO) {
+            b = new Book();
+        } else if (media instanceof DvdDTO) {
+            b = new Dvd();
+        } else {
+            b = new Magazine();
+        }
+        b.fillFromDTO(media);
+        return b;
+    }
     private boolean borrowedItemExists(List<BorrowedItem> items, DTO dto){
         for (BorrowedItem bi : items) {
             Borrowable borrowable = getBorrowable(bi);
