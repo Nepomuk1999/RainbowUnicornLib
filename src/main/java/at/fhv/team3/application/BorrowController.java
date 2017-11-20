@@ -65,7 +65,9 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
                 if(b != null && tmp != null) {
                     if (b.getClass() == tmp.getClass()) {
                         if (b.getId() == tmp.getId() && bi.getCustomer().getCustomerId() == c.getCustomerId()) {
-                            booking = bi;
+                            if (!isBooked(media)) {
+                                booking = bi;
+                            }
                         }
                     }
                 }
@@ -104,9 +106,11 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
                 Borrowable borrowable = getBorrowable(bi);
                 if (borrowable != null) {
                     if (borrowable.getId() == media.getId()) {
-                        bi.setBorrowedDate(new Date());
-                        bi.setExtendCount(bi.getExtendCount() + 1);
-                        _borrowedItemRepository.save(bi);
+                        if (!isBooked(media)) {
+                            bi.setBorrowedDate(new Date());
+                            bi.setExtendCount(bi.getExtendCount() + 1);
+                            _borrowedItemRepository.save(bi);
+                        }
                     }
                 }
             }
