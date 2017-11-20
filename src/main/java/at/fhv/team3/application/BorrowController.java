@@ -65,9 +65,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
                 if(b != null && tmp != null) {
                     if (b.getClass() == tmp.getClass()) {
                         if (b.getId() == tmp.getId() && bi.getCustomer().getCustomerId() == c.getCustomerId()) {
-                            if (!isBooked(media)) {
-                                booking = bi;
-                            }
+                            booking = bi;
                         }
                     }
                 }
@@ -185,7 +183,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
                 }
             }
         }
-        if(booked){
+        if(booked || isBooked(media)){
             vr.add("Media is booked and can not be extended!");
         }
         return vr;
