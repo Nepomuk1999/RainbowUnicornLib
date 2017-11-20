@@ -110,4 +110,12 @@ public class Dvd implements Borrowable {
     public int getId() {
         return _dvdId;
     }
+
+    public boolean isSameMedia(Borrowable b) {
+        Dvd dvd = (Dvd) b;
+        if(dvd.getTitle().equals(_title) && dvd.getRegisseur().equals(_regisseur)){
+            return true;
+        }
+        return false;
+    }
 }

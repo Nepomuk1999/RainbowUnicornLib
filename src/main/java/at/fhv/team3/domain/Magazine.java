@@ -126,4 +126,12 @@ public class Magazine implements Borrowable {
     public int getId() {
         return _magazineId;
     }
+
+    public boolean isSameMedia(Borrowable b) {
+        Magazine magazine = (Magazine) b;
+        if(magazine.getTitle().equals(_title) && magazine.getEdition().equals(_edition) && magazine.getPublisher().equals(_publisher)){
+            return true;
+        }
+        return false;
+    }
 }

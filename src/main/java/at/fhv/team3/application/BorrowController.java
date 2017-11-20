@@ -220,6 +220,29 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return false;
     }
 
+    private boolean isBooked(DTO dto){
+        Borrowable b;
+        if (dto instanceof BookDTO) {
+             b = new Book();
+        } else if (dto instanceof DvdDTO) {
+            b = new Dvd();
+        } else {
+            b = new Magazine();
+        }
+        b.fillFromDTO(dto);
+        List<BookedItem> items = _bookingRepository.getAll();
+        Borrowable tmp;
+        for(BookedItem item : items){
+            tmp = getBorrowable(item);
+            if(b.getClass() == tmp.getClass()){
+                if(b.isSameMedia(tmp)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     private Borrowable getBorrowable(BorrowedItem borrowedItem) {
         Borrowable borrowable = null;
         if (borrowedItem.getBook() != null) {

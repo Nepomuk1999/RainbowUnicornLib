@@ -154,4 +154,12 @@ public class Book implements Borrowable {
     public int getId() {
         return _bookId;
     }
+
+    public boolean isSameMedia(Borrowable b) {
+        Book book = (Book) b;
+        if(book.getIsbn().equals(_isbn)){
+            return true;
+        }
+        return false;
+    }
 }

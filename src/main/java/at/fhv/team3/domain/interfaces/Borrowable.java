@@ -6,4 +6,5 @@ package at.fhv.team3.domain.interfaces;
 public interface Borrowable extends Searchable {
 
     public int getId();
+    public boolean isSameMedia(Borrowable b);
 }
