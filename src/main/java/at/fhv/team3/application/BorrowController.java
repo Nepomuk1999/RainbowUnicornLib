@@ -8,6 +8,7 @@ import at.fhv.team3.rmi.interfaces.RMIBorrow;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -74,7 +75,6 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
                 _bookingRepository.delete(booking);
             }
             _borrowedItemRepository.save(item);
-
         }
         return vr;
     }
@@ -155,7 +155,11 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         if(!customerExists(customers, c)){
             vr.add("Customer does not exist!");
         }
-
+        if (isBooked(dto)) {
+            if (!customer.equals(mediaIsBookedBy(dto))) {
+                vr.add("Media is booked by another Customer!");
+            }
+        }
         if(!c.getSubscription()){
             vr.add("Customers subscription expired!");
         }
@@ -201,6 +205,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         b.fillFromDTO(media);
         return b;
     }
+
     private boolean borrowedItemExists(List<BorrowedItem> items, DTO dto){
         for (BorrowedItem bi : items) {
             Borrowable borrowable = getBorrowable(bi);
@@ -243,6 +248,47 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
             }
         }
         return false;
+    }
+
+    private Customer mediaIsBookedBy(DTO dto){
+        Borrowable b;
+
+        Customer customer = new Customer();
+        if (dto instanceof BookDTO) {
+            b = new Book();
+        } else if (dto instanceof DvdDTO) {
+            b = new Dvd();
+        } else {
+            b = new Magazine();
+        }
+
+        b.fillFromDTO(dto);
+
+        Borrowable tmp;
+        List<BookedItem> items = _bookingRepository.getAll();
+        List<BookedItem> bookedItems = new ArrayList<BookedItem>();
+        for ( BookedItem bi : items ) {
+            tmp = getBorrowable(bi);
+            if (b.getClass() == tmp.getClass()) {
+                if (b.isSameMedia(tmp)) {
+                    bookedItems.add(bi);
+                }
+            }
+        }
+
+        BookedItem firstDate = null;
+        if ( !bookedItems.isEmpty() ) {
+            firstDate = bookedItems.get(0);
+
+            for (BookedItem bookedItem : bookedItems) {
+                if (firstDate.getDate().after(bookedItem.getDate())) {
+                    firstDate = bookedItem;
+                }
+            }
+        }
+
+        customer = firstDate.getCustomer();
+        return customer;
     }
 
     private Borrowable getBorrowable(BorrowedItem borrowedItem) {

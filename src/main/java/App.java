@@ -1,4 +1,4 @@
-import at.fhv.team3.application.ServerBind;
+import at.fhv.team3.rmi.ServerBind;
 import at.fhv.team3.domain.Customer;
 import at.fhv.team3.persistence.CustomerRepository;
 

@@ -87,7 +87,7 @@ public class BookedItem implements Transferable {
         return _magazine;
     }
 
-    public Date getdate(){
+    public Date getDate(){
         return _date;
     }
 

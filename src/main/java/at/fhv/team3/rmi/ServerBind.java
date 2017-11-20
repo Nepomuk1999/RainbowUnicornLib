@@ -1,6 +1,4 @@
-package at.fhv.team3.application;
-
-import at.fhv.team3.rmi.RMIFactory;
+package at.fhv.team3.rmi;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
