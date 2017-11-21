@@ -28,6 +28,7 @@ public class LdapController extends UnicastRemoteObject implements RMILdap {
         _employeeRepository = EmployeeRepository.getInstance();
     }
 
+    //Login authentifizierung (EmployeeDTO)
     public EmployeeDTO authenticateUser(String name, String password) throws NamingException {
         EasyCrypt ecPri;
         String decryptUsername = "";
@@ -62,6 +63,7 @@ public class LdapController extends UnicastRemoteObject implements RMILdap {
         return dto;
     }
 
+    //Einen Mitarbeiter aus der Datenbank suchen (Employee)
     private Employee findEmployee(String name){
         List<Employee> employees = _employeeRepository.getAll();
         for(Employee employee : employees){
@@ -72,6 +74,7 @@ public class LdapController extends UnicastRemoteObject implements RMILdap {
         return new Employee();
     }
 
+    //RSA-Schlüssel für Verschlüsselung generieren (KeyPair)
     private static KeyPair generateRandomKey(){
         KeyPairGenerator keygen = null;
         try {
@@ -85,6 +88,7 @@ public class LdapController extends UnicastRemoteObject implements RMILdap {
         }
     }
 
+    //Den Public-Key aus den RSA-Schlüsseln holen und als DTO für die Übertragung zum Client zurückgeben (KeyDTO)
     public KeyDTO getPublicKey(){
         KeyDTO keydto = new KeyDTO();
         keydto.setPublicKey(rsakeys.getPublic());

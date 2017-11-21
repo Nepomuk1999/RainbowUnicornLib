@@ -27,7 +27,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         _bookingRepository = BookingRepository.getInstance();
     }
 
-    //TODO: REVEIW
+    //Ein Medium an einen Kunden ausleihen (ValidationResult)
     public ValidationResult handOut(DTO media, CustomerDTO customer){
         Date date = new Date();
         BorrowedItem item = new BorrowedItem();
@@ -79,7 +79,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return vr;
     }
 
-    //TODO: REVIEW
+    //Ein Medium zurückgeben (ValidationResult)
     public ValidationResult handIn(DTO media){
         List<BorrowedItem> items = _borrowedItemRepository.getAll();
         ValidationResult vr = validateHandIn(media);
@@ -96,6 +96,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return vr;
     }
 
+    //Eine Ausleihe verlängern (ValidationResult)
     public ValidationResult extend(DTO media) {
         List<BorrowedItem> items = _borrowedItemRepository.getAll();
         ValidationResult vr = validateExtend(media);
@@ -116,6 +117,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return vr;
     }
 
+    //Den Kunden finden, der ein bestimmtes Medium ausgelihen hat (ValidationResult)
     public DTO getCustomerByMedia(DTO media){
         Customer customer = new Customer();
         List<BorrowedItem> items = _borrowedItemRepository.getAll();
@@ -131,7 +133,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return customer.createDataTransferObject();
     }
 
-    //TODO: REVIEW
+    //Validierung der Rückgabe (ValidationResult)
     private ValidationResult validateHandIn(DTO dto){
         ValidationResult vr = new ValidationResult();
         List<BorrowedItem> items = _borrowedItemRepository.getAll();
@@ -141,7 +143,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return vr;
     }
 
-    //TODO: REVIEW
+    //Validierung der Ausleihe (ValidationResult)
     private ValidationResult validateHandOut(DTO dto, CustomerDTO customer){
         ValidationResult vr = new ValidationResult();
         List<BorrowedItem> items = _borrowedItemRepository.getAll();
@@ -167,7 +169,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return vr;
     }
 
-    //TODO: implement
+    //Validierung einer Verlängerung einer Ausleihe (ValidationResult)
     private ValidationResult validateExtend(DTO media) {
         ValidationResult vr = new ValidationResult();
         boolean booked = false;
@@ -193,6 +195,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return vr;
     }
 
+    //Aus einem (Buch/Dvd/Magazin)DTO ein Medium(Borrowable-Interface) erstellen (Borrowable)
     private Borrowable getBorrowableFromDTO(DTO media){
         Borrowable b = null;
         if (media instanceof BookDTO) {
@@ -206,6 +209,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return b;
     }
 
+    //Überprüfung, ob eine Ausleihe vorhanden ist (boolean)
     private boolean borrowedItemExists(List<BorrowedItem> items, DTO dto){
         for (BorrowedItem bi : items) {
             Borrowable borrowable = getBorrowable(bi);
@@ -218,6 +222,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return false;
     }
 
+    //Überprüfung, ob ein Kunde existiert (boolean)
     private boolean customerExists(List<Customer> customers, Customer customer){
         for(Customer c : customers){
             if(customer.equals(c)){
@@ -227,6 +232,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return false;
     }
 
+    //Überprüfung, ob ein Medium reserviert ist (boolean)
     private boolean isBooked(DTO dto){
         Borrowable b;
         if (dto instanceof BookDTO) {
@@ -250,20 +256,11 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return false;
     }
 
+    //Den Kunden finden, der ein Medium reserviert hat
     private Customer mediaIsBookedBy(DTO dto){
-        Borrowable b;
+        Borrowable b = getBorrowableFromDTO(dto);
 
         Customer customer = new Customer();
-        if (dto instanceof BookDTO) {
-            b = new Book();
-        } else if (dto instanceof DvdDTO) {
-            b = new Dvd();
-        } else {
-            b = new Magazine();
-        }
-
-        b.fillFromDTO(dto);
-
         Borrowable tmp;
         List<BookedItem> items = _bookingRepository.getAll();
         List<BookedItem> bookedItems = new ArrayList<BookedItem>();
@@ -291,6 +288,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return customer;
     }
 
+    //Aus einem BorrowedItem der richtige Medientyp erhalten (Borrowable)
     private Borrowable getBorrowable(BorrowedItem borrowedItem) {
         Borrowable borrowable = null;
         if (borrowedItem.getBook() != null) {
@@ -303,6 +301,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return borrowable;
     }
 
+    //Uas einem BookedItem der richtige Medientyp erhalten (Borrowable)
     public Borrowable getBorrowable(BookedItem bookedItem) {
         Borrowable borrowable = null;
         if (bookedItem.getBook() != null) {

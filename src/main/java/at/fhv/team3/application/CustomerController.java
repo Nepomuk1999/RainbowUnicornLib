@@ -22,10 +22,12 @@ public class CustomerController extends UnicastRemoteObject implements RMICustom
         _customerRepository = CustomerRepository.getInstance();
     }
 
+    //Alle Kunden aus der Datenbank laden (Liste von Kunden)
     private List<Customer> loadCustomer(){
         return _customerRepository.getAll();
     }
 
+    //Einen bestimmten Kunden nach dem Namen suchen (ArrayList von CustomerDTOs
     public ArrayList<DTO> findCustomer(String term){
         List<Customer> allCustomers = loadCustomer();
         ArrayList<DTO> matchingCustomers = new ArrayList<DTO>();
@@ -38,11 +40,13 @@ public class CustomerController extends UnicastRemoteObject implements RMICustom
         return matchingCustomers;
     }
 
+    //Einen neuen Kunden in die Datenbank einfügen
     public void saveCustomer(Customer c){
         _customerRepository.save(c);
     }
 
-    public void saveNewCustomer(CustomerDTO dto){
+    //Einen neuen Kunden aus einem CustomerDTO in die Datenbank einfügen
+    public void saveCustomer(CustomerDTO dto){
         Customer customer = new Customer();
         customer.fillFromDTO(dto);
         saveCustomer(customer);

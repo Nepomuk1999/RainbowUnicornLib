@@ -37,6 +37,7 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
         _borrowedItemRepository = BorrowedItemRepository.getInstance();
     }
 
+    //Alle Bücher aus der Datenbank laden (Liste von BookDTOs)
     public List<DTO> getAllBookDTOs(){
         List<Book> all = bookRepository.getAll();
         List<DTO> dtos = new ArrayList<DTO>();
@@ -46,6 +47,7 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
         return dtos;
     }
 
+    //Alle Dvds aus der Datenbank laden (Liste von DvdDTOs)
     public List<DTO> getAllDvdDTOs(){
         List<Dvd> all = dvdRepository.getAll();
         List<DTO> dtos = new ArrayList<DTO>();
@@ -55,6 +57,7 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
         return dtos;
     }
 
+    //Alle Magazine aus der Datenbank laden (Liste von MagazinDTOs)
     public List<DTO> getAllMagazineDTOs(){
         List<Magazine> all = magazineRepository.getAll();
         List<DTO> dtos = new ArrayList<DTO>();
@@ -64,6 +67,7 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
         return dtos;
     }
 
+    //Alle Medien aus der Datenbank mit den Suchstring vergleichen und matches nach Medientyp sortiert zurückgeben (ArrayList von ArrayLists mit Durchsuchbaren(Searchable) Objekten)
     public ArrayList<ArrayList<Searchable>> searchMedias(String searchTerm){
         List<Book> books = bookRepository.getAll();
         List<Dvd> dvds = dvdRepository.getAll();
@@ -101,8 +105,8 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
         return allMedias;
     }
 
+    //Suchmethode
     public ArrayList<ArrayList<DTO>> search(String searchTerm){
-        HashMap<MediaType, ArrayList<DTO>> map = new HashMap<MediaType, ArrayList<DTO>>();
         ArrayList<ArrayList<Searchable>> searchResult = searchMedias(searchTerm);
         ArrayList<ArrayList<DTO>> dtos = new ArrayList<ArrayList<DTO>>();
         for(ArrayList<Searchable> al : searchResult) {
@@ -116,7 +120,7 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
         return dtos;
     }
 
-    //TODO: Verify
+    //Bücher nach der ISBN finden(ArrayList von BookDTOs)
     public ArrayList<BookDTO> getBooksByISBN(String isbn){
         List<Book> allBooks = bookRepository.getAll();
         ArrayList<BookDTO> matchingBooks = new ArrayList<BookDTO>();
@@ -130,6 +134,7 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
         return matchingBooks;
     }
 
+    //Dvds nach Titel finden (ArrayList von DvdDTOs)
     public ArrayList<DvdDTO> getDvdByTitle(String title){
         List<Dvd> allDvds = dvdRepository.getAll();
         ArrayList<DvdDTO> matchingDvds = new ArrayList<DvdDTO>();
@@ -143,6 +148,7 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
         return matchingDvds;
     }
 
+    //Magazine nach Komination aus Titel und Edition suchen (ArrayList von MagazinDTOs)
     public ArrayList<MagazineDTO> getMagazinesByTitleAndEdition(String title, String edition){
         List<Magazine> allMagazines = magazineRepository.getAll();
         ArrayList<MagazineDTO> matchingMagazines = new ArrayList<MagazineDTO>();
@@ -159,6 +165,7 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
         return matchingMagazines;
     }
 
+    //Festellen ob ein Medium verfügbar oder nicht verfügbar ist (boolean)
     private boolean getAvailability(Borrowable b){
         List<BorrowedItem> borrowedItems = _borrowedItemRepository.getAll();
         for(BorrowedItem item : borrowedItems){

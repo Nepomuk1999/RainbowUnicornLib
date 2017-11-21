@@ -15,6 +15,6 @@ import java.util.List;
 public interface RMICustomer  extends Remote {
 
     public ArrayList<DTO> findCustomer(String term) throws RemoteException;
-    public void saveNewCustomer(CustomerDTO dto) throws RemoteException;
+    public void saveCustomer(CustomerDTO dto) throws RemoteException;
 
 }

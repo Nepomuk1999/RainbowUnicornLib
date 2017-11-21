@@ -24,6 +24,7 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
         _bookingRepository = BookingRepository.getInstance();
     }
 
+    //Alle Reservierungen als DTOs zurückgeben (Liste von BookedItemDTOs)
     public List<DTO> getAllBookings(){
         List<BookedItem> allBookings = _bookingRepository.getAll();
         List<DTO> dtos = new ArrayList<DTO>();
@@ -33,6 +34,7 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
         return dtos;
     }
 
+    //Für ein Buch/eine Dvd/ein Magazin überprüfen, ob eine Reservierung vorhanden ist (Liste von BookedItemDTOs)
     public List<DTO> getBookingsForMedia(DTO media){
         List<BookedItem> allBookings = _bookingRepository.getAll();
         List<DTO> matching = new ArrayList<DTO>();
@@ -67,8 +69,8 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
         return matching;
     }
 
+    //Reservierung erstellen und in die Datenbank speichern (ValidationResult)
     public ValidationResult bookItem(DTO dto, CustomerDTO customerDto){
-
         BookedItem bookedItem = new BookedItem();
         Customer customer = new Customer();
         customer.fillFromDTO(customerDto);
@@ -93,8 +95,7 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
         return new ValidationResult();
     }
 
-
-    // TODO
+    //Validierung ob die Reservierung des Mediums möglich ist (ValidationResult)
     private ValidationResult validateBooking(BookedItem bookedItem, Customer customer){
         ValidationResult validationResult = new ValidationResult();
         List<BookedItem> bookedItems = _bookingRepository.getAll();
