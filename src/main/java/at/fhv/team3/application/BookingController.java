@@ -24,6 +24,7 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
 
     public BookingController() throws RemoteException{
         _bookingRepository = BookingRepository.getInstance();
+        _borrowRepository = BorrowedItemRepository.getInstance();
     }
 
     //Alle Reservierungen als DTOs zurückgeben (Liste von BookedItemDTOs)
