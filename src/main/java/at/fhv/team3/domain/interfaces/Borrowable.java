@@ -6,5 +6,7 @@ package at.fhv.team3.domain.interfaces;
 public interface Borrowable extends Searchable {
 
     public int getId();
+
+    //Für die Gruppierung von expliziten Exemplaren zum Medium
     public boolean isSameMedia(Borrowable b);
 }
