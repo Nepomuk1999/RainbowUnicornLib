@@ -22,7 +22,7 @@ public class BorrowedItemDTO extends DTO {
         _borrowedId = id;
         _borrowedDate = borrowedDate;
 
-        if (dto instanceof BookDTO) {
+        if (dto instanceof ExternalLibDTO) {
             _externalLib = (ExternalLibDTO) borrower;
         } else {
             _customer = (CustomerDTO) borrower;
@@ -88,9 +88,12 @@ public class BorrowedItemDTO extends DTO {
     public HashMap<String, String> getAllData() {
         HashMap<String, String> allData = new HashMap<String, String>();
         allData.put("id", ""+_borrowedId);
-        allData.put("externalLib", _externalLib.toString());
+        if (_externalLib != null) {
+            allData.put("externalLib", _externalLib.toString());
+        } else if (_customer != null) {
+            allData.put("customer", _customer.toString());
+        }
         allData.put("date", _borrowedDate.toString());
-        allData.put("customer", _customer.toString());
         if (_book != null) {
             allData.put("book", _book.toString());
         } else if (_dvd != null) {
