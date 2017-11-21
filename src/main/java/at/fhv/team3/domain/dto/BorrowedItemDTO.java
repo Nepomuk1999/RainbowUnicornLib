@@ -111,28 +111,4 @@ public class BorrowedItemDTO extends DTO {
         return false;
     }
 
-
-    public BookDTO get_book() {
-        return _book;
-    }
-
-    public void set_book(BookDTO _book) {
-        this._book = _book;
-    }
-
-    public DvdDTO get_dvd() {
-        return _dvd;
-    }
-
-    public void set_dvd(DvdDTO _dvd) {
-        this._dvd = _dvd;
-    }
-
-    public MagazineDTO get_magazine() {
-        return _magazine;
-    }
-
-    public void set_magazine(MagazineDTO _magazine) {
-        this._magazine = _magazine;
-    }
 }
