@@ -123,7 +123,6 @@ public class Customer implements Searchable {
         for(String word : s.split(" ")) {
             stringList.add(word);
         }
-
         setCustomerId(Integer.parseInt(stringList.get(0)));
         setFirstName(stringList.get(1));
         setLastName(stringList.get(2));
