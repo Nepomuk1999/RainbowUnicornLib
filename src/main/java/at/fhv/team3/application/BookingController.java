@@ -4,6 +4,7 @@ import at.fhv.team3.domain.*;
 import at.fhv.team3.domain.dto.*;
 import at.fhv.team3.domain.interfaces.Borrowable;
 import at.fhv.team3.persistence.BookingRepository;
+import at.fhv.team3.persistence.BorrowedItemRepository;
 import at.fhv.team3.rmi.interfaces.RMIBooking;
 
 import java.lang.reflect.Array;
@@ -19,6 +20,7 @@ import java.util.List;
 public class BookingController extends UnicastRemoteObject implements RMIBooking{
 
     private BookingRepository _bookingRepository;
+    private BorrowedItemRepository _borrowRepository;
 
     public BookingController() throws RemoteException{
         _bookingRepository = BookingRepository.getInstance();
@@ -89,20 +91,26 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
             m.fillFromDTO(dto);
             bookedItem.setMagazine(m);
         }
-        if(!validateBooking(bookedItem, customer).hasErrors()) {
+        if(!validateBooking(bookedItem).hasErrors()) {
             _bookingRepository.save(bookedItem);
         }
         return new ValidationResult();
     }
 
     //Validierung ob die Reservierung des Mediums möglich ist (ValidationResult)
-    private ValidationResult validateBooking(BookedItem bookedItem, Customer customer){
+    private ValidationResult validateBooking(BookedItem bookedItem){
         ValidationResult validationResult = new ValidationResult();
         List<BookedItem> bookedItems = _bookingRepository.getAll();
+        List<BorrowedItem> borrowedItems = _borrowRepository.getAll();
         if (bookedItem.getBook() != null) {
             for (BookedItem booked: bookedItems) {
                 if (booked.getMedia().equals(bookedItem) && booked.getCustomer().equals(bookedItem.getCustomer())) {
                     validationResult.add("The Customer already has this book booked");
+                }
+            }
+            for (BorrowedItem borrowed : borrowedItems) {
+                if (borrowed.getMedia().equals(bookedItem) && borrowed.getCustomer().equals(bookedItem.getCustomer())) {
+                    validationResult.add("The Customer already has this book borrowed");
                 }
             }
         } else if (bookedItem.getDvd() != null) {
@@ -111,10 +119,20 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
                     validationResult.add("The Customer already has this dvd booked");
                 }
             }
+            for (BorrowedItem borrowed : borrowedItems) {
+                if (borrowed.getMedia().equals(bookedItem) && borrowed.getCustomer().equals(bookedItem.getCustomer())) {
+                    validationResult.add("The Customer already has this dvd borrowed");
+                }
+            }
         } else if (bookedItem.getMagazine() != null) {
             for (BookedItem booked: bookedItems) {
                 if (booked.getMedia().equals(bookedItem) && booked.getCustomer().equals(bookedItem.getCustomer())) {
                     validationResult.add("The Customer already has this magazine booked");
+                }
+            }
+            for (BorrowedItem borrowed : borrowedItems) {
+                if (borrowed.getMedia().equals(bookedItem) && borrowed.getCustomer().equals(bookedItem.getCustomer())) {
+                    validationResult.add("The Customer already has this magazine borrowed");
                 }
             }
         } else {

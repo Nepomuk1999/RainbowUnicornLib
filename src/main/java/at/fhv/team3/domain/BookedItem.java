@@ -110,6 +110,14 @@ public class BookedItem implements Transferable {
         _date = new Date(allData.get("date"));
     }
 
+    public boolean equals(BookedItem bookedItem) {
+        if ( this.getCustomer().equals(bookedItem.getCustomer()) && this.getMedia().isSameMedia(bookedItem.getMedia())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public Borrowable getMedia() {
         if ( _book != null) {
             return _book;
