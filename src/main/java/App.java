@@ -10,13 +10,6 @@ import java.util.List;
 public class App {
     public static void main(String[] args) {
         ServerBind.init();
-   //   test();
     }
 
-    public static void test(){
-        List<Customer> customer = CustomerRepository.getInstance().getAll();
-        for(Customer c : customer){
-            System.out.println(c.getFirstName());
-        }
-    }
 }
