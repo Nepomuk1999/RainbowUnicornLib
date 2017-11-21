@@ -105,35 +105,35 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
         List<BorrowedItem> borrowedItems = _borrowRepository.getAll();
         if (bookedItem.getBook() != null) {
             for (BookedItem booked: bookedItems) {
-                if (booked.getMedia().equals(bookedItem) && booked.getCustomer().equals(bookedItem.getCustomer())) {
-                    validationResult.add("The Customer already has this book booked");
+                if (booked.getMedia().isSameMedia(bookedItem.getMedia()) && booked.getCustomer().equals(bookedItem.getCustomer())) {
+                    validationResult.add("The customer already has this book booked.");
                 }
             }
             for (BorrowedItem borrowed : borrowedItems) {
-                if (borrowed.getMedia().equals(bookedItem) && borrowed.getCustomer().equals(bookedItem.getCustomer())) {
-                    validationResult.add("The Customer already has this book borrowed");
+                if (borrowed.getMedia().isSameMedia(bookedItem.getMedia()) && borrowed.getCustomer().equals(bookedItem.getCustomer())) {
+                    validationResult.add("The customer already has this book borrowed.");
                 }
             }
         } else if (bookedItem.getDvd() != null) {
             for (BookedItem booked: bookedItems) {
-                if (booked.getMedia().equals(bookedItem) && booked.getCustomer().equals(bookedItem.getCustomer())) {
-                    validationResult.add("The Customer already has this dvd booked");
+                if (booked.getMedia().isSameMedia(bookedItem.getMedia()) && booked.getCustomer().equals(bookedItem.getCustomer())) {
+                    validationResult.add("The customer already has this dvd booked.");
                 }
             }
             for (BorrowedItem borrowed : borrowedItems) {
-                if (borrowed.getMedia().equals(bookedItem) && borrowed.getCustomer().equals(bookedItem.getCustomer())) {
-                    validationResult.add("The Customer already has this dvd borrowed");
+                if (borrowed.getMedia().isSameMedia(bookedItem.getMedia()) && borrowed.getCustomer().equals(bookedItem.getCustomer())) {
+                    validationResult.add("The customer already has this dvd borrowed.");
                 }
             }
         } else if (bookedItem.getMagazine() != null) {
             for (BookedItem booked: bookedItems) {
-                if (booked.getMedia().equals(bookedItem) && booked.getCustomer().equals(bookedItem.getCustomer())) {
-                    validationResult.add("The Customer already has this magazine booked");
+                if (booked.getMedia().isSameMedia(bookedItem.getMedia()) && booked.getCustomer().equals(bookedItem.getCustomer())) {
+                    validationResult.add("The customer already has this magazine booked.");
                 }
             }
             for (BorrowedItem borrowed : borrowedItems) {
-                if (borrowed.getMedia().equals(bookedItem) && borrowed.getCustomer().equals(bookedItem.getCustomer())) {
-                    validationResult.add("The Customer already has this magazine borrowed");
+                if (borrowed.getMedia().isSameMedia(bookedItem.getMedia()) && borrowed.getCustomer().equals(bookedItem.getCustomer())) {
+                    validationResult.add("The Customer already has this magazine borrowed.");
                 }
             }
         } else {
