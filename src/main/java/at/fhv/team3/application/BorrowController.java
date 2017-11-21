@@ -158,7 +158,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
             vr.add("Customer does not exist!");
         }
         if (isBooked(dto)) {
-            if (!customer.equals(mediaIsBookedBy(dto))) {
+            if (!c.equals(mediaIsBookedBy(dto))) {
                 vr.add("Media is booked by another Customer!");
             }
         }

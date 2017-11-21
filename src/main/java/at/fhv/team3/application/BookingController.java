@@ -7,7 +7,6 @@ import at.fhv.team3.persistence.BookingRepository;
 import at.fhv.team3.persistence.BorrowedItemRepository;
 import at.fhv.team3.rmi.interfaces.RMIBooking;
 
-import java.lang.reflect.Array;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -92,10 +91,11 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
             m.fillFromDTO(dto);
             bookedItem.setMagazine(m);
         }
-        if(!validateBooking(bookedItem).hasErrors()) {
+        ValidationResult vr = validateBooking(bookedItem);
+        if(!vr.hasErrors()) {
             _bookingRepository.save(bookedItem);
         }
-        return new ValidationResult();
+        return vr;
     }
 
     //Validierung ob die Reservierung des Mediums möglich ist (ValidationResult)
