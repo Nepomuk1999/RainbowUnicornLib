@@ -132,30 +132,6 @@ public class BorrowedItem implements Transferable {
         }
     }
 
-    public Book get_book() {
-        return _book;
-    }
-
-    public void set_book(Book _book) {
-        this._book = _book;
-    }
-
-    public Dvd get_dvd() {
-        return _dvd;
-    }
-
-    public void set_dvd(Dvd _dvd) {
-        this._dvd = _dvd;
-    }
-
-    public Magazine get_magazine() {
-        return _magazine;
-    }
-
-    public void set_magazine(Magazine _magazine) {
-        this._magazine = _magazine;
-    }
-
     public Borrowable getMedia() {
         if ( _book != null) {
             return _book;
