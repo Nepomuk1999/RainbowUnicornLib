@@ -174,10 +174,21 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         ValidationResult vr = new ValidationResult();
         boolean booked = false;
         List<BookedItem> bookedItems = _bookingRepository.getAll();
+        List<BorrowedItem> items = _borrowedItemRepository.getAll();
         Borrowable b = getBorrowableFromDTO(media);
         if(b != null){
             b.fillFromDTO(media);
             Borrowable tmp;
+            for(BorrowedItem bi : items){
+                Borrowable tmpBi = getBorrowable(bi);
+                if(b.getClass() == tmpBi.getClass()){
+                    if(b.getId() == tmpBi.getId()){
+                        if(bi.getExtendCount()>=2) {
+                            vr.add("The loan cannot be extended any more!");
+                        }
+                    }
+                }
+            }
             for(BookedItem bi : bookedItems){
                 tmp = getBorrowable(bi);
                 if(tmp != null){
