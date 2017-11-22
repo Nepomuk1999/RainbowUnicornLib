@@ -1,9 +1,5 @@
 package at.fhv.team3.domain.dto;
 
-import at.fhv.team3.domain.Customer;
-import at.fhv.team3.domain.ExternalLib;
-
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -14,16 +10,31 @@ public class BorrowedItemDTO extends DTO {
 
     private int _borrowedId;
     private Date _borrowedDate;
-    private ExternalLib _externalLib;
-    private Customer _customer;
+    private ExternalLibDTO _externalLib;
+    private CustomerDTO _customer;
+    private BookDTO _book;
+    private DvdDTO _dvd;
+    private MagazineDTO _magazine;
+    private int _extendCount;
 
 
-    public BorrowedItemDTO(int id, Date borrowedDate, ExternalLib externalLib, Customer customer) {
+    public BorrowedItemDTO(int id, Date borrowedDate, DTO borrower, DTO dto) {
         _borrowedId = id;
         _borrowedDate = borrowedDate;
-        _externalLib = externalLib;
-        _customer = customer;
 
+        if (dto instanceof ExternalLibDTO) {
+            _externalLib = (ExternalLibDTO) borrower;
+        } else {
+            _customer = (CustomerDTO) borrower;
+        }
+
+        if (dto instanceof BookDTO) {
+            _book = (BookDTO) dto;
+        } else if (dto instanceof DvdDTO) {
+            _dvd = (DvdDTO) dto;
+        } else {
+            _magazine = (MagazineDTO) dto;
+        }
     }
 
     public void setBorrowedId(int id){
@@ -42,19 +53,19 @@ public class BorrowedItemDTO extends DTO {
         return _borrowedDate;
     }
 
-    public void setExternalLib(ExternalLib lib){
+    public void setExternalLib(ExternalLibDTO lib){
         _externalLib = lib;
     }
 
-    public ExternalLib getExternalLib(){
+    public ExternalLibDTO getExternalLib(){
         return _externalLib;
     }
 
-    public void setCustomer(Customer customer){
+    public void setCustomer(CustomerDTO customer){
         _customer = customer;
     }
 
-    public Customer getCustomer(){
+    public CustomerDTO getCustomer(){
         return _customer;
     }
 
@@ -66,12 +77,32 @@ public class BorrowedItemDTO extends DTO {
         return getBorrowedId();
     }
 
+    public int getExtendCount(){
+        return _extendCount;
+    }
+
+    public void setExtendCount(int count){
+        _extendCount = count;
+    }
+
     public HashMap<String, String> getAllData() {
         HashMap<String, String> allData = new HashMap<String, String>();
         allData.put("id", ""+_borrowedId);
-        allData.put("externalLib", _externalLib.getName());
+        if (_externalLib != null) {
+            allData.put("externalLib", _externalLib.toString());
+        } else if (_customer != null) {
+            allData.put("customer", _customer.toString());
+        }
         allData.put("date", _borrowedDate.toString());
-        allData.put("customer", _customer.getFirstName() + " " + _customer.getLastName());
+        if (_book != null) {
+            allData.put("book", _book.toString());
+        } else if (_dvd != null) {
+            allData.put("dvd", _dvd.toString());
+        } else if (_magazine != null) {
+            allData.put("magazine", _magazine.toString());
+        } else {
+            return null;
+        }
         return allData;
     }
 
@@ -82,4 +113,5 @@ public class BorrowedItemDTO extends DTO {
         }
         return false;
     }
+
 }

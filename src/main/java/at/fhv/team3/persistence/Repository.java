@@ -15,10 +15,16 @@ public abstract class Repository<T extends Transferable> {
 
     public Repository() { }
 
+    //Liste von allen Einträgen einer Tablle zurückgeben (Liste von Domänenobjekten)
     public abstract List<T> getAll();
 
+    //Ein Domänenobjekt per ID (Primary Key) aus der Datenbank laden (Domänenobjekt)
     public abstract T getById(Integer id);
 
+    //Einen Eintrag aus einer Tabelle in der Datenbank löschen
+    public abstract void delete(T model);
+
+    //Einen Eintrag in die Datenbank einfügen
     protected Integer addMedia(T media) {
         Session session = sessionFactory.openSession();
         Integer id = null;

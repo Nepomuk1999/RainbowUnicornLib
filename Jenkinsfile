@@ -20,7 +20,7 @@ pipeline {
     }
     post {
         always {
-            archive 'target/*.jar'
+            archive 'target/*.jar, target/hibernate.cfg.xml'
         }
     }
 }

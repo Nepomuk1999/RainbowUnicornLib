@@ -4,10 +4,12 @@ import at.fhv.team3.domain.Book;
 import at.fhv.team3.domain.Magazine;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,6 +25,20 @@ public class MagazineRepository extends Repository<Magazine> {
 
     private MagazineRepository() { }
 
+    public void save(List<Magazine> magazines) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        for (Magazine magazine: magazines) {
+            session.saveOrUpdate(magazine);
+        }
+        transaction.commit();
+    }
+
+    public void save(Magazine magazine) {
+        List<Magazine> customers = new ArrayList<Magazine>(1);
+        customers.add(magazine);
+        save(customers);
+    }
     public List<Magazine> getAll() {
         Session session = sessionFactory.openSession();
         List<Magazine> magazines = new LinkedList<Magazine>();
@@ -53,11 +69,15 @@ public class MagazineRepository extends Repository<Magazine> {
             if (transaction != null) {
                 transaction.rollback();
             }
-            System.out.println("Magazin get all error:" + ex);
+            System.out.println("Magazine get all error:" + ex);
         } finally {
             session.close();
         }
         return null;
+    }
+
+    public void delete(Magazine model) {
+
     }
 
 }

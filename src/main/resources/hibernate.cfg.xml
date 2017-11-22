@@ -14,5 +14,11 @@
         <mapping class="at.fhv.team3.domain.Book" />
         <mapping class="at.fhv.team3.domain.Dvd" />
         <mapping class="at.fhv.team3.domain.Magazine" />
+        <mapping class="at.fhv.team3.domain.BookedItem" />
+        <mapping class="at.fhv.team3.domain.BorrowedItem" />
+        <mapping class="at.fhv.team3.domain.Employee" />
+        <mapping class="at.fhv.team3.domain.Customer" />
+        <mapping class="at.fhv.team3.domain.ExternalLib" />
+        <mapping class="at.fhv.team3.domain.OverdueNotice" />
     </session-factory>
 </hibernate-configuration>

@@ -3,7 +3,9 @@ package at.fhv.team3.persistence;
 import at.fhv.team3.domain.Book;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,6 +20,21 @@ public class BookRepository extends Repository<Book> {
     }
 
     private BookRepository() { }
+
+    public void save(List<Book> books) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        for (Book book: books) {
+            session.saveOrUpdate(book);
+        }
+        transaction.commit();
+    }
+
+    public void save(Book book) {
+        List<Book> books = new ArrayList<Book>(1);
+        books.add(book);
+        save(books);
+    }
 
     public List<Book> getAll() {
         Session session = sessionFactory.openSession();
@@ -54,6 +71,10 @@ public class BookRepository extends Repository<Book> {
             session.close();
         }
         return null;
+    }
+
+    public void delete(Book model) {
+
     }
 
     /*

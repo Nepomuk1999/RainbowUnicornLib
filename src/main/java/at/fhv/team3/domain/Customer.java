@@ -1,28 +1,42 @@
 package at.fhv.team3.domain;
 
+import at.fhv.team3.domain.dto.CustomerDTO;
 import at.fhv.team3.domain.dto.DTO;
-import at.fhv.team3.domain.interfaces.Transferable;
+import at.fhv.team3.domain.interfaces.Searchable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.regex.Pattern;
 
 /**
  * Created by David on 10/30/2017.
  */
 @Entity
 @Table(name = "customer")
-public class Customer implements Transferable {
+public class Customer implements Searchable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "customerId")
     private int _customerId;
 
-    @OneToMany
-    private ArrayList<BorrowedItem> borrowedItems = new ArrayList<BorrowedItem>();
+//    @OneToMany
+//    private ArrayList<BorrowedItem> borrowedItems = new ArrayList<BorrowedItem>();
 
+    @Column(name = "firstName")
     private String _firstName;
+
+    @Column(name = "lastName")
     private String _lastName;
+
+    @Column(name = "subscription")
     private boolean _subscription;
+
+    @Column(name = "email")
     private String _email;
+
+    @Column(name = "phoneNr")
     private String _phoneNumber;
 
     public Customer(){
@@ -78,6 +92,52 @@ public class Customer implements Transferable {
     }
 
     public DTO createDataTransferObject() {
-        return null;
+        return new CustomerDTO(_customerId, _firstName, _lastName, _subscription, _email, _phoneNumber);
+    }
+
+    public void fillFromDTO(DTO dto) {
+        HashMap<String, String> allData = dto.getAllData();
+        _customerId = Integer.parseInt(allData.get("id"));
+        _firstName = allData.get("firstname");
+        _lastName = allData.get("lastname");
+        boolean subscription;
+        if(allData.get("subscription").equals("true")){
+            subscription = true;
+        } else {
+            subscription = false;
+        }
+        _subscription = subscription;
+        _email = allData.get("email");
+        _phoneNumber = allData.get("phonenumber");
+    }
+
+    public boolean equals(Customer c){
+        if(c.getCustomerId() == _customerId && c.getFirstName().equals(_firstName) && c.getLastName().equals(_lastName) && c.getEmail().equals(_email) && c.getPhoneNumber().equals(_phoneNumber)){
+            return true;
+        }
+        return false;
+    }
+
+    public void createFromString(String s) {
+        ArrayList<String> stringList = new ArrayList<String>();
+        for(String word : s.split(" ")) {
+            stringList.add(word);
+        }
+        setCustomerId(Integer.parseInt(stringList.get(0)));
+        setFirstName(stringList.get(1));
+        setLastName(stringList.get(2));
+        setSubscription(Boolean.getBoolean(stringList.get(3)));
+        setEmail(stringList.get(4));
+        setPhoneNumber(stringList.get(5));
+    }
+
+    public boolean containsSearchTerm(String searchTerm) {
+        if( Pattern.compile(Pattern.quote(searchTerm), Pattern.CASE_INSENSITIVE).matcher(_firstName).find()
+                || Pattern.compile(Pattern.quote(searchTerm), Pattern.CASE_INSENSITIVE).matcher(_lastName).find()
+                || Pattern.compile(Pattern.quote(searchTerm), Pattern.CASE_INSENSITIVE).matcher(_email).find()
+                || Pattern.compile(Pattern.quote(searchTerm), Pattern.CASE_INSENSITIVE).matcher(_phoneNumber).find()) {
+            return true;
+        }
+        return false;
     }
 }
