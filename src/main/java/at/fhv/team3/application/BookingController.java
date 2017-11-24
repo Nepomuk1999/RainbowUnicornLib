@@ -104,7 +104,6 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
         List<BookedItem> bookedItems = _bookingRepository.getAll();
         List<BorrowedItem> borrowedItems = _borrowRepository.getAll();
        // if (bookedItem.getBook() != null) {
-        boolean found = false;
             for (BookedItem booked: bookedItems) {
                 if (booked.getMedia().getClass() == bookedItem.getMedia().getClass()) {
                     if (booked.getMedia().isSameMedia(bookedItem.getMedia()) && booked.getCustomer().equals(bookedItem.getCustomer())) {
