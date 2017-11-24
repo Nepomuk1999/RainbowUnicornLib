@@ -103,18 +103,24 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
         ValidationResult validationResult = new ValidationResult();
         List<BookedItem> bookedItems = _bookingRepository.getAll();
         List<BorrowedItem> borrowedItems = _borrowRepository.getAll();
-        if (bookedItem.getBook() != null) {
+       // if (bookedItem.getBook() != null) {
+        boolean found = false;
             for (BookedItem booked: bookedItems) {
-                if (booked.getMedia().isSameMedia(bookedItem.getMedia()) && booked.getCustomer().equals(bookedItem.getCustomer())) {
-                    validationResult.add("The customer already has this book booked.");
+                if (booked.getMedia().getClass() == bookedItem.getMedia().getClass()) {
+                    if (booked.getMedia().isSameMedia(bookedItem.getMedia()) && booked.getCustomer().equals(bookedItem.getCustomer())) {
+                        validationResult.add("The customer already has this media booked.");
+                    }
                 }
             }
             for (BorrowedItem borrowed : borrowedItems) {
-                if (borrowed.getMedia().isSameMedia(bookedItem.getMedia()) && borrowed.getCustomer().equals(bookedItem.getCustomer())) {
-                    validationResult.add("The customer already has this book borrowed.");
+                if (borrowed.getMedia().getClass() == bookedItem.getMedia().getClass()) {
+                    if (borrowed.getMedia().isSameMedia(bookedItem.getMedia()) && borrowed.getCustomer().equals(bookedItem.getCustomer())) {
+                        validationResult.add("The customer already has this media borrowed.");
+                    }
                 }
             }
-        } else if (bookedItem.getDvd() != null) {
+       /* } else if (bookedItem.getDvd() != null) {
+
             for (BookedItem booked: bookedItems) {
                 if (booked.getMedia().isSameMedia(bookedItem.getMedia()) && booked.getCustomer().equals(bookedItem.getCustomer())) {
                     validationResult.add("The customer already has this dvd booked.");
@@ -138,7 +144,7 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
             }
         } else {
             validationResult.add("There was no media submitted with the request.");
-        }
+        }*/
         return validationResult;
     }
 }
