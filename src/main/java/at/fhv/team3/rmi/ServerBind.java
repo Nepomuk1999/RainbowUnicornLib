@@ -37,7 +37,8 @@ public class ServerBind {
             System.out.println("Binding Ldap Controller...");
             registry.rebind("Ldap", factory.getLdapController());
             System.out.println("Binding complete");
-
+            System.out.println("Binding Message Consumer...");
+            registry.rebind("MessageConsumer", factory.getMessageConsumer());
         } catch (Exception e) {
             System.out.println("MediaSearchController exception: " + e.getMessage());
             e.printStackTrace();
