@@ -6,9 +6,7 @@ import at.fhv.team3.domain.Message;
 import at.fhv.team3.persistence.BookingRepository;
 import at.fhv.team3.persistence.BorrowedItemRepository;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by David on 11/27/2017.
@@ -50,7 +48,7 @@ public class MessageProducer implements Runnable{
         List<BorrowedItem> borrowedItems = _borrowRepository.getAll();
         List<Message> messages = new ArrayList<Message>();
         for(BorrowedItem bi : borrowedItems){
-
+            
         }
         return messages;
     }

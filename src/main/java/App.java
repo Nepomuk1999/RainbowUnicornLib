@@ -11,7 +11,8 @@ import java.util.List;
 public class App {
     public static void main(String[] args) {
         ServerBind.init();
-        MessageProducer.getInstance().run();
+        Thread t = new Thread(MessageProducer.getInstance());
+        t.run();
     }
 
 }
