@@ -66,7 +66,7 @@ public class MessageProducer implements Runnable{
     }
 
     public void run() {
-        while(_run) {
+        do {
             Date date = new Date();
             int hour = date.getHours();
             int minute = date.getMinutes();
@@ -74,7 +74,7 @@ public class MessageProducer implements Runnable{
             if (hour == 0 && minute == 0 && second == 0) {
                 produceMessages();
             }
-        }
+        } while(_run);
     }
 
     public void stop(){
