@@ -12,6 +12,7 @@ import at.fhv.team3.domain.interfaces.Transferable;
 public class Message implements Transferable{
 
     private Customer _customer;
+    private ExternalLib _lib;
     private Borrowable _borrowable;
     private String _message;
 
@@ -22,6 +23,14 @@ public class Message implements Transferable{
 
     public Customer getCustomer(){
         return _customer;
+    }
+
+    public ExternalLib getLib(){
+        return _lib;
+    }
+
+    public void setLib(ExternalLib lib){
+        _lib = lib;
     }
 
     public Borrowable getBorrowable(){
