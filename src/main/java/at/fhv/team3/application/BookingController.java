@@ -103,7 +103,6 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
         ValidationResult validationResult = new ValidationResult();
         List<BookedItem> bookedItems = _bookingRepository.getAll();
         List<BorrowedItem> borrowedItems = _borrowRepository.getAll();
-       // if (bookedItem.getBook() != null) {
             for (BookedItem booked: bookedItems) {
                 if (booked.getMedia().getClass() == bookedItem.getMedia().getClass()) {
                     if (booked.getMedia().isSameMedia(bookedItem.getMedia()) && booked.getCustomer().equals(bookedItem.getCustomer())) {
@@ -118,32 +117,6 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
                     }
                 }
             }
-       /* } else if (bookedItem.getDvd() != null) {
-
-            for (BookedItem booked: bookedItems) {
-                if (booked.getMedia().isSameMedia(bookedItem.getMedia()) && booked.getCustomer().equals(bookedItem.getCustomer())) {
-                    validationResult.add("The customer already has this dvd booked.");
-                }
-            }
-            for (BorrowedItem borrowed : borrowedItems) {
-                if (borrowed.getMedia().isSameMedia(bookedItem.getMedia()) && borrowed.getCustomer().equals(bookedItem.getCustomer())) {
-                    validationResult.add("The customer already has this dvd borrowed.");
-                }
-            }
-        } else if (bookedItem.getMagazine() != null) {
-            for (BookedItem booked: bookedItems) {
-                if (booked.getMedia().isSameMedia(bookedItem.getMedia()) && booked.getCustomer().equals(bookedItem.getCustomer())) {
-                    validationResult.add("The customer already has this magazine booked.");
-                }
-            }
-            for (BorrowedItem borrowed : borrowedItems) {
-                if (borrowed.getMedia().isSameMedia(bookedItem.getMedia()) && borrowed.getCustomer().equals(bookedItem.getCustomer())) {
-                    validationResult.add("The Customer already has this magazine borrowed.");
-                }
-            }
-        } else {
-            validationResult.add("There was no media submitted with the request.");
-        }*/
         return validationResult;
     }
 }
