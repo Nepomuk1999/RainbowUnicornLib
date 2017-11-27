@@ -1,12 +1,15 @@
 package at.fhv.team3.domain.dto;
 
+
 import java.util.HashMap;
 
 /**
  * Created by David on 11/24/2017.
  */
 public class MessageDTO extends DTO {
+
     private CustomerDTO _customer;
+    private ExternalLibDTO _lib;
     private BookDTO _book;
     private DvdDTO _dvd;
     private MagazineDTO _magazine;
@@ -19,6 +22,14 @@ public class MessageDTO extends DTO {
 
     public CustomerDTO getCustomer(){
         return _customer;
+    }
+
+    public void setLib(ExternalLibDTO lib){
+        _lib = lib;
+    }
+
+    public ExternalLibDTO getLib(){
+        return _lib;
     }
 
     public DTO getBorrowable(){
