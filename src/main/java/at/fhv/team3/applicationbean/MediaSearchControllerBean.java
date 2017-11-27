@@ -23,10 +23,10 @@ import java.util.List;
 @Stateful
 public class MediaSearchControllerBean implements RemoteSearchBeanFace {
 
-    private BookRepository bookRepository;
-    private MagazineRepository magazineRepository;
-    private DvdRepository dvdRepository;
-    private BorrowedItemRepository borrowedItemRepository;
+    private BookRepository bookRepository = BookRepository.getInstance();
+    private MagazineRepository magazineRepository = MagazineRepository.getInstance();
+    private DvdRepository dvdRepository = DvdRepository.getInstance();
+    private BorrowedItemRepository borrowedItemRepository = BorrowedItemRepository.getInstance();
 
 
     //Alle Bücher aus der Datenbank laden (Liste von BookDTOs)
