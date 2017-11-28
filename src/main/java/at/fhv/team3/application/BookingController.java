@@ -18,6 +18,7 @@ import java.util.List;
  */
 public class BookingController extends UnicastRemoteObject implements RMIBooking{
 
+    private static BookingController currentController;
     private BookingRepository _bookingRepository;
     private BorrowedItemRepository _borrowRepository;
 
@@ -26,6 +27,16 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
         _borrowRepository = BorrowedItemRepository.getInstance();
     }
 
+    public static BookingController getInstance() {
+        if (currentController == null) {
+            try {
+                return new BookingController();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        return currentController;
+    }
     //Alle Reservierungen als DTOs zurückgeben (Liste von BookedItemDTOs)
     public List<DTO> getAllBookings(){
         List<BookedItem> allBookings = _bookingRepository.getAll();
