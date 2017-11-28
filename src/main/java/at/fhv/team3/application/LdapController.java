@@ -17,6 +17,7 @@ import java.util.List;
 
 public class LdapController extends UnicastRemoteObject implements RMILdap {
 
+    private static LdapController currentController;
     private String url;
     private Hashtable<String, String> env;
     private EmployeeRepository _employeeRepository;
@@ -26,6 +27,17 @@ public class LdapController extends UnicastRemoteObject implements RMILdap {
         url = "ldap://openldap.fhv.at:389/o=fhv.at";
         env = new Hashtable<String, String>();
         _employeeRepository = EmployeeRepository.getInstance();
+    }
+
+    public static LdapController getInstance() {
+        if (currentController == null) {
+            try {
+                return new LdapController();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        return currentController;
     }
 
     //Login authentifizierung (EmployeeDTO)
