@@ -136,6 +136,9 @@ public class MessageProducer implements Runnable{
 
     public MessageDTO pull(){
         MessageDTO m = new MessageDTO();
+        if(_messages == null){
+            _messages = new LinkedList<Message>();
+        }
         if(_messages != null && !_messages.isEmpty()) {
             Message message = _messages.get(0);
             m = (MessageDTO) message.createDataTransferObject();
