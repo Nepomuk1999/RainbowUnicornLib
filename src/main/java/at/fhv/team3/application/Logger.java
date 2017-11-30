@@ -65,7 +65,16 @@ public class Logger {
     }
 
     public void setFile(){
-        _filename = "Log" + new Date().toString() + ".txt";
+        Date d = new Date();
+        String date = d.getDay() + d.getMonth() + d.getYear() + "";
+        _filename = "Log" + date + ".txt";
+        File f = new File(_filename);
+        try {
+            f.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void log(String log){
