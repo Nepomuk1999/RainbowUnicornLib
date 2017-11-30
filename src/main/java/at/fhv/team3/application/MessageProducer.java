@@ -3,6 +3,7 @@ package at.fhv.team3.application;
 import at.fhv.team3.domain.BookedItem;
 import at.fhv.team3.domain.BorrowedItem;
 import at.fhv.team3.domain.Message;
+import at.fhv.team3.domain.dto.MessageDTO;
 import at.fhv.team3.persistence.BookingRepository;
 import at.fhv.team3.persistence.BorrowedItemRepository;
 
@@ -18,11 +19,13 @@ public class MessageProducer implements Runnable{
     private boolean _run = true;
     private BorrowedItemRepository _borrowRepository;
     private BookingRepository _bookedRepository;
+    private List<Message> _messages;
 
     private MessageProducer(){
         _consumer = MessageConsumer.getInstance();
         _borrowRepository = BorrowedItemRepository.getInstance();
         _bookedRepository = BookingRepository.getInstance();
+        _messages = new LinkedList<Message>();
     }
 
     public static MessageProducer getInstance(){
@@ -61,6 +64,26 @@ public class MessageProducer implements Runnable{
 
         }
         return messages;
+    }
+
+    public int getMessageCount(){
+        return _messages.size();
+    }
+
+    public void addMessage(Message m){
+        _messages.add(m);
+    }
+
+    public MessageDTO pull(){
+        MessageDTO m = null;
+        if(_messages != null && !_messages.isEmpty()) {
+            Message message = _messages.get(0);
+            m = (MessageDTO) message.createDataTransferObject();
+            _messages.remove(message);
+        } else {
+            m.setMessage("No Messages found.");
+        }
+        return m;
     }
 
     public void run() {

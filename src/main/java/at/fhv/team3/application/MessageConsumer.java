@@ -14,13 +14,10 @@ import java.util.List;
  */
 public class MessageConsumer extends UnicastRemoteObject implements RMIMessageConsumer {
 
-    private List<Message> _messages;
     private static MessageConsumer _instance;
 
     private MessageConsumer() throws RemoteException{
-        if(_messages == null) {
-            _messages = new LinkedList<Message>();
-        }
+
     }
 
     public static MessageConsumer getInstance(){
@@ -35,23 +32,15 @@ public class MessageConsumer extends UnicastRemoteObject implements RMIMessageCo
     }
 
     public int getMessageCount(){
-        return _messages.size();
+        return MessageProducer.getInstance().getMessageCount();
     }
 
     public void addMessage(Message m){
-        _messages.add(m);
+        MessageProducer.getInstance().addMessage(m);
     }
 
     public MessageDTO pull(){
-        MessageDTO m = null;
-        if(_messages != null && !_messages.isEmpty()) {
-            Message message = _messages.get(0);
-            m = (MessageDTO) message.createDataTransferObject();
-            _messages.remove(message);
-        } else {
-            m.setMessage("No Messages found.");
-        }
-        return m;
+        return MessageProducer.getInstance().pull();
     }
 
 }
