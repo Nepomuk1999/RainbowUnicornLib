@@ -44,22 +44,22 @@ public class MessageProducer implements Runnable{
         }
     }
 
-    //TODO: implement
+
     private List<Message> getBorrowingMessages(){
         List<BorrowedItem> borrowedItems = _borrowRepository.getAll();
         List<Message> messages = new ArrayList<Message>();
         for(BorrowedItem bi : borrowedItems){
-            
+            //TODO: implement
         }
         return messages;
     }
 
-    //TODO: implement
+
     private List<Message> getBookingMessages(){
         List<BookedItem> bookedItems = _bookedRepository.getAll();
         List<Message> messages = new ArrayList<Message>();
         for(BookedItem bi : bookedItems){
-
+            //TODO: implement
         }
         return messages;
     }
