@@ -57,6 +57,7 @@ public class Logger {
             try {
                 for(String line : allLogs) {
                     _writer.write(line);
+                    _writer.flush();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
