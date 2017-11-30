@@ -1,6 +1,7 @@
 package at.fhv.team3.application;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -57,6 +58,7 @@ public class Logger {
             try {
                 for(String line : allLogs) {
                     _writer.write(line);
+                    _writer.newLine();
                 }
                 _writer.flush();
             } catch (IOException e) {
@@ -66,14 +68,18 @@ public class Logger {
 
     public void setFile(){
         Date d = new Date();
-        String date = d.getDay() + d.getMonth() + d.getYear() + "";
-        _file = new File("Log" + date + ".txt");
-        try {
-            _file.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        SimpleDateFormat ft =  new SimpleDateFormat ("yyyy-MM-dd");
 
+        String date = ft.format(d);
+
+        _file = new File("Log" + date + ".txt");
+        if (!_file.exists()) {
+            try {
+                _file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void log(String log){
