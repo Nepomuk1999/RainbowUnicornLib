@@ -54,8 +54,12 @@ public class Message implements Transferable{
         if(_customer != null) {
             dto.setCustomer((CustomerDTO) _customer.createDataTransferObject());
         }
-        dto.setMessage(_message);
-        dto.setMedia(_borrowable.createDataTransferObject());
+        if(_message != null) {
+            dto.setMessage(_message);
+        }
+        if(_borrowable != null) {
+            dto.setMedia(_borrowable.createDataTransferObject());
+        }
         return dto;
     }
 
