@@ -9,4 +9,5 @@ public interface Borrowable extends Searchable {
 
     //Für die Gruppierung von expliziten Exemplaren zum Medium
     public boolean isSameMedia(Borrowable b);
+    public String getMessageString();
 }

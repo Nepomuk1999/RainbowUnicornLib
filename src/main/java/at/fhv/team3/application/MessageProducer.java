@@ -2,8 +2,10 @@ package at.fhv.team3.application;
 
 import at.fhv.team3.domain.BookedItem;
 import at.fhv.team3.domain.BorrowedItem;
+import at.fhv.team3.domain.Customer;
 import at.fhv.team3.domain.Message;
 import at.fhv.team3.domain.dto.MessageDTO;
+import at.fhv.team3.domain.interfaces.Borrowable;
 import at.fhv.team3.persistence.BookingRepository;
 import at.fhv.team3.persistence.BorrowedItemRepository;
 
@@ -58,10 +60,69 @@ public class MessageProducer implements Runnable{
     private List<Message> getBookingMessages(){
         List<BookedItem> bookedItems = _bookedRepository.getAll();
         List<Message> messages = new ArrayList<Message>();
+        List<Borrowable> alreadyChecked = new ArrayList<Borrowable>();
         for(BookedItem bi : bookedItems){
+            if(isAvailable(bi.getMedia())){
+                boolean checked = false;
+                for(Borrowable borrowable : alreadyChecked){
+                    if(bi.getMedia().isSameMedia(borrowable)){
+                       checked = true;
+                    }
+                }
+                if(!checked){
+                    Message m = new Message();
+                    m.setBorrowable(bi.getMedia());
+                    Customer c = getNextCustomer(bookedItems, bi.getMedia());
+                    if(c != null) {
+                        m.setCustomer(c);
+                    }
+                    m.setMessage(bi.getMedia().getMessageString() + "is available and can now be borrowed.");
+                    messages.add(m);
+                }
+            }
             //TODO: implement
         }
         return messages;
+    }
+
+    private boolean isAvailable(Borrowable b) {
+        List<BorrowedItem> borrowedItems = _borrowRepository.getAll();
+        for (BorrowedItem bi : borrowedItems) {
+            if (bi.getMedia().getClass() == b.getClass()) {
+                if (b.isSameMedia(bi.getMedia())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private Customer getNextCustomer(List<BookedItem> items, Borrowable b){
+        if(!items.isEmpty()) {
+            BookedItem min = getFirstBookedItem(items, b);
+            if(min != null) {
+                for (BookedItem bi : items) {
+                    if(bi.getMedia().getClass() == b.getClass()){
+                        if(bi.getDate().before(min.getDate())){
+                            min = bi;
+                        }
+                    }
+                }
+                return min.getCustomer();
+            }
+        }
+        return null;
+    }
+
+    private BookedItem getFirstBookedItem(List<BookedItem> items, Borrowable b){
+        for(BookedItem bi : items){
+            if(bi.getMedia().getClass() == b.getClass()){
+                if(bi.getMedia().isSameMedia(b)){
+                    return bi;
+                }
+            }
+        }
+        return null;
     }
 
     public int getMessageCount(){

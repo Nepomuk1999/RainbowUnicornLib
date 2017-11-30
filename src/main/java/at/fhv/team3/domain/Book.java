@@ -162,4 +162,8 @@ public class Book implements Borrowable {
         }
         return false;
     }
+
+    public String getMessageString() {
+        return "Book Title: " +_title + " Author: " + _author + " ISBN: " + _isbn;
+    }
 }

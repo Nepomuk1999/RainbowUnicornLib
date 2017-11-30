@@ -134,4 +134,8 @@ public class Magazine implements Borrowable {
         }
         return false;
     }
+
+    public String getMessageString() {
+        return "Magazine Title: " + _title + " Edition: " + _edition;
+    }
 }

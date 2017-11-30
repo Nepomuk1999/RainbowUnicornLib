@@ -118,4 +118,8 @@ public class Dvd implements Borrowable {
         }
         return false;
     }
+
+    public String getMessageString() {
+        return "Dvd Title: " + _title + " Regisseur: " + _regisseur;
+    }
 }
