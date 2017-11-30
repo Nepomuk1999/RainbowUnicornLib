@@ -14,7 +14,6 @@ import java.util.*;
  */
 public class MessageProducer implements Runnable{
 
-    private MessageConsumer _consumer;
     private static MessageProducer _instance;
     private boolean _run = true;
     private BorrowedItemRepository _borrowRepository;
@@ -22,7 +21,6 @@ public class MessageProducer implements Runnable{
     private List<Message> _messages;
 
     private MessageProducer(){
-        _consumer = MessageConsumer.getInstance();
         _borrowRepository = BorrowedItemRepository.getInstance();
         _bookedRepository = BookingRepository.getInstance();
         _messages = new LinkedList<Message>();
@@ -42,7 +40,7 @@ public class MessageProducer implements Runnable{
         messages.addAll(getBookingMessages());
 
         for(Message m : messages){
-            _consumer.addMessage(m);
+            _messages.add(m);
         }
     }
 
@@ -71,6 +69,7 @@ public class MessageProducer implements Runnable{
     }
 
     public void addMessage(Message m){
+        Logger.log("Message added to queue: " + m.getMessage() + " at " + new Date().toString());
         _messages.add(m);
     }
 
@@ -94,6 +93,7 @@ public class MessageProducer implements Runnable{
             int minute = date.getMinutes();
             int second = date.getSeconds();
             if (hour == 0 && minute == 0 && second == 0) {
+                Logger.getInstance().init();
                 produceMessages();
             }
         }

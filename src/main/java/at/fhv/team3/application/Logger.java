@@ -1,6 +1,7 @@
 package at.fhv.team3.application;
 
 import java.io.*;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,7 +13,9 @@ public class Logger {
     private static Logger _logger;
     private BufferedWriter _writer;
     private BufferedReader _reader;
-    private String _filename = "Log.txt";
+    private String _filename;
+
+
     public static Logger getInstance(){
         if (_logger == null){
             _logger = new Logger();
@@ -21,7 +24,12 @@ public class Logger {
     }
 
     private Logger(){
+        init();
+    }
+
+    public void init(){
         try {
+            setFile();
             _reader = new BufferedReader(new FileReader(_filename));
             _writer = new BufferedWriter(new FileWriter(_filename));
         } catch (IOException e) {
@@ -54,6 +62,10 @@ public class Logger {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+    }
+
+    public void setFile(){
+        _filename = "Log" + new Date().toString() + ".txt";
     }
 
     public static void log(String log){
