@@ -6,6 +6,7 @@ import at.fhv.team3.rmi.interfaces.RMIMessageConsumer;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,11 +37,14 @@ public class MessageConsumer extends UnicastRemoteObject implements RMIMessageCo
     }
 
     public void addMessage(Message m){
+        Logger.log("Message added to queue: " + m.getMessage() + " at " + new Date().toString());
         MessageProducer.getInstance().addMessage(m);
     }
 
     public MessageDTO pull(){
-        return MessageProducer.getInstance().pull();
+        MessageDTO dto = MessageProducer.getInstance().pull();
+        Logger.log("Message sent to Client: " + dto.getMessage() + " at " + new Date().toString());
+        return dto;
     }
 
 }
