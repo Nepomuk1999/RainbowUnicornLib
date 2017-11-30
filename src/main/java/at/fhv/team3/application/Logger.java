@@ -25,6 +25,8 @@ public class Logger {
     }
 
     private Logger(){
+        File directory = new File("logfiles");
+        directory.mkdir();
         init();
     }
 
@@ -72,7 +74,7 @@ public class Logger {
 
         String date = ft.format(d);
 
-        _file = new File("Log" + date + ".txt");
+        _file = new File("logfiles/Log" + date + ".txt");
         if (!_file.exists()) {
             try {
                 _file.createNewFile();
