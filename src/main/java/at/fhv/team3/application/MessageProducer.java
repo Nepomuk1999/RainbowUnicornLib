@@ -1,9 +1,6 @@
 package at.fhv.team3.application;
 
-import at.fhv.team3.domain.BookedItem;
-import at.fhv.team3.domain.BorrowedItem;
-import at.fhv.team3.domain.Customer;
-import at.fhv.team3.domain.Message;
+import at.fhv.team3.domain.*;
 import at.fhv.team3.domain.dto.MessageDTO;
 import at.fhv.team3.domain.interfaces.Borrowable;
 import at.fhv.team3.persistence.BookingRepository;
@@ -52,10 +49,38 @@ public class MessageProducer implements Runnable{
         List<Message> messages = new ArrayList<Message>();
         for(BorrowedItem bi : borrowedItems){
             //TODO: implement
+            if(isOverdue(bi)){
+                Message m = new Message();
+                m.setBorrowable(bi.getMedia());
+                m.setCustomer(bi.getCustomer());
+                m.setMessage("The lend duration of " + bi.getMedia().getMessageString() + " is overdue.");
+                messages.add(m);
+            }
+
         }
         return messages;
     }
 
+
+    private boolean isOverdue(BorrowedItem bi){
+        Borrowable b = bi.getMedia();
+        Calendar borrowed = new GregorianCalendar();
+        borrowed.setTime(bi.getBorrowedDate());
+        Calendar current = new GregorianCalendar();
+        current.setTime(new Date());
+        int duration;
+        if(b != null){
+            if(b.getClass() == Book.class){
+                duration = 4;
+            } else {
+                duration = 2;
+            }
+            if(borrowed.get(Calendar.WEEK_OF_YEAR) + duration >= current.get(Calendar.WEEK_OF_YEAR)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     private List<Message> getBookingMessages(){
         List<BookedItem> bookedItems = _bookedRepository.getAll();
@@ -77,7 +102,7 @@ public class MessageProducer implements Runnable{
                         m.setCustomer(c);
                     }
                     m.setMessage(bi.getMedia().getMessageString() + "is available and can now be borrowed.");
-                    addMessage(m);
+                    messages.add(m);
                 }
             }
             //TODO: implement
