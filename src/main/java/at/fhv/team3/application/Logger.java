@@ -13,7 +13,7 @@ public class Logger {
     private static Logger _logger;
     private BufferedWriter _writer;
     private BufferedReader _reader;
-    private String _filename;
+    private File _file;
 
 
     public static Logger getInstance(){
@@ -30,8 +30,8 @@ public class Logger {
     public void init(){
         try {
             setFile();
-            _reader = new BufferedReader(new FileReader(_filename));
-            _writer = new BufferedWriter(new FileWriter(_filename));
+            _reader = new BufferedReader(new FileReader(_file));
+            _writer = new BufferedWriter(new FileWriter(_file));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -54,10 +54,9 @@ public class Logger {
     public void write(String log){
         List<String> allLogs = read();
         allLogs.add(log);
-
             try {
                 for(String line : allLogs) {
-                    _writer.write(line + "\n");
+                    _writer.write(line);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -67,10 +66,9 @@ public class Logger {
     public void setFile(){
         Date d = new Date();
         String date = d.getDay() + d.getMonth() + d.getYear() + "";
-        _filename = "Log" + date + ".txt";
-        File f = new File(_filename);
+        _file = new File("Log" + date + ".txt");
         try {
-            f.createNewFile();
+            _file.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -12,10 +12,10 @@ import java.util.List;
 public class App {
     public static void main(String[] args) {
         ServerBind.init();
-        Logger.log("test");
+        Logger.getInstance().init();
+        Logger.log("Test");
         Thread t = new Thread(MessageProducer.getInstance());
         t.run();
-
     }
 
 }
