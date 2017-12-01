@@ -12,6 +12,7 @@ import dtodummy.BookDTODummy;
 import dtodummy.BorrowedItemDTODummy;
 import dtodummy.CustomerDTODummy;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -58,6 +59,7 @@ public class borrowTest {
     //private BorrowedItem borrowedItem;
 
 
+    @Ignore
     @Before
     public void setUp() throws Exception {
         BorrowController borrowController = new BorrowController();

@@ -1,5 +1,6 @@
 package at.fhv.team3.applicationbean;
 
+import at.fhv.team3.application.MediaSearchController;
 import at.fhv.team3.applicationbean.interfaces.RemoteSearchBeanFace;
 import at.fhv.team3.domain.Book;
 import at.fhv.team3.domain.BorrowedItem;
@@ -23,200 +24,38 @@ import java.util.List;
 @Stateful
 public class MediaSearchControllerBean implements RemoteSearchBeanFace {
 
-    private BookRepository bookRepository = BookRepository.getInstance();
-    private MagazineRepository magazineRepository = MagazineRepository.getInstance();
-    private DvdRepository dvdRepository = DvdRepository.getInstance();
-    private BorrowedItemRepository borrowedItemRepository = BorrowedItemRepository.getInstance();
+    private MediaSearchController mediaSearchController = MediaSearchController.getInstance();
 
 
-    //Alle Bücher aus der Datenbank laden (Liste von BookDTOs)
     public List<DTO> getAllBookDTOs() {
-        List<Book> all = bookRepository.getAll();
-        List<DTO> dtos = new ArrayList<DTO>();
-        for (Book b : all) {
-            dtos.add(b.createDataTransferObject());
-        }
-        return dtos;
+        return mediaSearchController.getAllBookDTOs();
     }
 
-    //Alle Dvds aus der Datenbank laden (Liste von DvdDTOs)
     public List<DTO> getAllDvdDTOs() {
-        List<Dvd> all = dvdRepository.getAll();
-        List<DTO> dtos = new ArrayList<DTO>();
-        for (Dvd d : all) {
-            dtos.add(d.createDataTransferObject());
-        }
-        return dtos;
+        return mediaSearchController.getAllDvdDTOs();
     }
 
-    //Alle Magazine aus der Datenbank laden (Liste von MagazinDTOs)
     public List<DTO> getAllMagazineDTOs() {
-        List<Magazine> all = magazineRepository.getAll();
-        List<DTO> dtos = new ArrayList<DTO>();
-        for (Magazine m : all) {
-            dtos.add(m.createDataTransferObject());
-        }
-        return dtos;
+        return mediaSearchController.getAllMagazineDTOs();
     }
 
-    //Alle Medien aus der Datenbank mit den Suchstring vergleichen und matches nach Medientyp sortiert zurückgeben (ArrayList von ArrayLists mit Durchsuchbaren(Searchable) Objekten)
     public ArrayList<ArrayList<Searchable>> searchMedias(String searchTerm) {
-        List<Book> books = bookRepository.getAll();
-        List<Dvd> dvds = dvdRepository.getAll();
-        List<Magazine> magazines = magazineRepository.getAll();
-
-        ArrayList<ArrayList<Searchable>> allMedias = new ArrayList<ArrayList<Searchable>>();
-
-        ArrayList<Searchable> bs = new ArrayList<Searchable>();
-
-        ArrayList<Searchable> ds = new ArrayList<Searchable>();
-
-        ArrayList<Searchable> ms = new ArrayList<Searchable>();
-
-        for (Book b : books) {
-            if (b.containsSearchTerm(searchTerm)) {
-                bs.add(b);
-            }
-        }
-
-        for (Dvd d : dvds) {
-            if (d.containsSearchTerm(searchTerm)) {
-                ds.add(d);
-            }
-        }
-
-        for (Magazine m : magazines) {
-            if (m.containsSearchTerm(searchTerm)) {
-                ms.add(m);
-            }
-        }
-        allMedias.add(bs);
-        allMedias.add(ds);
-        allMedias.add(ms);
-
-        return allMedias;
+        return mediaSearchController.searchMedias(searchTerm);
     }
 
-    //Suchmethode
     public ArrayList<ArrayList<DTO>> search(String searchTerm) {
-        ArrayList<ArrayList<Searchable>> searchResult = searchMedias(searchTerm);
-        ArrayList<ArrayList<DTO>> dtos = new ArrayList<ArrayList<DTO>>();
-        for (ArrayList<Searchable> al : searchResult) {
-            ArrayList<DTO> list = new ArrayList<DTO>();
-            for (Searchable s : al) {
-                list.add(s.createDataTransferObject());
-            }
-            dtos.add(list);
-        }
-
-        return dtos;
+        return mediaSearchController.search(searchTerm);
     }
 
-    //Bücher nach der ISBN finden(ArrayList von BookDTOs)
     public ArrayList<BookDTO> getBooksByISBN(String isbn) {
-        List<Book> allBooks = bookRepository.getAll();
-        ArrayList<BookDTO> matchingBooks = new ArrayList<BookDTO>();
-        for (Book b : allBooks) {
-            if (b.getIsbn().equals(isbn)) {
-                BookDTO dto = (BookDTO) b.createDataTransferObject();
-                dto.setAvailable(getAvailability(b));
-                matchingBooks.add(dto);
-            }
-        }
-        return matchingBooks;
+        return mediaSearchController.getBooksByISBN(isbn);
     }
 
-    //Dvds nach Titel finden (ArrayList von DvdDTOs)
     public ArrayList<DvdDTO> getDvdByTitle(String title) {
-        List<Dvd> allDvds = dvdRepository.getAll();
-        ArrayList<DvdDTO> matchingDvds = new ArrayList<DvdDTO>();
-        for (Dvd d : allDvds) {
-            if (d.getTitle().equals(title)) {
-                DvdDTO dto = (DvdDTO) d.createDataTransferObject();
-                dto.setAvailable(getAvailability(d));
-                matchingDvds.add(dto);
-            }
-        }
-        return matchingDvds;
+        return mediaSearchController.getDvdByTitle(title);
     }
 
-    //Magazine nach Komination aus Titel und Edition suchen (ArrayList von MagazinDTOs)
     public ArrayList<MagazineDTO> getMagazinesByTitleAndEdition(String title, String edition) {
-        List<Magazine> allMagazines = magazineRepository.getAll();
-        ArrayList<MagazineDTO> matchingMagazines = new ArrayList<MagazineDTO>();
-        System.out.println("Looking for title: " + title + " Edition: " + edition);
-        for (Magazine m : allMagazines) {
-            System.out.println(m.toString());
-            if (m.getTitle().equals(title) && m.getEdition().equals(edition)) {
-                System.out.println("magazine found");
-                MagazineDTO dto = (MagazineDTO) m.createDataTransferObject();
-                dto.setAvailable(getAvailability(m));
-                matchingMagazines.add(dto);
-            }
-        }
-        return matchingMagazines;
+        return mediaSearchController.getMagazinesByTitleAndEdition(title, edition);
     }
-
-    //Festellen ob ein Medium verfügbar oder nicht verfügbar ist (boolean)
-    private boolean getAvailability(Borrowable b) {
-        List<BorrowedItem> borrowedItems = borrowedItemRepository.getAll();
-        for (BorrowedItem item : borrowedItems) {
-            if (b.getClass() == Book.class) {
-                if (item.getBook() != null) {
-                    if (b.getId() == item.getBook().getId()) {
-                        return false;
-                    }
-                }
-            } else if (b.getClass() == Dvd.class) {
-                if (item.getDvd() != null) {
-                    if (b.getId() == item.getDvd().getId()) {
-                        return false;
-                    }
-                }
-            } else {
-                if (item.getMagazine() != null) {
-                    if (b.getId() == item.getMagazine().getId()) {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
-
-
-    //Getter&Setter
-
-    public BookRepository getBookRepository() {
-        return bookRepository;
-    }
-
-    public void setBookRepository(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
-    }
-
-    public MagazineRepository getMagazineRepository() {
-        return magazineRepository;
-    }
-
-    public void setMagazineRepository(MagazineRepository magazineRepository) {
-        this.magazineRepository = magazineRepository;
-    }
-
-    public DvdRepository getDvdRepository() {
-        return dvdRepository;
-    }
-
-    public void setDvdRepository(DvdRepository dvdRepository) {
-        this.dvdRepository = dvdRepository;
-    }
-
-    public BorrowedItemRepository getBorrowedItemRepository() {
-        return borrowedItemRepository;
-    }
-
-    public void setBorrowedItemRepository(BorrowedItemRepository borrowedItemRepository) {
-        this.borrowedItemRepository = borrowedItemRepository;
-    }
-
 }
