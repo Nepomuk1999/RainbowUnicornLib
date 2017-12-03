@@ -5,21 +5,29 @@ import at.fhv.team3.applicationbean.interfaces.RemoteLdapConectionFace;
 import at.fhv.team3.domain.dto.EmployeeDTO;
 import at.fhv.team3.domain.dto.KeyDTO;
 
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.naming.NamingException;
 import java.rmi.RemoteException;
 
-@Stateful
+@Stateless
 public class LdapControllerBean implements RemoteLdapConectionFace {
 
-    LdapController controller = LdapController.getInstance();
+    private LdapController _ldapController;
+
+    public LdapControllerBean(){
+        try {
+            _ldapController = new LdapController();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public EmployeeDTO authenticateUser(String name, String password) throws NamingException {
-        return controller.authenticateUser(name, password);
+        return _ldapController.authenticateUser(name, password);
     }
 
     public KeyDTO getPublicKey() {
-        return controller.getPublicKey();
+        return _ldapController.getPublicKey();
     }
 }
