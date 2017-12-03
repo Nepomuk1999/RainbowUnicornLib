@@ -165,7 +165,7 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
     public ArrayList<MagazineDTO> getMagazinesByTitleAndEdition(String title, String edition){
         List<Magazine> allMagazines = magazineRepository.getAll();
         ArrayList<MagazineDTO> matchingMagazines = new ArrayList<MagazineDTO>();
-        System.out.println("Looking for title: " + title + " Edition: " + edition);
+      //  System.out.println("Looking for title: " + title + " Edition: " + edition);
         for(Magazine m : allMagazines){
             System.out.println(m.toString());
             if(m.getTitle().equals(title) && m.getEdition().equals(edition)){

@@ -5,6 +5,7 @@ import at.fhv.team3.domain.dto.MessageDTO;
 import at.fhv.team3.domain.interfaces.Borrowable;
 import at.fhv.team3.persistence.BookingRepository;
 import at.fhv.team3.persistence.BorrowedItemRepository;
+import at.fhv.team3.persistence.CustomerRepository;
 
 import java.util.*;
 
@@ -17,11 +18,13 @@ public class MessageProducer implements Runnable{
     private boolean _run = true;
     private BorrowedItemRepository _borrowRepository;
     private BookingRepository _bookedRepository;
+    private CustomerRepository _customerRepository;
     private List<Message> _messages;
 
     private MessageProducer(){
         _borrowRepository = BorrowedItemRepository.getInstance();
         _bookedRepository = BookingRepository.getInstance();
+        _customerRepository = CustomerRepository.getInstance();
         _messages = new LinkedList<Message>();
     }
 
@@ -37,12 +40,25 @@ public class MessageProducer implements Runnable{
 
         messages.addAll(getBorrowingMessages());
         messages.addAll(getBookingMessages());
-
+        messages.addAll(getCustomerMessages());
         for(Message m : messages){
-            _messages.add(m);
+            addMessage(m);
         }
     }
 
+
+    private List<Message> getCustomerMessages(){
+        List<Customer> customers = _customerRepository.getAll();
+        List<Message> messages = new LinkedList<Message>();
+        for(Customer customer : customers){
+            if(!customer.getSubscription()){
+                Message m = new Message();
+                m.setCustomer(customer);
+                m.setMessage("The subscription of "+ customer.getFirstName() + " " + customer.getLastName() + " expired.");
+            }
+        }
+        return messages;
+    }
 
     private List<Message> getBorrowingMessages(){
         List<BorrowedItem> borrowedItems = _borrowRepository.getAll();
@@ -70,7 +86,7 @@ public class MessageProducer implements Runnable{
         current.setTime(new Date());
         int duration;
         if(b != null){
-            if(b.getClass() == Book.class){
+            if(b.getClass() == Book.class && bi.getExtendCount() < 2){
                 duration = 4;
             } else {
                 duration = 2;
@@ -176,14 +192,18 @@ public class MessageProducer implements Runnable{
 
     public void run() {
         produceMessages();
+        boolean produced = false;
         while(_run) {
             Date date = new Date();
             int hour = date.getHours();
             int minute = date.getMinutes();
             int second = date.getSeconds();
-            if (hour == 0 && minute == 0 && second == 0) {
+            if (hour == 0 && minute == 0 && second == 0 && !produced) {
                 Logger.getInstance().init();
                 produceMessages();
+                produced = true;
+            } else {
+                produced = false;
             }
         }
     }
