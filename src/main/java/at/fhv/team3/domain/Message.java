@@ -63,6 +63,21 @@ public class Message implements Transferable{
         return dto;
     }
 
+    public boolean equals(Message message){
+        if(message.getCustomer() != null && message.getMessage() != null) {
+                if (_customer.equals(message.getCustomer())) {
+                    if (_message.equals(message.getMessage())) {
+                        if (message.getBorrowable() != null && _borrowable != null) {
+                            if (_borrowable.equals(message.getBorrowable())) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        return false;
+    }
+
     //TODO: implement
     public void fillFromDTO(DTO dto) {
 
