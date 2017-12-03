@@ -86,8 +86,10 @@ public class MessageProducer implements Runnable{
         current.setTime(new Date());
         int duration;
         if(b != null){
-            if(b.getClass() == Book.class && bi.getExtendCount() < 2){
+            if(b.getClass() == Book.class){
                 duration = 4;
+            } else if(!(bi.getExtendCount() < 2)){
+                duration = 0;
             } else {
                 duration = 2;
             }
@@ -121,7 +123,7 @@ public class MessageProducer implements Runnable{
                     messages.add(m);
                 }
             }
-            //TODO: implement
+            //TODO: implement epired bookings
         }
         return messages;
     }
