@@ -69,7 +69,7 @@ public class MessageProducer implements Runnable{
                 Message m = new Message();
                 m.setBorrowable(bi.getMedia());
                 m.setCustomer(bi.getCustomer());
-                m.setMessage("The lend duration of " + bi.getMedia().getMessageString() + " is overdue.");
+                m.setMessage("The lend duration of " + bi.getMedia().getId() + " " + bi.getMedia().getMessageString() + " is overdue.");
                 messages.add(m);
             }
 
@@ -124,7 +124,6 @@ public class MessageProducer implements Runnable{
                 }
             }
         }
-        //TODO: implement expired bookings
         alreadyChecked = new ArrayList<Borrowable>();
         for(BookedItem bi : bookedItems){
             if(isAvailable(bi.getMedia())){

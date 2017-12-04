@@ -89,6 +89,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
                 if(borrowable != null) {
                     if (borrowable.getId() == media.getId()) {
                         bi.getMedia().setReturnDate(new Date());
+                        saveChanges(bi.getMedia());
                         _borrowedItemRepository.delete((bi));
                     }
                 }
@@ -132,6 +133,19 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
             }
         }
         return customer.createDataTransferObject();
+    }
+
+    private void saveChanges(Borrowable b){
+        if(b.getClass() == Book.class){
+            BookRepository repository = BookRepository.getInstance();
+            repository.save((Book) b);
+        } else if(b.getClass() == Dvd.class){
+            DvdRepository repository = DvdRepository.getInstance();
+            repository.save((Dvd) b);
+        } else {
+            MagazineRepository repository = MagazineRepository.getInstance();
+            repository.save((Magazine) b);
+        }
     }
 
     //Validierung der Rückgabe (ValidationResult)
