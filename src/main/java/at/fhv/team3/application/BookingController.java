@@ -82,6 +82,10 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
         return matching;
     }
 
+    public void deleteBooking(BookedItem bi){
+        _bookingRepository.delete(bi);
+    }
+
     //Reservierung erstellen und in die Datenbank speichern (ValidationResult)
     public ValidationResult bookItem(DTO dto, CustomerDTO customerDto){
         BookedItem bookedItem = new BookedItem();

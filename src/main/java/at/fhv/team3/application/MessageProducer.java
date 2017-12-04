@@ -119,15 +119,46 @@ public class MessageProducer implements Runnable{
                     if(c != null) {
                         m.setCustomer(c);
                     }
-                    m.setMessage(bi.getMedia().getMessageString() + "is available and can now be borrowed.");
+                    m.setMessage(bi.getMedia().getMessageString() + " is available and can now be borrowed.");
                     messages.add(m);
                 }
             }
-            //TODO: implement epired bookings
+        }
+        //TODO: implement expired bookings
+        alreadyChecked = new ArrayList<Borrowable>();
+        for(BookedItem bi : bookedItems){
+            if(isAvailable(bi.getMedia())){
+                if(!alreadyChecked.contains(bi.getMedia())) {
+                    alreadyChecked.add(bi.getMedia());
+                    BookedItem booked = getFirstBookedItem(bookedItems, bi.getMedia());
+                    Date now = new Date();
+                    if(!(booked.getMedia().getReturnDate().getTime() + 6.048e+8 > now.getTime())){
+                        Message m = new Message();
+                        m.setCustomer(bi.getCustomer());
+                        m.setBorrowable(bi.getMedia());
+                        m.setMessage("Booking expired for media " + bi.getMedia().getMessageString());
+                        messages.add(m);
+                        deleteBooking(bi);
+                        BookedItem nextBooking = getFirstBookedItem(bookedItems, bi.getMedia());
+                        if(nextBooking != null){
+                            Message m2 = new Message();
+                            m2.setCustomer(nextBooking.getCustomer());
+                            m2.setBorrowable(nextBooking.getMedia());
+                            m2.setMessage(nextBooking.getMedia().getMessageString() + " is available and can now be borrowed.");
+                        }
+                    }
+                }
+            }
         }
         return messages;
     }
 
+    private void deleteBooking(BookedItem bi){
+        BookingController controller = BookingController.getInstance();
+        controller.deleteBooking(bi);
+    }
+
+    //TODO: change
     private boolean isAvailable(Borrowable b) {
         List<BorrowedItem> borrowedItems = _borrowRepository.getAll();
         for (BorrowedItem bi : borrowedItems) {

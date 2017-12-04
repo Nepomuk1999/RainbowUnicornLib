@@ -6,6 +6,7 @@ import at.fhv.team3.domain.interfaces.Borrowable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -35,6 +36,9 @@ public class Magazine implements Borrowable {
 
     @Column(name = "shelfPos")
     private String _shelfPos;
+
+    @Column(name = "returnDate")
+    private Date _returnDate;
 
     public Magazine(){}
 
@@ -137,5 +141,13 @@ public class Magazine implements Borrowable {
 
     public String getMessageString() {
         return "Magazine Title: " + _title + " Edition: " + _edition;
+    }
+
+    public Date getReturnDate(){
+        return _returnDate;
+    }
+
+    public void setReturnDate(Date d) {
+        _returnDate = d;
     }
 }

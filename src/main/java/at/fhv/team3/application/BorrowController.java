@@ -88,6 +88,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
                Borrowable borrowable = getBorrowable(bi);
                 if(borrowable != null) {
                     if (borrowable.getId() == media.getId()) {
+                        bi.getMedia().setReturnDate(new Date());
                         _borrowedItemRepository.delete((bi));
                     }
                 }
