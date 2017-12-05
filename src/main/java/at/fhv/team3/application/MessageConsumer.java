@@ -38,7 +38,7 @@ public class MessageConsumer extends UnicastRemoteObject implements RMIMessageCo
 
     public MessageDTO pull(){
         MessageDTO dto = MessageProducer.getInstance().pull();
-        Logger.log("Message sent to Client: " + dto.getMessage() + " at " + new Date().toString());
+
         return dto;
     }
 

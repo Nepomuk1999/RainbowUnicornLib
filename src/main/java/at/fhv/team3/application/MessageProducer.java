@@ -37,29 +37,9 @@ public class MessageProducer implements Runnable{
 
     public void produceMessages(){
         List<Message> messages = new ArrayList<Message>();
-
-        List<Message> borrowMessages = getBorrowingMessages();
-        List<Message> bookingMessages = getBookingMessages();
-        List<Message> customerMessages = getCustomerMessages();
-
-        for(Message m : borrowMessages){
-            if(!doesContainMessage(m)){
-                messages.add(m);
-            }
-        }
-        for(Message m : bookingMessages){
-            if(!doesContainMessage(m)){
-                messages.add(m);
-            }
-        }
-        for(Message m : customerMessages){
-            if(!doesContainMessage(m)){
-                messages.add(m);
-            }
-        }
-        /*messages.addAll(getBorrowingMessages());
+        messages.addAll(getBorrowingMessages());
         messages.addAll(getBookingMessages());
-        messages.addAll(getCustomerMessages());*/
+        messages.addAll(getCustomerMessages());
         for(Message m : messages){
             addMessage(m);
         }
@@ -226,12 +206,11 @@ public class MessageProducer implements Runnable{
             Logger.log("Message added to queue: " + m.getMessage() + " at " + new Date().toString());
             _messages.add(m);
         }
-        System.out.println("Skipped Message");
     }
 
     private boolean doesContainMessage(Message m){
         for(Message message : _messages){
-            if(message.getMessage().equals(m.getMessage())){
+            if(message.equals(m)){
                 return true;
             }
         }
@@ -247,6 +226,7 @@ public class MessageProducer implements Runnable{
             Message message = _messages.get(0);
             m = (MessageDTO) message.createDataTransferObject();
             _messages.remove(message);
+            Logger.log("Message sent to Client: " + message.getMessage() + " at " + new Date().toString());
         } else {
             m.setMessage("No Messages found.");
         }

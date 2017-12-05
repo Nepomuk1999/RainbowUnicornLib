@@ -55,13 +55,9 @@ public class Logger {
     }
 
     public void write(String log){
-        List<String> allLogs = read();
-        allLogs.add(log);
             try {
-                for(String line : allLogs) {
-                    _writer.write(line);
-                    _writer.newLine();
-                }
+              _writer.write(log);
+              _writer.newLine();
                 _writer.flush();
             } catch (IOException e) {
                 e.printStackTrace();
