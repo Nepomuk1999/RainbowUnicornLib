@@ -1,11 +1,15 @@
 package at.fhv.team3.applicationbean.interfaces;
 
+import javax.ejb.Remote;
+import java.io.Serializable;
 import java.security.Key;
 
 /**
  * Created by ClemensB on 03.12.17.
  */
-public interface RemoteEasyCryptBeanFace {
+
+@Remote
+public interface RemoteEasyCryptBeanFace extends Serializable {
 
     public String encrypt(String text) throws Exception;
 

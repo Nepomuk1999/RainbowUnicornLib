@@ -8,11 +8,12 @@ import at.fhv.team3.domain.interfaces.Borrowable;
 import at.fhv.team3.domain.interfaces.Searchable;
 
 import javax.ejb.Remote;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Remote
-public interface RemoteSearchBeanFace {
+public interface RemoteSearchBeanFace extends Serializable {
 
     public List<DTO> getAllBookDTOs();
 
