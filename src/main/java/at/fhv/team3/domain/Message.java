@@ -64,7 +64,7 @@ public class Message implements Transferable{
     }
 
     public boolean equals(Message message){
-        if(message.getCustomer() != null && message.getMessage() != null) {
+    /*    if(message.getCustomer() != null && message.getMessage() != null) {
                 if (_customer.equals(message.getCustomer())) {
                     if (_message.equals(message.getMessage())) {
                         if (message.getBorrowable() != null && _borrowable != null) {
@@ -74,7 +74,10 @@ public class Message implements Transferable{
                         }
                     }
                 }
-            }
+            }*/
+    if(_message.equals(message) && _customer.equals(message.getCustomer())){
+        return true;
+    }
         return false;
     }
 

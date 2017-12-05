@@ -38,9 +38,28 @@ public class MessageProducer implements Runnable{
     public void produceMessages(){
         List<Message> messages = new ArrayList<Message>();
 
-        messages.addAll(getBorrowingMessages());
+        List<Message> borrowMessages = getBorrowingMessages();
+        List<Message> bookingMessages = getBookingMessages();
+        List<Message> customerMessages = getCustomerMessages();
+
+        for(Message m : borrowMessages){
+            if(!doesContainMessage(m)){
+                messages.add(m);
+            }
+        }
+        for(Message m : bookingMessages){
+            if(!doesContainMessage(m)){
+                messages.add(m);
+            }
+        }
+        for(Message m : customerMessages){
+            if(!doesContainMessage(m)){
+                messages.add(m);
+            }
+        }
+        /*messages.addAll(getBorrowingMessages());
         messages.addAll(getBookingMessages());
-        messages.addAll(getCustomerMessages());
+        messages.addAll(getCustomerMessages());*/
         for(Message m : messages){
             addMessage(m);
         }
@@ -203,8 +222,20 @@ public class MessageProducer implements Runnable{
     }
 
     public void addMessage(Message m){
-        Logger.log("Message added to queue: " + m.getMessage() + " at " + new Date().toString());
-        _messages.add(m);
+        if(!doesContainMessage(m)) {
+            Logger.log("Message added to queue: " + m.getMessage() + " at " + new Date().toString());
+            _messages.add(m);
+        }
+        System.out.println("Skipped Message");
+    }
+
+    private boolean doesContainMessage(Message m){
+        for(Message message : _messages){
+            if(message.getMessage().equals(m.getMessage())){
+                return true;
+            }
+        }
+        return false;
     }
 
     public MessageDTO pull(){
