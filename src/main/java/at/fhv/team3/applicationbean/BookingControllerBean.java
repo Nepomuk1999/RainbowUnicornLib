@@ -34,4 +34,5 @@ public class BookingControllerBean implements RemoteBookingBeanFace {
     public ValidationResult bookItem(DTO dto, CustomerDTO customerDto) {
         return _bookingController.bookItem(dto, customerDto);
     }
+
 }
