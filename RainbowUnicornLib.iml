@@ -38,8 +38,6 @@
     <orderEntry type="library" name="Maven: javax.annotation:jsr250-api:1.0" level="project" />
     <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.37" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:7.0.82" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.tomcat:tomcat-annotations-api:7.0.82" level="project" />
     <orderEntry type="library" name="Maven: org.mockito:mockito-core:2.12.0" level="project" />
     <orderEntry type="library" name="Maven: net.bytebuddy:byte-buddy:1.7.9" level="project" />
     <orderEntry type="library" name="Maven: net.bytebuddy:byte-buddy-agent:1.7.9" level="project" />
@@ -47,5 +45,12 @@
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.12" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.spec.javax.ejb:jboss-ejb-api_3.2_spec:1.0.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.mq:imqjmsra:5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.mq:imqbroker:5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.mq:imqutil:5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.mq:imqxm:5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.mq:jaxm-api:5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.mq:imq:5.0" level="project" />
+    <orderEntry type="library" name="Maven: javax.jms:javax.jms-api:2.0" level="project" />
   </component>
 </module>

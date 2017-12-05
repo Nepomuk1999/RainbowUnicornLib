@@ -39,9 +39,7 @@ public class Customer implements Searchable {
     @Column(name = "phoneNr")
     private String _phoneNumber;
 
-    public Customer(){
-
-    }
+    public Customer(){}
 
     public void setCustomerId(int id){
         _customerId = id;
