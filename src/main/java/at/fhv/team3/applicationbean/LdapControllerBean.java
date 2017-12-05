@@ -1,7 +1,7 @@
 package at.fhv.team3.applicationbean;
 
 import at.fhv.team3.application.LdapController;
-import at.fhv.team3.applicationbean.interfaces.RemoteLdapConectionFace;
+import at.fhv.team3.applicationbean.interfaces.RemoteLdapConnectionFace;
 import at.fhv.team3.domain.dto.EmployeeDTO;
 import at.fhv.team3.domain.dto.KeyDTO;
 
@@ -10,7 +10,7 @@ import javax.naming.NamingException;
 import java.rmi.RemoteException;
 
 @Stateless
-public class LdapControllerBean implements RemoteLdapConectionFace {
+public class LdapControllerBean implements RemoteLdapConnectionFace {
 
     private LdapController _ldapController;
 

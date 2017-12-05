@@ -9,7 +9,7 @@ import javax.naming.NamingException;
 import java.io.Serializable;
 
 @Remote
-public interface RemoteLdapConectionFace extends Serializable {
+public interface RemoteLdapConnectionFace extends Serializable {
 
     public EmployeeDTO authenticateUser(String name, String password) throws NamingException;
 
