@@ -8,6 +8,7 @@ import javax.xml.ws.Endpoint;
 public class ServicePublisher {
 
     public void publishSerives(){
+        //TODO: Remote (?)
         Endpoint.publish("http://localhost:8888/MediaSearch", new MediaSearchService());
     }
 }
