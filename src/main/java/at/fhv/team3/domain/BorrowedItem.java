@@ -133,13 +133,14 @@ public class BorrowedItem implements Transferable {
             customer.createFromString(allData.get("customer"));
             _customer = customer;
         }
-        SimpleDateFormat df = new SimpleDateFormat("EEE MMM HH:mm:ss z YYYY");
-        try {
-            _borrowedDate = df.parse(allData.get("borrowedDate"));
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if (allData.containsKey("borrowedDate")) {
+            SimpleDateFormat df = new SimpleDateFormat("EEE MMM HH:mm:ss z YYYY");
+            try {
+                _borrowedDate = df.parse(allData.get("borrowedDate"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
-
         if (allData.get("book") != null) {
             _book = new Book();
             _book.createFromString(allData.get("book"));

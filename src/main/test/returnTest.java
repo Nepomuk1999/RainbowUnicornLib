@@ -44,7 +44,8 @@ public class returnTest {
     @Before
     public void setUp() throws Exception {
         customer = new CustomerDummy(1, "Hans", "Wurst", true, "email@email.com", "+43 5522 48484");
-        book = new BookDummy(1, "DasBuch", "S.M.Pam", "Lovo", "32165897", "vol.20", "4H2");
+        book = new Book("DasBuch", "S.M.Pam", "Lovo", "32165897", "vol.20", "4H2");
+        book.setBookId(1);
         bookDTO = new BookDTODummy(1, "DasBuch", "Lovo", "S.M.Pam", "32165897", "vol.20", "", "4H2");
         borrowedItem = new BorrowedItemDummy(1, new Date(System.currentTimeMillis() - 1000000), 1, null, customer, book, null, null);
 
@@ -87,9 +88,10 @@ public class returnTest {
         System.out.println("-------------------------");
         for (String str : messages) {
             System.out.println(str);
+            assertTrue(str.equals("Media is not borrowed!"));
         }
         System.out.println("-------------------------");
-        assertFalse(messages.isEmpty());
+
     }
 
 }

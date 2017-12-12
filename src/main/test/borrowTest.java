@@ -66,7 +66,7 @@ public class borrowTest {
         //inizialise object für tests
         customer = new CustomerDummy(1, "Hans", "Wurst", true, "email@email.com", "+43 5522 48484");
 
-        book = new BookDummy(1, "DasBuch", "S.M.Pam", "Lovo", "32165897", "vol.20", "4H2");
+        book = new BookDummy(1, "DasBuch", "S.M.Pam", "Lovo", "32165897", "vol.20", "4H2", "");
         magazine = new MagazineDummy(1, "Was ist was...", "Nr.1", "Lovo", "www.google.de", "8W3");
         dvd = new DvdDummy(1, "Einhörner im Wald", "J.K Bowl", "www.google.de", "7E3");
 
@@ -138,9 +138,10 @@ public class borrowTest {
         System.out.println("-------------------------");
         for (String str : messages) {
             System.out.println("- " + str);
+            assertTrue(str.equals("Media is already borrowed!"));
         }
         System.out.println("-------------------------");
-        assertFalse(messages.isEmpty());
+
     }
 
 
