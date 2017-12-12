@@ -37,6 +37,7 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
         }
         return currentController;
     }
+
     //Alle Reservierungen als DTOs zurückgeben (Liste von BookedItemDTOs)
     public List<DTO> getAllBookings(){
         List<BookedItem> allBookings = _bookingRepository.getAll();
