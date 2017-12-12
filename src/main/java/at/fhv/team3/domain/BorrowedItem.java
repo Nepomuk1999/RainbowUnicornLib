@@ -8,8 +8,12 @@ import at.fhv.team3.domain.interfaces.Borrowable;
 import at.fhv.team3.domain.interfaces.Transferable;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * Created by David on 10/30/2017.
@@ -129,12 +133,21 @@ public class BorrowedItem implements Transferable {
             customer.createFromString(allData.get("customer"));
             _customer = customer;
         }
-        _borrowedDate = new Date(Long.parseLong(allData.get("borrowedDate")));
+        SimpleDateFormat df = new SimpleDateFormat("EEE MMM HH:mm:ss z YYYY");
+        try {
+            _borrowedDate = df.parse(allData.get("borrowedDate"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         if (allData.get("book") != null) {
+            _book = new Book();
             _book.createFromString(allData.get("book"));
         } else if (allData.get("dvd") != null) {
+            _dvd = new Dvd();
             _dvd.createFromString(allData.get("dvd"));
         } else {
+            _magazine = new Magazine();
             _magazine.createFromString(allData.get("magazine"));
         }
     }

@@ -56,7 +56,7 @@ public class borrowTest {
     private CustomerDTO customerDTO;
     private CustomerDTO customerDTO2;
     private BorrowedItemDTO borrowedItemDTO;
-    //private BorrowedItem borrowedItem;
+    private ArrayList<BorrowedItem> borrowedItems;
 
 
 
@@ -82,12 +82,6 @@ public class borrowTest {
         Date date = new Date(System.currentTimeMillis() - 1000000);
         borrowedItemDTO = new BorrowedItemDTODummy(1, date, customerDTO2, bookDTO);
 
-        MockitoAnnotations.initMocks(this);
-    }
-
-
-    @Test
-    public void handOutTestSucceed() throws RemoteException {
 
         //Configurate Mock for booked Items
         ArrayList<BookedItem> bookedItems = new ArrayList<BookedItem>();
@@ -106,9 +100,15 @@ public class borrowTest {
         when(customerRepository.getAll()).thenReturn(customers);
 
         //Configurate Mock for borrowedItems
-        ArrayList<BorrowedItem> borrowedItems = new ArrayList<BorrowedItem>();
-        BorrowedItem borrowedItem = new BorrowedItem();
+        borrowedItems = new ArrayList<BorrowedItem>();
+
         when(borrowedItemRepository.getAll()).thenReturn(borrowedItems);
+
+    }
+
+
+    @Test
+    public void handOutTestSucceed() throws RemoteException {
 
         ValidationResult result = borrowController.handOut(bookDTO, customerDTO);
 
@@ -124,31 +124,12 @@ public class borrowTest {
     }
 
 
-    @Ignore
+
     @Test
     public void handOutTestFail() throws RemoteException {
-
-        //Configurate Mock for booked Items
-        ArrayList<BookedItem> bookedItems = new ArrayList<BookedItem>();
-        bookedItems.add(bookedItem1);
-        bookedItems.add(bookedItem2);
-        when(bookingRepository.getAll()).thenReturn(bookedItems);
-
-        //Configuarate Mock fpr customers
-        ArrayList<Customer> customers = new ArrayList<Customer>();
-        Customer c1 = new Customer();
-        Customer c2 = new Customer();
-        c1.fillFromDTO(customerDTO);
-        c2.fillFromDTO(customerDTO2);
-        customers.add(c1);
-        customers.add(c2);
-        when(customerRepository.getAll()).thenReturn(customers);
-
-        //Configurate Mock for borrowedItems
-        ArrayList<BorrowedItem> borrowedItems = new ArrayList<BorrowedItem>();
         BorrowedItem borrowedItem = new BorrowedItem();
         borrowedItem.fillFromDTO(borrowedItemDTO);
-        when(borrowedItemRepository.getAll()).thenReturn(borrowedItems);
+        borrowedItems.add(borrowedItem);
 
         ValidationResult result = borrowController.handOut(bookDTO, customerDTO);
 
