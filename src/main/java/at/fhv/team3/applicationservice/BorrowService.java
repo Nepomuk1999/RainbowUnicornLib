@@ -23,4 +23,9 @@ public class BorrowService {
     public ValidationResult handIn(DTO media) {
         return BorrowController.getInstance().handIn(media);
     }
+
+    @WebMethod
+    public ValidationResult extend(DTO media) {
+        return BorrowController.getInstance().extend(media);
+    }
 }
