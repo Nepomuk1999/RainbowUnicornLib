@@ -101,7 +101,6 @@ public class borrowTest {
 
         //Configurate Mock for borrowedItems
         borrowedItems = new ArrayList<BorrowedItem>();
-
         when(borrowedItemRepository.getAll()).thenReturn(borrowedItems);
 
     }
