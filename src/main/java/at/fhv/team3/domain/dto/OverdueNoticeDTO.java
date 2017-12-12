@@ -41,4 +41,13 @@ public class OverdueNoticeDTO extends DTO {
     public boolean equals(DTO dto) {
         return false;
     }
+
+    public String toString() {
+        HashMap<String, String> map = getAllData();
+        StringBuilder sb = new StringBuilder();
+        sb.append(map.get("id") + " ");
+        sb.append(map.get("borrowedItemId"));
+
+        return sb.toString();
+    }
 }
