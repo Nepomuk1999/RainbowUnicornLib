@@ -13,7 +13,7 @@ import java.util.List;
 public class App {
     public static void main(String[] args) {
         ServerBind.init();
-        ServicePublisher.publishSerives();
+        ServicePublisher.publishSerivces();
         Thread t = new Thread(MessageProducer.getInstance());
         t.run();
     }

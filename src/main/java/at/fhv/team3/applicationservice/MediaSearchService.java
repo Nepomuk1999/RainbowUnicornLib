@@ -16,8 +16,12 @@ import java.util.ArrayList;
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
 public class MediaSearchService {
 
-    @WebMethod
+    /*@WebMethod
     public ArrayList<ArrayList<DTO>> search(String searchTerm){
         return MediaSearchController.getInstance().search(searchTerm);
+    }*/
+
+    public String search(String test){
+        return test + " recieved!";
     }
 }
