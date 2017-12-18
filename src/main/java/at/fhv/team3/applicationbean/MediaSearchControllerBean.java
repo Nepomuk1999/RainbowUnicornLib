@@ -13,7 +13,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Stateless
+@Stateless(mappedName = "SearchEJB")
 public class MediaSearchControllerBean implements RemoteSearchBeanFace {
 
     private MediaSearchController _mediaSearchController;

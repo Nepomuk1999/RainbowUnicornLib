@@ -10,10 +10,14 @@ import java.security.Key;
  * Created by ClemensB on 03.12.17.
  */
 
+
 @Stateless
 public class EasyCryptBean implements RemoteEasyCryptBeanFace {
 
     private EasyCrypt _easyCrypt;
+
+    //TODO
+    public EasyCryptBean (){};
 
     public EasyCryptBean(Key k, String verfahren){
         try {

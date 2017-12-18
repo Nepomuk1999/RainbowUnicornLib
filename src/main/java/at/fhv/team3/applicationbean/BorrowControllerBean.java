@@ -17,7 +17,7 @@ public class BorrowControllerBean implements RemoteBorrowBeanFace{
 
     private BorrowController _borrowControllerBean;
 
-    private BorrowControllerBean(){
+    public BorrowControllerBean(){
         try {
             _borrowControllerBean = new BorrowController();
         } catch (RemoteException e) {
