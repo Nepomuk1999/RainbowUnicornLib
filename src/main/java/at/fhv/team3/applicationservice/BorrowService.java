@@ -10,22 +10,24 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
-@WebService
-@SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
+@WebService(name = "BorrowService")
 public class BorrowService {
 
-    @WebMethod
-    public ValidationResult handOut(DTO media, ExternalLibDTO externalLibDTO) {
-        return BorrowController.getInstance().handOut(media, externalLibDTO);
+    public String handOut(DTO media, ExternalLibDTO externalLibDTO) {
+        ValidationResult vr = BorrowController.getInstance().handOut(media, externalLibDTO);
+        if (vr.hasErrors()) {
+            return "Something went wrong!";
+        }
+        return "Success";
     }
 
-    @WebMethod
-    public ValidationResult handIn(DTO media) {
-        return BorrowController.getInstance().handIn(media);
+
+    public String handIn(DTO media) {
+        ValidationResult vr = BorrowController.getInstance().handIn(media);
+        if (vr.hasErrors()) {
+            return "Something went wrong!";
+        }
+        return "Success";
     }
 
-    @WebMethod
-    public ValidationResult extend(DTO media) {
-        return BorrowController.getInstance().extend(media);
-    }
 }
