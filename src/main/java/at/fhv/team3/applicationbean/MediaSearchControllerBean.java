@@ -8,7 +8,7 @@ import at.fhv.team3.domain.dto.DvdDTO;
 import at.fhv.team3.domain.dto.MagazineDTO;
 import at.fhv.team3.domain.interfaces.Searchable;
 
-import javax.ejb.Stateless;
+import javax.ejb.*;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,7 @@ public class MediaSearchControllerBean implements RemoteSearchBeanFace {
             e.printStackTrace();
         }
     }
+
     public List<DTO> getAllBookDTOs() {
         return _mediaSearchController.getAllBookDTOs();
     }

@@ -19,15 +19,14 @@
       <version>5.1.37</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-core</artifactId>
-      <version>7.0.82</version>
+      <groupId>org.jboss.spec.javax.ejb</groupId>
+      <artifactId>jboss-ejb-api_3.2_spec</artifactId>
+      <version>1.0.0.Final</version>
     </dependency>
     <dependency>
       <groupId>com.sun.xml.ws</groupId>
       <artifactId>jaxws-rt</artifactId>
       <version>2.3.0</version>
-      <type>pom</type>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
@@ -41,20 +40,15 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.jboss.spec.javax.ejb</groupId>
-      <artifactId>jboss-ejb-api_3.2_spec</artifactId>
-      <version>1.0.0.Final</version>
+      <groupId>org.glassfish.mq</groupId>
+      <artifactId>imqjmsra</artifactId>
+      <version>5.0</version>
     </dependency>
-      <dependency>
-          <groupId>org.glassfish.mq</groupId>
-          <artifactId>imqjmsra</artifactId>
-          <version>5.0</version>
-      </dependency>
-      <dependency>
-          <groupId>javax</groupId>
-          <artifactId>javaee-api</artifactId>
-          <version>7.0</version>
-      </dependency>
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>7.0</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
