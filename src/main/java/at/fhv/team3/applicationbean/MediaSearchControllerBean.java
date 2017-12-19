@@ -51,17 +51,14 @@ public class MediaSearchControllerBean implements RemoteSearchBeanFace {
         return _mediaSearchController.search(searchTerm);
     }
 
-    @Override
     public ArrayList<BookDTO> getBooksByISBN(String isbn) {
         return _mediaSearchController.getBooksByISBN(isbn);
     }
 
-    @Override
     public ArrayList<DvdDTO> getDvdByTitle(String title) {
         return _mediaSearchController.getDvdByTitle(title);
     }
 
-    @Override
     public ArrayList<MagazineDTO> getMagazinesByTitleAndEdition(String title, String edition) {
         return _mediaSearchController.getMagazinesByTitleAndEdition(title, edition);
     }

@@ -1,6 +1,7 @@
 package at.fhv.team3.applicationbean;
 
 import at.fhv.team3.application.EasyCrypt;
+import at.fhv.team3.application.LdapController;
 import at.fhv.team3.applicationbean.interfaces.RemoteEasyCryptBeanFace;
 
 import javax.ejb.Stateless;
@@ -9,18 +10,14 @@ import java.security.Key;
 /**
  * Created by ClemensB on 03.12.17.
  */
-
 @Stateless
 public class EasyCryptBean implements RemoteEasyCryptBeanFace {
 
     private EasyCrypt _easyCrypt;
 
     public EasyCryptBean(){
-
-    }
-    public EasyCryptBean(Key k, String verfahren){
         try {
-            _easyCrypt = new EasyCrypt(k, verfahren);
+            _easyCrypt = new EasyCrypt(LdapController.getInstance().getPrivateKey(), "RSA");
         } catch (Exception e) {
             e.printStackTrace();
         }

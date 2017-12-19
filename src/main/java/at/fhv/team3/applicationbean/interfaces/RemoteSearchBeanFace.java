@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Remote
+
 public interface RemoteSearchBeanFace extends Serializable {
 
     static final long serialVersionUID = 1L;

@@ -12,6 +12,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
@@ -122,4 +123,7 @@ public class LdapController extends UnicastRemoteObject implements RMILdap {
         return keydto;
     }
 
+    public PrivateKey getPrivateKey() {
+        return rsakeys.getPrivate();
+    }
 }
