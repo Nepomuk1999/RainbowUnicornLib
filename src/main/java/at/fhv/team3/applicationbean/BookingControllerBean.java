@@ -15,7 +15,7 @@ public class BookingControllerBean implements RemoteBookingBeanFace {
 
     private BookingController _bookingController;
 
-    private BookingControllerBean(){
+    public BookingControllerBean(){
         try {
             _bookingController = new BookingController();
         } catch (RemoteException e) {

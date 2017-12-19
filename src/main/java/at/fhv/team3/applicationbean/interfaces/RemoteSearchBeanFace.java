@@ -15,6 +15,8 @@ import at.fhv.team3.domain.dto.BookDTO;
 @Remote
 public interface RemoteSearchBeanFace extends Serializable {
 
+    //static final long serialVersionUID = 42L;
+
     public List<DTO> getAllBookDTOs();
 
     public List<DTO> getAllDvdDTOs();
