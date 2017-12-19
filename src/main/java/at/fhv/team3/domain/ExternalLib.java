@@ -19,9 +19,6 @@ public class ExternalLib implements Transferable {
     @Column(name = "libId")
     private int _libId;
 
-//    @OneToMany
-//    private ArrayList<BorrowedItem> borrowedItems = new ArrayList<BorrowedItem>();
-
     @Column(name = "name")
     private String _name;
 
@@ -65,6 +62,13 @@ public class ExternalLib implements Transferable {
         _libId = Integer.parseInt(allData.get("id"));
         _name = allData.get("name");
         _accountData = allData.get("accountData");
+    }
+
+    public boolean equals(ExternalLib lib){
+        if(lib.getAccountData().equals(_accountData) && lib.getLibId() == _libId && lib.getName().equals(_name)){
+            return true;
+        }
+        return false;
     }
 
     public void createFromString(String s) {

@@ -28,6 +28,7 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         _borrowedItemRepository = BorrowedItemRepository.getInstance();
         _customerRepository = CustomerRepository.getInstance();
         _bookingRepository = BookingRepository.getInstance();
+        _externalLibRepository = ExternalLibRepository.getInstance();
         _instance = this;
     }
 

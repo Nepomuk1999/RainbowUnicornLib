@@ -18,7 +18,7 @@ import java.util.List;
 public class BorrowService {
 
     @WebMethod
-    public String handOut(int id, String type, String externalLib) {
+    public String handOut(String id, String type, String externalLib) {
         List<DTO> medias = new ArrayList<DTO>();
         DTO media = null;
         if(type.equals("1")){
@@ -29,19 +29,23 @@ public class BorrowService {
             medias = MediaSearchController.getInstance().getAllMagazineDTOs();
         }
         if(medias != null) {
-            media = getDTO(id, medias);
+            media = getDTO(Integer.parseInt(id), medias);
         } else {
             return "Media not found!";
         }
-        ValidationResult vr = BorrowController.getInstance().handOut(media, new ExternalLibDTO(1, "Testlib", "11223344"));
-        if (vr.hasErrors()) {
-            return "Something went wrong during the validation!";
+        if(media != null) {
+            ValidationResult vr = BorrowController.getInstance().handOut(media, new ExternalLibDTO(1, externalLib, "11223344"));
+            if (vr.hasErrors()) {
+                return vr.getErrorMessages().get(0);
+            }
+        } else {
+            return "Media not found!";
         }
         return "Success";
     }
 
     @WebMethod
-    public String handIn(int id, String type) {
+    public String handIn(String id, String type) {
         List<DTO> medias = new ArrayList<DTO>();
         DTO media = null;
         if(type.equals("1")){
@@ -52,7 +56,7 @@ public class BorrowService {
             medias = MediaSearchController.getInstance().getAllMagazineDTOs();
         }
         if(medias != null) {
-            media = getDTO(id, medias);
+            media = getDTO(Integer.parseInt(id), medias);
         } else {
             return "Media not found!";
         }

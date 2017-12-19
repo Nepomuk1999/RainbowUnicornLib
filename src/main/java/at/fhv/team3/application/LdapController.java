@@ -81,6 +81,7 @@ public class LdapController extends UnicastRemoteObject implements RMILdap {
             if(password.equals("admin")){
                 access = true;
                 dto.setUsername("admin");
+                dto.setLoggedIn(access);
             }
         }
         if(access){
