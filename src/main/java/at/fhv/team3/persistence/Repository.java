@@ -6,9 +6,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class Repository<T extends Transferable> {
+public abstract class Repository<T extends Transferable> implements Serializable {
 
     protected SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     protected Transaction transaction = null;
