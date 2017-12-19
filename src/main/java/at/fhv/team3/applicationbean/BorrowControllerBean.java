@@ -12,7 +12,7 @@ import java.rmi.RemoteException;
 /**
  * Created by ClemensB on 03.12.17.
  */
-@Stateless
+@Stateless(mappedName = "BorrowEJB")
 public class BorrowControllerBean implements RemoteBorrowBeanFace{
 
     private BorrowController _borrowControllerBean;
@@ -25,18 +25,22 @@ public class BorrowControllerBean implements RemoteBorrowBeanFace{
         }
     }
 
+    @Override
     public ValidationResult handOut(DTO media, CustomerDTO customer){
         return _borrowControllerBean.handOut(media, customer);
     }
 
+    @Override
     public ValidationResult handIn(DTO media){
         return _borrowControllerBean.handIn(media);
     }
 
+    @Override
     public ValidationResult extend(DTO media) {
         return _borrowControllerBean.extend(media);
     }
 
+    @Override
     public DTO getCustomerByMedia(DTO media){
         return _borrowControllerBean.getCustomerByMedia(media);
     }

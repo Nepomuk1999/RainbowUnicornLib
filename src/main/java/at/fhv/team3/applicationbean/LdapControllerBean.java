@@ -9,7 +9,7 @@ import javax.ejb.Stateless;
 import javax.naming.NamingException;
 import java.rmi.RemoteException;
 
-@Stateless
+@Stateless(mappedName = "LdapEJB")
 public class LdapControllerBean implements RemoteLdapConnectionFace {
 
     private LdapController _ldapController;
@@ -22,11 +22,12 @@ public class LdapControllerBean implements RemoteLdapConnectionFace {
         }
     }
 
-
+    @Override
     public EmployeeDTO authenticateUser(String name, String password) throws NamingException {
         return _ldapController.authenticateUser(name, password);
     }
 
+    @Override
     public KeyDTO getPublicKey() {
         return _ldapController.getPublicKey();
     }
