@@ -65,4 +65,5 @@ public class MediaSearchControllerBean implements RemoteSearchBeanFace {
     public ArrayList<MagazineDTO> getMagazinesByTitleAndEdition(String title, String edition) {
         return _mediaSearchController.getMagazinesByTitleAndEdition(title, edition);
     }
+
 }
