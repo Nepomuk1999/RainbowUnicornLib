@@ -11,5 +11,7 @@ public class ServicePublisher {
         //TODO: Remote (?)
         Endpoint.publish("http://localhost:8888/MediaSearch", new MediaSearchService());
         System.out.println("Published service: Media Search");
+        Endpoint.publish("http://localhost:8888/Borrow", new BorrowService());
+        System.out.println("Published service: Borrow");
     }
 }
