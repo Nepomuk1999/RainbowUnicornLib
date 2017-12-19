@@ -11,7 +11,7 @@ import java.rmi.RemoteException;
  * Created by ClemensB on 03.12.17.
  */
 
-@Stateless(mappedName = "MessageBean")
+@Stateless(mappedName = "MessageEJB")
 public class MessageConsumerBean implements RemoteMessageConsumerBeanFace{
 
     private MessageConsumer _messageConsumer= MessageConsumer.getInstance();;
