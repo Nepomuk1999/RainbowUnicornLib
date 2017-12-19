@@ -16,7 +16,7 @@ public class EasyCryptBean implements RemoteEasyCryptBeanFace {
     private EasyCrypt _easyCrypt;
 
     public EasyCryptBean(){
-        
+
     }
     public EasyCryptBean(Key k, String verfahren){
         try {
