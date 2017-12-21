@@ -2,6 +2,7 @@ package at.fhv.team3.domain.dto;
 
 import at.fhv.team3.domain.Customer;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -106,7 +107,10 @@ public class BookedItemDTO extends DTO {
         HashMap<String, String> allData = new HashMap<String, String>();
         allData.put("id", ""+_bookingId);
         allData.put("customer", _customer.getFirstName() + " " + _customer.getLastName());
-        allData.put("date", _date.toString());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM HH:mm:ss z YYYY");
+        allData.put("date", sdf.format(_date));
+
         if (_book != null) {
             allData.put("book", _book.toString());
         } else if (_dvd != null) {
@@ -125,5 +129,25 @@ public class BookedItemDTO extends DTO {
             return true;
         }
         return false;
+    }
+
+    public String toString() {
+        HashMap<String, String> map = getAllData();
+        StringBuilder sb = new StringBuilder();
+        sb.append(map.get("id") + " ");
+        sb.append(map.get("customer") + " ");
+        sb.append(map.get("date") + " ");
+
+        if (map.containsKey("book")) {
+            sb.append(map.get("book"));
+        } else if (map.containsKey("dvd")) {
+            sb.append(map.get("dvd"));
+        } else if (map.containsKey("magazine")) {
+            sb.append(map.get("magazine"));
+        } else {
+            sb.append("ITEM CAN`T BE READ PROPPERLY CLASS BOOKEDITEMDTO METHODE: TOSTRING");
+        }
+
+        return sb.toString();
     }
 }

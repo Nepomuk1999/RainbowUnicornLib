@@ -1,5 +1,7 @@
 package at.fhv.team3.rmi;
 
+import java.rmi.AccessException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -36,11 +38,13 @@ public class ServerBind {
             System.out.println("Booking bound in registry");
             System.out.println("Binding Ldap Controller...");
             registry.rebind("Ldap", factory.getLdapController());
+            System.out.println("Binding Message Consumer...");
+            registry.rebind("MessageConsumer", factory.getMessageConsumer());
             System.out.println("Binding complete");
-
-        } catch (Exception e) {
-            System.out.println("MediaSearchController exception: " + e.getMessage());
-            e.printStackTrace();
+        } catch (AccessException e) {
+            System.out.println("Could not access RMI");
+        } catch (RemoteException e) {
+            System.out.println("Remote Exception during binding");
         }
     }
 }

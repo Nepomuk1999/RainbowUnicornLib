@@ -12,6 +12,7 @@ import dtodummy.BookDTODummy;
 import dtodummy.BorrowedItemDTODummy;
 import dtodummy.CustomerDTODummy;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -55,7 +56,8 @@ public class borrowTest {
     private CustomerDTO customerDTO;
     private CustomerDTO customerDTO2;
     private BorrowedItemDTO borrowedItemDTO;
-    //private BorrowedItem borrowedItem;
+    private ArrayList<BorrowedItem> borrowedItems;
+
 
 
     @Before
@@ -64,7 +66,7 @@ public class borrowTest {
         //inizialise object für tests
         customer = new CustomerDummy(1, "Hans", "Wurst", true, "email@email.com", "+43 5522 48484");
 
-        book = new BookDummy("DasBuch", "S.M.Pam", "Lovo", "32165897", "vol.20", "4H2");
+        book = new BookDummy(1, "DasBuch", "S.M.Pam", "Lovo", "32165897", "vol.20", "4H2", "");
         magazine = new MagazineDummy(1, "Was ist was...", "Nr.1", "Lovo", "www.google.de", "8W3");
         dvd = new DvdDummy(1, "Einhörner im Wald", "J.K Bowl", "www.google.de", "7E3");
 
@@ -80,12 +82,6 @@ public class borrowTest {
         Date date = new Date(System.currentTimeMillis() - 1000000);
         borrowedItemDTO = new BorrowedItemDTODummy(1, date, customerDTO2, bookDTO);
 
-        MockitoAnnotations.initMocks(this);
-    }
-
-
-    @Test
-    public void handOutTestSucceed() throws RemoteException {
 
         //Configurate Mock for booked Items
         ArrayList<BookedItem> bookedItems = new ArrayList<BookedItem>();
@@ -104,9 +100,14 @@ public class borrowTest {
         when(customerRepository.getAll()).thenReturn(customers);
 
         //Configurate Mock for borrowedItems
-        ArrayList<BorrowedItem> borrowedItems = new ArrayList<BorrowedItem>();
-        BorrowedItem borrowedItem = new BorrowedItem();
+        borrowedItems = new ArrayList<BorrowedItem>();
         when(borrowedItemRepository.getAll()).thenReturn(borrowedItems);
+
+    }
+
+
+    @Test
+    public void handOutTestSucceed() throws RemoteException {
 
         ValidationResult result = borrowController.handOut(bookDTO, customerDTO);
 
@@ -122,30 +123,12 @@ public class borrowTest {
     }
 
 
+
     @Test
     public void handOutTestFail() throws RemoteException {
-
-        //Configurate Mock for booked Items
-        ArrayList<BookedItem> bookedItems = new ArrayList<BookedItem>();
-        bookedItems.add(bookedItem1);
-        bookedItems.add(bookedItem2);
-        when(bookingRepository.getAll()).thenReturn(bookedItems);
-
-        //Configuarate Mock fpr customers
-        ArrayList<Customer> customers = new ArrayList<Customer>();
-        Customer c1 = new Customer();
-        Customer c2 = new Customer();
-        c1.fillFromDTO(customerDTO);
-        c2.fillFromDTO(customerDTO2);
-        customers.add(c1);
-        customers.add(c2);
-        when(customerRepository.getAll()).thenReturn(customers);
-
-        //Configurate Mock for borrowedItems
-        ArrayList<BorrowedItem> borrowedItems = new ArrayList<BorrowedItem>();
         BorrowedItem borrowedItem = new BorrowedItem();
         borrowedItem.fillFromDTO(borrowedItemDTO);
-        when(borrowedItemRepository.getAll()).thenReturn(borrowedItems);
+        borrowedItems.add(borrowedItem);
 
         ValidationResult result = borrowController.handOut(bookDTO, customerDTO);
 
@@ -155,9 +138,10 @@ public class borrowTest {
         System.out.println("-------------------------");
         for (String str : messages) {
             System.out.println("- " + str);
+            assertTrue(str.equals("Media is already borrowed!"));
         }
         System.out.println("-------------------------");
-        assertFalse(messages.isEmpty());
+
     }
 
 

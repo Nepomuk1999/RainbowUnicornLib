@@ -15,6 +15,12 @@ public class ExternalLibDTO extends DTO{
 
     }
 
+    public ExternalLibDTO(int id, String name, String accountData){
+        _libId = id;
+        _name = name;
+        _accountData = accountData;
+    }
+
     public void setLibId(int id){
         _libId = id;
     }
@@ -61,5 +67,15 @@ public class ExternalLibDTO extends DTO{
             return true;
         }
         return false;
+    }
+
+    public String toString() {
+        HashMap<String, String> map = getAllData();
+        StringBuilder sb = new StringBuilder();
+        sb.append(map.get("id") + " ");
+        sb.append(map.get("name") + " ");
+        sb.append(map.get("accountData"));
+
+        return sb.toString();
     }
 }

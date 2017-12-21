@@ -17,14 +17,82 @@ import java.util.List;
  */
 public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
 
+    public static BorrowController _instance;
+
     private BorrowedItemRepository _borrowedItemRepository;
     private CustomerRepository _customerRepository;
     private BookingRepository _bookingRepository;
+    private ExternalLibRepository _externalLibRepository;
 
     public BorrowController() throws RemoteException{
         _borrowedItemRepository = BorrowedItemRepository.getInstance();
         _customerRepository = CustomerRepository.getInstance();
         _bookingRepository = BookingRepository.getInstance();
+        _externalLibRepository = ExternalLibRepository.getInstance();
+        _instance = this;
+    }
+
+    public static BorrowController getInstance() {
+        if (_instance == null) {
+            try {
+                return new BorrowController();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        return _instance;
+    }
+
+    //Ein Medium an einen externe Bibliothek ausleihen (ValidationResult)
+    public ValidationResult handOut(DTO media, ExternalLibDTO externalLibDTO) {
+        Date date = new Date();
+        BorrowedItem item = new BorrowedItem();
+        item.setBorrowedDate(date);
+        ExternalLib externalLib = new ExternalLib();
+        externalLib.fillFromDTO(externalLibDTO);
+        item.setExternalLib(externalLib);
+        if (media instanceof BookDTO) {
+            Book book = new Book();
+            book.fillFromDTO(media);
+            item.setBook(book);
+        } else if (media instanceof DvdDTO) {
+            Dvd dvd = new Dvd();
+            dvd.fillFromDTO(media);
+            item.setDvd(dvd);
+        } else if (media instanceof MagazineDTO) {
+            Magazine magazine = new Magazine();
+            magazine.fillFromDTO(media);
+            item.setMagazine(magazine);
+        }
+        ValidationResult vr = validateHandOut(media, externalLibDTO);
+        if (!vr.hasErrors()) {
+            item.setExtendCount(0);
+            List<BookedItem> booked = _bookingRepository.getAll();
+            BookedItem booking = null;
+            for (BookedItem bi : booked) {
+                Borrowable b = getBorrowable(bi);
+                Borrowable tmp;
+                if (item.getBook() != null) {
+                    tmp = item.getBook();
+                } else if (item.getDvd() != null) {
+                    tmp = item.getDvd();
+                } else {
+                    tmp = item.getMagazine();
+                }
+                if (b != null && tmp != null) {
+                    if (b.getClass() == tmp.getClass()) {
+                        if (b.getId() == tmp.getId()) {
+                            booking = bi;
+                        }
+                    }
+                }
+            }
+            if (booking != null) {
+                _bookingRepository.delete(booking);
+            }
+            _borrowedItemRepository.save(item);
+        }
+        return vr;
     }
 
     //Ein Medium an einen Kunden ausleihen (ValidationResult)
@@ -88,6 +156,8 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
                Borrowable borrowable = getBorrowable(bi);
                 if(borrowable != null) {
                     if (borrowable.getId() == media.getId()) {
+                        bi.getMedia().setReturnDate(new Date());
+                        saveChanges(bi.getMedia());
                         _borrowedItemRepository.delete((bi));
                     }
                 }
@@ -133,6 +203,19 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         return customer.createDataTransferObject();
     }
 
+    private void saveChanges(Borrowable b){
+        if(b.getClass() == Book.class){
+            BookRepository repository = BookRepository.getInstance();
+            repository.save((Book) b);
+        } else if(b.getClass() == Dvd.class){
+            DvdRepository repository = DvdRepository.getInstance();
+            repository.save((Dvd) b);
+        } else {
+            MagazineRepository repository = MagazineRepository.getInstance();
+            repository.save((Magazine) b);
+        }
+    }
+
     //Validierung der Rückgabe (ValidationResult)
     private ValidationResult validateHandIn(DTO dto){
         ValidationResult vr = new ValidationResult();
@@ -167,6 +250,38 @@ public class BorrowController extends UnicastRemoteObject implements RMIBorrow {
         }
 
         return vr;
+    }
+
+    //Validierung der Ausleihe für externe Bibliotheken(ValidationResult)
+    private ValidationResult validateHandOut(DTO dto, ExternalLibDTO externalLibDTO) {
+        ValidationResult vr = new ValidationResult();
+        List<BorrowedItem> items = _borrowedItemRepository.getAll();
+        if (borrowedItemExists(items, dto)) {
+            vr.add("Media is already borrowed!");
+        }
+
+        List<ExternalLib> externalLibs = _externalLibRepository.getAll();
+        ExternalLib externalLib1 = new ExternalLib();
+        externalLib1.fillFromDTO(externalLibDTO);
+        if (!externalLibExist(externalLibs, externalLib1)) {
+            vr.add("ExternalLib does not exist!");
+        }
+        if (isBooked(dto)) {
+            if (!externalLib1.equals(mediaIsBookedBy(dto))) {
+                vr.add("Media is booked by another Customer!");
+            }
+        }
+        //NO SUBSCRIPTION VALIDATION
+        return vr;
+    }
+
+    private boolean externalLibExist(List<ExternalLib> externalLibs, ExternalLib externalLib1) {
+        for (ExternalLib el : externalLibs) {
+            if (externalLib1.equals(el)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     //Validierung einer Verlängerung einer Ausleihe (ValidationResult)

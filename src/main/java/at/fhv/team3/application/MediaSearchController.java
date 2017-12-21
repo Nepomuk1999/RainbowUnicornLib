@@ -29,12 +29,25 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
     private MagazineRepository magazineRepository;
     private DvdRepository dvdRepository;
     private BorrowedItemRepository _borrowedItemRepository;
+    private static MediaSearchController currentController;
 
     public MediaSearchController() throws RemoteException {
         bookRepository = BookRepository.getInstance();
         magazineRepository = MagazineRepository.getInstance();
         dvdRepository = DvdRepository.getInstance();
         _borrowedItemRepository = BorrowedItemRepository.getInstance();
+        currentController = this;
+    }
+
+    public static MediaSearchController getInstance() {
+        if (currentController == null) {
+            try {
+                return new MediaSearchController();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        return currentController;
     }
 
     //Alle Bücher aus der Datenbank laden (Liste von BookDTOs)
@@ -152,7 +165,7 @@ public class MediaSearchController  extends UnicastRemoteObject implements RMIMe
     public ArrayList<MagazineDTO> getMagazinesByTitleAndEdition(String title, String edition){
         List<Magazine> allMagazines = magazineRepository.getAll();
         ArrayList<MagazineDTO> matchingMagazines = new ArrayList<MagazineDTO>();
-        System.out.println("Looking for title: " + title + " Edition: " + edition);
+      //  System.out.println("Looking for title: " + title + " Edition: " + edition);
         for(Magazine m : allMagazines){
             System.out.println(m.toString());
             if(m.getTitle().equals(title) && m.getEdition().equals(edition)){

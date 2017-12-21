@@ -29,4 +29,8 @@ public class RMIFactory implements RMIFactoryInterface {
     public RMILdap getLdapController() throws RemoteException {
         return new LdapController();
     }
+
+    public RMIMessageConsumer getMessageConsumer() throws RemoteException{
+        return MessageConsumer.getInstance();
+    }
 }

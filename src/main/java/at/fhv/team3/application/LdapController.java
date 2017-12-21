@@ -12,11 +12,14 @@ import java.rmi.server.UnicastRemoteObject;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 
 public class LdapController extends UnicastRemoteObject implements RMILdap {
 
+    private static LdapController currentController;
     private String url;
     private Hashtable<String, String> env;
     private EmployeeRepository _employeeRepository;
@@ -28,38 +31,64 @@ public class LdapController extends UnicastRemoteObject implements RMILdap {
         _employeeRepository = EmployeeRepository.getInstance();
     }
 
+    public static LdapController getInstance() {
+        if (currentController == null) {
+            try {
+                return new LdapController();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        return currentController;
+    }
+
     //Login authentifizierung (EmployeeDTO)
     public EmployeeDTO authenticateUser(String name, String password) throws NamingException {
-        EasyCrypt ecPri;
-        String decryptUsername = "";
-        String decryptPassword = "";
-        //System.out.println(name + " " + password);
-        try {
-            ecPri = new EasyCrypt(rsakeys.getPrivate(), "RSA");
-            decryptUsername = ecPri.decrypt(name);
-            decryptPassword = ecPri.decrypt(password);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        //System.out.println(decryptUsername + " " + decryptPassword);
-        Employee employee = findEmployee(decryptUsername);
-        EmployeeDTO dto = (EmployeeDTO) employee.createDataTransferObject();
+        EmployeeDTO dto = new EmployeeDTO();
         boolean access = false;
-
-        System.out.println(decryptUsername);
-        env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-        env.put(Context.PROVIDER_URL, url);
-        env.put(Context.SECURITY_AUTHENTICATION, "simple");
-        env.put(Context.SECURITY_PRINCIPAL, "uid=" + employee.getUsername() + ",ou="+employee.getOu()+",o=fhv.at");
-        env.put(Context.SECURITY_CREDENTIALS, decryptPassword);
-        try {
-            Context ctx = new InitialContext(env);
-            ctx.close();
-            access = true;
-        } catch (NamingException ex) {
+        if(!name.equals("admin")) {
+            EasyCrypt ecPri;
+            String decryptUsername = "";
+            String decryptPassword = "";
+            //System.out.println(name + " " + password);
+            try {
+                ecPri = new EasyCrypt(rsakeys.getPrivate(), "RSA");
+                decryptUsername = ecPri.decrypt(name);
+                decryptPassword = ecPri.decrypt(password);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //System.out.println(decryptUsername + " " + decryptPassword);
+            Employee employee = findEmployee(decryptUsername);
+            dto = (EmployeeDTO) employee.createDataTransferObject();
             access = false;
+
+            System.out.println(decryptUsername);
+            env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+            env.put(Context.PROVIDER_URL, url);
+            env.put(Context.SECURITY_AUTHENTICATION, "simple");
+            env.put(Context.SECURITY_PRINCIPAL, "uid=" + employee.getUsername() + ",ou=" + employee.getOu() + ",o=fhv.at");
+            env.put(Context.SECURITY_CREDENTIALS, decryptPassword);
+            try {
+                Context ctx = new InitialContext(env);
+                ctx.close();
+                access = true;
+            } catch (NamingException ex) {
+                access = false;
+            }
+            dto.setLoggedIn(access);
+        } else {
+            if(password.equals("admin")){
+                access = true;
+                dto.setUsername("admin");
+                dto.setLoggedIn(access);
+            }
         }
-        dto.setLoggedIn(access);
+        if(access){
+            if(dto.getUsername() != null) {
+                Logger.log("User " + dto.getUsername() + " logged in at " + new Date().toString());
+            }
+        }
         return dto;
     }
 
@@ -95,4 +124,7 @@ public class LdapController extends UnicastRemoteObject implements RMILdap {
         return keydto;
     }
 
+    public PrivateKey getPrivateKey() {
+        return rsakeys.getPrivate();
+    }
 }

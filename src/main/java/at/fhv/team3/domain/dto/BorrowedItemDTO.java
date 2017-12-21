@@ -1,5 +1,6 @@
 package at.fhv.team3.domain.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -93,7 +94,9 @@ public class BorrowedItemDTO extends DTO {
         } else if (_customer != null) {
             allData.put("customer", _customer.toString());
         }
-        allData.put("date", _borrowedDate.toString());
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM HH:mm:ss z YYYY");
+        allData.put("borrowedDate", sdf.format(_borrowedDate));
+
         if (_book != null) {
             allData.put("book", _book.toString());
         } else if (_dvd != null) {
@@ -112,6 +115,30 @@ public class BorrowedItemDTO extends DTO {
             return true;
         }
         return false;
+    }
+
+    public String toString() {
+        HashMap<String, String> map = getAllData();
+        StringBuilder sb = new StringBuilder();
+        sb.append(map.get("id") + " ");
+        if (map.containsKey("externalLib")) {
+            sb.append(map.get("externalLib") + " ");
+        } else if (map.containsKey("externalLib")) {
+            sb.append(map.get("customer") + " ");
+        }
+
+        sb.append(map.get("borrowedDate") + " ");
+
+        if (map.containsKey("book")) {
+            sb.append(map.get("book"));
+        } else if (map.containsKey("dvd")) {
+            sb.append(map.get("dvd"));
+        } else if (map.containsKey("magazine")) {
+            sb.append(map.get("magazine"));
+        } else {
+            sb.append("ITEM CAN`T BE READ PROPPERLY CLASS BORROWEDITEM, METHODE: TOSTRING");
+        }
+        return sb.toString();
     }
 
 }

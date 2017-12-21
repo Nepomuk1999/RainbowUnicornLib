@@ -22,6 +22,10 @@ public class KeyDTO extends DTO{
         return false;
     }
 
+    public String toString() {
+        return null;
+    }
+
     public PublicKey getPublicKey() {
         return publickey;
     }

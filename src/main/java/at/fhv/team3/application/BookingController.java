@@ -18,12 +18,24 @@ import java.util.List;
  */
 public class BookingController extends UnicastRemoteObject implements RMIBooking{
 
+    private static BookingController currentController;
     private BookingRepository _bookingRepository;
     private BorrowedItemRepository _borrowRepository;
 
     public BookingController() throws RemoteException{
         _bookingRepository = BookingRepository.getInstance();
         _borrowRepository = BorrowedItemRepository.getInstance();
+    }
+
+    public static BookingController getInstance() {
+        if (currentController == null) {
+            try {
+                return new BookingController();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        return currentController;
     }
 
     //Alle Reservierungen als DTOs zurückgeben (Liste von BookedItemDTOs)
@@ -71,6 +83,10 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
         return matching;
     }
 
+    public void deleteBooking(BookedItem bi){
+        _bookingRepository.delete(bi);
+    }
+
     //Reservierung erstellen und in die Datenbank speichern (ValidationResult)
     public ValidationResult bookItem(DTO dto, CustomerDTO customerDto){
         BookedItem bookedItem = new BookedItem();
@@ -103,42 +119,20 @@ public class BookingController extends UnicastRemoteObject implements RMIBooking
         ValidationResult validationResult = new ValidationResult();
         List<BookedItem> bookedItems = _bookingRepository.getAll();
         List<BorrowedItem> borrowedItems = _borrowRepository.getAll();
-        if (bookedItem.getBook() != null) {
             for (BookedItem booked: bookedItems) {
-                if (booked.getMedia().isSameMedia(bookedItem.getMedia()) && booked.getCustomer().equals(bookedItem.getCustomer())) {
-                    validationResult.add("The customer already has this book booked.");
+                if (booked.getMedia().getClass() == bookedItem.getMedia().getClass()) {
+                    if (booked.getMedia().isSameMedia(bookedItem.getMedia()) && booked.getCustomer().equals(bookedItem.getCustomer())) {
+                        validationResult.add("The customer already has this media booked.");
+                    }
                 }
             }
             for (BorrowedItem borrowed : borrowedItems) {
-                if (borrowed.getMedia().isSameMedia(bookedItem.getMedia()) && borrowed.getCustomer().equals(bookedItem.getCustomer())) {
-                    validationResult.add("The customer already has this book borrowed.");
+                if (borrowed.getMedia().getClass() == bookedItem.getMedia().getClass()) {
+                    if (borrowed.getMedia().isSameMedia(bookedItem.getMedia()) && borrowed.getCustomer().equals(bookedItem.getCustomer())) {
+                        validationResult.add("The customer already has this media borrowed.");
+                    }
                 }
             }
-        } else if (bookedItem.getDvd() != null) {
-            for (BookedItem booked: bookedItems) {
-                if (booked.getMedia().isSameMedia(bookedItem.getMedia()) && booked.getCustomer().equals(bookedItem.getCustomer())) {
-                    validationResult.add("The customer already has this dvd booked.");
-                }
-            }
-            for (BorrowedItem borrowed : borrowedItems) {
-                if (borrowed.getMedia().isSameMedia(bookedItem.getMedia()) && borrowed.getCustomer().equals(bookedItem.getCustomer())) {
-                    validationResult.add("The customer already has this dvd borrowed.");
-                }
-            }
-        } else if (bookedItem.getMagazine() != null) {
-            for (BookedItem booked: bookedItems) {
-                if (booked.getMedia().isSameMedia(bookedItem.getMedia()) && booked.getCustomer().equals(bookedItem.getCustomer())) {
-                    validationResult.add("The customer already has this magazine booked.");
-                }
-            }
-            for (BorrowedItem borrowed : borrowedItems) {
-                if (borrowed.getMedia().isSameMedia(bookedItem.getMedia()) && borrowed.getCustomer().equals(bookedItem.getCustomer())) {
-                    validationResult.add("The Customer already has this magazine borrowed.");
-                }
-            }
-        } else {
-            validationResult.add("There was no media submitted with the request.");
-        }
         return validationResult;
     }
 }
