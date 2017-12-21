@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Created by ClemensB on 03.12.17.
  */
 
-@Stateless
+@Stateless(mappedName = "ConsumerEJB")
 public class CustomerControllerBean implements RemoteCustomerBeanFace {
 
     private CustomerController _customerController;

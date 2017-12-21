@@ -10,7 +10,7 @@ import javax.ejb.Stateless;
 import java.rmi.RemoteException;
 import java.util.List;
 
-@Stateless
+@Stateless(mappedName = "BookingEJB")
 public class BookingControllerBean implements RemoteBookingBeanFace {
 
     private BookingController _bookingController;

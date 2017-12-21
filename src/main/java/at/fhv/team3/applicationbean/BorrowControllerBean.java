@@ -12,7 +12,7 @@ import java.rmi.RemoteException;
 /**
  * Created by ClemensB on 03.12.17.
  */
-@Stateless
+@Stateless(mappedName = "BorrowEJB")
 public class BorrowControllerBean implements RemoteBorrowBeanFace{
 
     private BorrowController _borrowControllerBean;

@@ -10,7 +10,7 @@ import java.security.Key;
  * Created by ClemensB on 03.12.17.
  */
 
-@Stateless
+@Stateless(mappedName = "EasyCryptEJB")
 public class EasyCryptBean implements RemoteEasyCryptBeanFace {
 
     private EasyCrypt _easyCrypt;
