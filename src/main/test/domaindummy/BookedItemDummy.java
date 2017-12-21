@@ -15,5 +15,4 @@ public class BookedItemDummy extends BookedItem {
         this.setMagazine(magazinen);
         this.setDate(date);
     }
-
 }

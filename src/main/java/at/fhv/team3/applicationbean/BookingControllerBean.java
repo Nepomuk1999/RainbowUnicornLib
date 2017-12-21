@@ -23,14 +23,17 @@ public class BookingControllerBean implements RemoteBookingBeanFace {
         }
     }
 
+    @Override
     public List<DTO> getAllBookings() {
         return _bookingController.getAllBookings();
     }
 
+    @Override
     public List<DTO> getBookingsForMedia(DTO media) {
         return _bookingController.getBookingsForMedia(media);
     }
 
+    @Override
     public ValidationResult bookItem(DTO dto, CustomerDTO customerDto) {
         return _bookingController.bookItem(dto, customerDto);
     }

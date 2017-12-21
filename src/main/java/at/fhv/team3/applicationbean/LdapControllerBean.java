@@ -22,11 +22,12 @@ public class LdapControllerBean implements RemoteLdapConnectionFace {
         }
     }
 
-
+    @Override
     public EmployeeDTO authenticateUser(String name, String password) throws NamingException {
         return _ldapController.authenticateUser(name, password);
     }
 
+    @Override
     public KeyDTO getPublicKey() {
         return _ldapController.getPublicKey();
     }

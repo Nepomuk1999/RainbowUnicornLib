@@ -16,10 +16,12 @@ public class MessageConsumerBean implements RemoteMessageConsumerBeanFace{
 
     private MessageConsumer _messageConsumer= MessageConsumer.getInstance();;
 
+    @Override
     public int getMessageCount(){
         return _messageConsumer.getMessageCount();
     }
 
+    @Override
     public MessageDTO pull(){
         return _messageConsumer.pull();
     }
